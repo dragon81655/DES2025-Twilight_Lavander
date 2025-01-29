@@ -1,0 +1,188 @@
+{
+  "main": {
+    "id": "01a72fdecb5b911a",
+    "type": "split",
+    "children": [
+      {
+        "id": "e96b75dfc3dcd93d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "78c3d05830cbbfa9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "GameSystems/Inventory Controller.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Inventory Controller"
+            }
+          },
+          {
+            "id": "1a77193e660025fb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "GameSystems/Crafting Manager.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Crafting Manager"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6c03e0cf4a4497a2",
+    "type": "split",
+    "children": [
+      {
+        "id": "db9919b6d7cc5db0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5ccb79bda9ccaef7",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "ac1efe20a93a4ea9",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "bd84b8d84586ee24",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "fafe669e95954c06",
+    "type": "split",
+    "children": [
+      {
+        "id": "411c64060f9d022e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "590c4889d4e890e8",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "GameSystems/Inventory Controller.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Inventory Controller"
+            }
+          },
+          {
+            "id": "9874a8f08e332e0e",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "GameSystems/Inventory Controller.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Inventory Controller"
+            }
+          },
+          {
+            "id": "78e3daf510b9e5ce",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "d18caa34d38b1d30",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "GameSystems/Inventory Controller.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Inventory Controller"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "78c3d05830cbbfa9",
+  "lastOpenFiles": [
+    "GameSystems/Crafting Manager.md",
+    "GameSystems/Item.md",
+    "GameSystems/Inventory Controller.md",
+    "Welcome.md",
+    "GameSystems",
+    "create a link.md"
+  ]
+}
