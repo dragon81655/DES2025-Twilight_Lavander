@@ -33,10 +33,6 @@ RemoveItemOnSlot(int index)
 
 ClearInventory()
 
-DropItem([[Item]])
-DropItem(int id)
-DropItem(int slot)
-
 
 
 

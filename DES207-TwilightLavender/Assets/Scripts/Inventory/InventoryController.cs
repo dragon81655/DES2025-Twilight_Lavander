@@ -136,6 +136,10 @@ public class InventoryController : MonoBehaviour
         }
     }
 
+    public void ClearInventory()
+    {
+        inventory.Clear();
+    }
     private void Update()
     {
         for(int i = 0; i < tickable.Count; i++)

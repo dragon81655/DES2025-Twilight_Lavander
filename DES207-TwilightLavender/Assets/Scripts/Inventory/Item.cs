@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Item
 {
+    private string displayName;
     private int durability;
     private int amount;
 
@@ -44,6 +45,16 @@ public class Item
     public int GetMaxAmount()
     {
         return itemBase.maxAmount;
+    }
+
+    public string GetDisplayName()
+    {
+        return displayName;
+    }
+
+    public void SetDisplayName(string name)
+    {
+        displayName = name;
     }
     public bool IsTickable()
     {
@@ -109,6 +120,7 @@ public class Item
     public Item(ItemBase itemBase)
     {
         this.itemBase = itemBase;
+        this.displayName = itemBase.itemName;
         tags = new List<string>();
         tags.AddRange(itemBase.tags);
     }
@@ -117,6 +129,7 @@ public class Item
         this.amount = item.amount;
         this.durability = item.durability;
         this.itemBase = item.itemBase;
+        displayName= item.displayName;
         tags= item.tags;
     }
 }
