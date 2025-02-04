@@ -9,7 +9,6 @@ public class InventoryController : MonoBehaviour
     private List<Item> tickable = new List<Item>();
 
     [SerializeField] private int slotAmount = 0;
-    [SerializeField] private bool isLocked;
     [Tooltip("If the inventory is locked, the name can be used to identify if key X is for this chest + you can give it the name")]
     [SerializeField] private string inventoryName;
 
@@ -41,6 +40,23 @@ public class InventoryController : MonoBehaviour
         }
         return false;
     }
+
+    private void OnValidate()
+    {
+        foreach(Item i in inventory)
+        {
+            i.OnGUI();
+        }
+    }
+
+    public bool AddItem(ItemBase item)
+    {
+        return AddItem(new Item(item));
+    }
+    public bool AddItem(ItemBase item, int slot)
+    {
+        return AddItem(new Item(item), slot);
+    }
     public bool AddItem(Item item, int slot)
     {
         if(slot >= inventory.Count || slot >= slotAmount) return false;
@@ -58,27 +74,14 @@ public class InventoryController : MonoBehaviour
         return false;
     }
 
-    public List<Item> AddItemRange(Item[] items)
+    public IEnumerable<Item> AddItemRange(IEnumerable<Item> items)
     {
         List<Item> toReturn = new List<Item>();
-        for(int i = 0; i < items.Length; i++)
+        foreach(Item item in items)
         {
-            if (!AddItem(items[i]))
+            if (!AddItem(item))
             {
-                toReturn.Add(items[i]);
-            }
-        }
-        return toReturn;
-    }
-
-    public List<Item> AddItemRange(List<Item> items)
-    {
-        List<Item> toReturn = new List<Item>();
-        for (int i = 0; i < items.Count; i++)
-        {
-            if (!AddItem(items[i]))
-            {
-                toReturn.Add(items[i]);
+                toReturn.Add(item);
             }
         }
         return toReturn;

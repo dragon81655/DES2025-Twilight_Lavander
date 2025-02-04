@@ -1,18 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
+[Serializable]
 public class Item
 {
-    private string displayName;
-    private int durability;
-    private int amount;
+    [SerializeField]
+    private ItemBase itemBase = null;
+    private ItemBase currentItemBase = null;
+
+    [SerializeField]private string displayName;
+    [SerializeField] private int amount;
 
     public List<string> tags;
 
+    public AttributeControler attributes;
+
+    public Dictionary<string, object> data = new Dictionary<string, object>();
+
     //ItemBase is a scriptable object to create the bases of the item, so it's easier for designers. Items with custom behaviour are childs of this class as well.
-    private ItemBase itemBase;
+    
 
     public int GetId()
     {
@@ -27,16 +36,6 @@ public class Item
     {
         return itemBase.sprite;
     }
-
-    public int GetDurability()
-    {
-        return durability;
-    }
-    public int GetMaxDurability()
-    {
-        return itemBase.maxDurability;
-    }
-
     public int GetAmount()
     {
         return amount;
@@ -87,14 +86,9 @@ public class Item
         return false;
     }
 
-    public void TakeDurability(int amount)
+    public AttributeControler GetAttributes()
     {
-        this.durability = Mathf.Clamp(this.durability - amount, 0, GetMaxDurability());
-    }
-
-    public void AddDurability(int amount)
-    {
-        this.durability = Mathf.Clamp(this.durability + amount, 0, GetMaxDurability());
+        return attributes;
     }
     
     public  void Use(InventoryController controller)
@@ -117,19 +111,38 @@ public class Item
     {
         itemBase.Tick(controller, this);
     }
-    public Item(ItemBase itemBase)
+    public void OnGUI()
     {
+        if(currentItemBase != itemBase)
+        {
+            currentItemBase = itemBase;
+            UpdateOnItemBase(currentItemBase);
+        }
+    }
+
+    private void UpdateOnItemBase(ItemBase itemBase)
+    {
+        if (itemBase == null) return;
         this.itemBase = itemBase;
         this.displayName = itemBase.itemName;
         tags = new List<string>();
         tags.AddRange(itemBase.tags);
+        if(attributes == null)
+        attributes = new AttributeControler();
+        attributes.Concatonate(itemBase.attributes.Copy());
+       
+    }
+
+    public Item(ItemBase itemBase)
+    {
+        UpdateOnItemBase(itemBase);
     }
     public Item(Item item)
     {
         this.amount = item.amount;
-        this.durability = item.durability;
         this.itemBase = item.itemBase;
         displayName= item.displayName;
         tags= item.tags;
+        attributes = item.attributes;
     }
 }

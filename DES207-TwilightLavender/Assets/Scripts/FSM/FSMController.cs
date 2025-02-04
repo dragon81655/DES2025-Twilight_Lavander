@@ -12,6 +12,8 @@ public class FSMController : MonoBehaviour
     private StateFSM startingState;
     [SerializeField]
     private StateFSM currentState;
+
+    public Object test;
     void Start()
     {
         currentState = startingState;
