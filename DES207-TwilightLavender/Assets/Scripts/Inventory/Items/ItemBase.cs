@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ItemBase : ScriptableObject
 {
-    private int id;
+    public int id;
     public string itemName;
     public string displayName;
     [TextArea(3,10)]
@@ -20,11 +20,14 @@ public class ItemBase : ScriptableObject
 
     public virtual void Use(InventoryController controller, Item item)
     {
-
+        foreach(AttributeBase a in item.GetAttributes().list)
+        {
+            a.RunAttribute(controller, item);
+        }
     }
     public virtual bool CanUse(InventoryController controller, Item item)
     {
-        return false;
+        return true;
     }
     public virtual void OnCreateItem(InventoryController controller, Item item)
     {
@@ -32,11 +35,23 @@ public class ItemBase : ScriptableObject
     }
     public virtual void OnDestroyItem(InventoryController controller, Item item)
     {
-
+        controller.RemoveItem(item);
     }
     public virtual void Tick(InventoryController controller, Item item)
     {
+        if (!isTickable) return;
+        foreach (AttributeBase a in item.GetAttributes().list)
+        {
+            a.TickAttribute(controller, item);
+        }
+    }
 
+    public virtual void Init(InventoryController controller, Item item)
+    {
+        foreach(AttributeBase a in item.GetAttributes().list)
+        {
+            a.Init(controller, item);
+        }
     }
     public int GetId()
     {

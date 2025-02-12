@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class AttributeControler 
+public class AttributeControler
 {
     [SerializeReference]
     public List<AttributeBase> list = new List<AttributeBase>();
     private Dictionary<string, AttributeBase> attributesDic;
 
+    /*public AttributeBase this[int i]
+    {
+        get { return list[i]; }
+    }*/
     public AttributeBase GetAttribute(string attribute)
     {
         ConvertToDic();
@@ -71,4 +75,6 @@ public class AttributeControler
             }
         }
     }
+
+    
 }

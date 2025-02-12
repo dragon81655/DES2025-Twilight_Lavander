@@ -10,27 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
-  m_Name: nitroglycerin
+  m_Name: mynewitem
   m_EditorClassIdentifier: 
   id: 0
-  itemName: nitroglycerin
-  displayName: Nitroglycerin
-  description: Goes boom if u look wrongly at it.
+  itemName: mynewitem
+  displayName: Testing this shitcs
+  description: A description
   sprite: {fileID: 21300000, guid: 5887b525864b5c447b84cb355318298f, type: 3}
   maxAmount: 10
   isTickable: 1
   tags:
-  - Explosive
-  - Killable
+  - Dev
   attributes:
     list:
-    - rid: 5123820016349741057
+    - rid: 5123820016349741058
   references:
     version: 2
     RefIds:
-    - rid: 5123820016349741057
-      type: {class: DurabilityAttribute, ns: , asm: Assembly-CSharp}
+    - rid: 5123820016349741058
+      type: {class: CoolDownAttribute, ns: , asm: Assembly-CSharp}
       data:
-        attributeName: lifetime
-        durability: 10
-        maxDurability: 10
+        attributeName: testAttribute
+        timer: 10

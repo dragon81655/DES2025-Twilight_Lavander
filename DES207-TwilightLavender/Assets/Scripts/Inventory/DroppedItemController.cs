@@ -2,28 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroppedItemController : MonoBehaviour, ITestInteractable
+public class DroppedItemController : InventoryController, ITestInteractable
 {
-    [SerializeField]
-    private List<ItemBase> items;
     public void Interact(GameObject source)
     {
         InventoryController ic = source.GetComponent<InventoryController>();
         if (ic)
         {
-                
+            List<Item> leftOvers =(List<Item>)ic.AddItemRange(inventory);
+            if(leftOvers.Count > 0)
+            {
+                inventory = leftOvers;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -14,9 +14,12 @@ public class Item
     [SerializeField]private string displayName;
     [SerializeField] private int amount;
 
+    private InventoryController controller;
+
     public List<string> tags;
 
-    public AttributeControler attributes;
+    [SerializeField]
+    private AttributeControler attributes;
 
     public Dictionary<string, object> data = new Dictionary<string, object>();
 
@@ -62,13 +65,25 @@ public class Item
     public void TakeAmount(int amount)
     {
         this.amount = Mathf.Clamp(this.amount - amount, 0, GetMaxAmount());
+        if(this.amount <= 0)
+        {
+            itemBase.OnDestroyItem(controller, this);
+        }
     }
 
     public void AddAmount(int amount)
     {
         this.amount = Mathf.Clamp(this.amount + amount, 0, GetMaxAmount());
     }
-
+    public bool CanAddAmountWithItem(Item item)
+    {
+        if (GetId() != item.GetId()) return false;
+        if (GetAmount() + item.GetAmount() <= GetMaxAmount())
+        {
+            return true;
+        }
+        return false;
+    }
     public bool AddAmountWithItem(Item item)
     {
         if(GetId() != item.GetId()) return false;
@@ -79,7 +94,7 @@ public class Item
         }
         else
         {
-            int toAdd = GetMaxAmount() - GetAmount();
+            int toAdd = Mathf.Clamp(GetMaxAmount() - GetAmount(), 0, GetMaxAmount());
             AddAmount(toAdd);
             item.TakeAmount(toAdd);
         }
@@ -90,24 +105,34 @@ public class Item
     {
         return attributes;
     }
-    
-    public  void Use(InventoryController controller)
+    public bool Init(InventoryController controller)
+    {
+        if(itemBase == null)
+        {
+            Debug.LogWarning($"The inventory Controller {controller.gameObject.name} has an Item without a ItemBase! Please remove or update them!");
+            return false;
+        }
+        itemBase.Init(controller, this);
+        this.controller = controller;
+        return true;
+    }
+    public  void Use()
     {
         itemBase.Use(controller, this);
     }
-    public  bool CanUse(InventoryController controller)
+    public  bool CanUse()
     {
         return itemBase.CanUse(controller, this);
     }
-    public  void OnCreateItem(InventoryController controller)
+    public  void OnCreateItem()
     {
         itemBase.OnCreateItem(controller, this);
     }
-    public  void OnDestroyItem(InventoryController controller)
+    public  void OnDestroyItem()
     {
         itemBase.OnDestroyItem(controller, this);
     }
-    public void Tick(InventoryController controller)
+    public void Tick()
     {
         itemBase.Tick(controller, this);
     }
@@ -115,19 +140,20 @@ public class Item
     {
         if(currentItemBase != itemBase)
         {
+            UpdateOnItemBase(itemBase);
             currentItemBase = itemBase;
-            UpdateOnItemBase(currentItemBase);
         }
     }
 
     private void UpdateOnItemBase(ItemBase itemBase)
     {
+        Debug.Log("Updated based on ItemBase");
         if (itemBase == null) return;
         this.itemBase = itemBase;
         this.displayName = itemBase.itemName;
         tags = new List<string>();
         tags.AddRange(itemBase.tags);
-        if(attributes == null)
+        if(attributes == null || currentItemBase != null)
         attributes = new AttributeControler();
         attributes.Concatonate(itemBase.attributes.Copy());
        
@@ -136,6 +162,11 @@ public class Item
     public Item(ItemBase itemBase)
     {
         UpdateOnItemBase(itemBase);
+    }
+    public Item(ItemBase itemBase, int amount)
+    {
+        UpdateOnItemBase(itemBase);
+        this.amount= amount;
     }
     public Item(Item item)
     {

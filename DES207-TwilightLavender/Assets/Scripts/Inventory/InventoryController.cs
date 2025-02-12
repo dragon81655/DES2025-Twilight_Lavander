@@ -5,21 +5,53 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private List<Item> inventory = new List<Item>();
-    private List<Item> tickable = new List<Item>();
+    [SerializeField] protected List<Item> inventory = new List<Item>();
+    protected List<Item> tickable = new List<Item>();
 
-    [SerializeField] private int slotAmount = 0;
+    [SerializeField] protected int slotAmount = 0;
     [Tooltip("If the inventory is locked, the name can be used to identify if key X is for this chest + you can give it the name")]
-    [SerializeField] private string inventoryName;
+    [SerializeField] protected string inventoryName;
+
+    private void Awake()
+    {
+        List<Item> toDelete = new List<Item>();
+        foreach(Item i in inventory)
+        {
+            if(!i.Init(this)){
+                toDelete.Add(i);
+            }
+        }
+        foreach (Item i in toDelete) {
+            RemoveItem(i);
+        }
+    }
 
     public List<Item> GetInventoryCopy()
     {
         List<Item> toReturn = new List<Item>();
-        foreach(Item item in inventory)
+        foreach (Item item in inventory)
         {
             toReturn.Add(new Item(item));
         }
         return toReturn;
+    }
+
+    public bool CanAddItem(Item item)
+    {
+        foreach (Item item2 in inventory)
+        {
+            if (item2.GetAmount() == item2.GetMaxAmount()) continue;
+            if (item2.GetId() == item.GetId())
+            {
+                //This trys to add the amount in item to item2, mixing them in the same slot.
+                if (item2.CanAddAmountWithItem(item)) return true;
+            }
+        }
+        if (inventory.Count < slotAmount)
+        {
+            return true;
+        }
+        return false;
     }
 
     public bool AddItem(Item item)
@@ -27,13 +59,13 @@ public class InventoryController : MonoBehaviour
         foreach (Item item2 in inventory)
         {
             if (item2.GetAmount() == item2.GetMaxAmount()) continue;
-            if(item2.GetId() == item.GetId())
-            {
+            if (item2.GetId() == item.GetId())
+            { 
                 //This trys to add the amount in item to item2, mixing them in the same slot.
                 if (item2.AddAmountWithItem(item)) return true;
             }
         }
-        if(inventory.Count < slotAmount)
+        if (inventory.Count < slotAmount)
         {
             inventory.Add(item);
             return true;
@@ -41,13 +73,6 @@ public class InventoryController : MonoBehaviour
         return false;
     }
 
-    private void OnValidate()
-    {
-        foreach(Item i in inventory)
-        {
-            i.OnGUI();
-        }
-    }
 
     public bool AddItem(ItemBase item)
     {
@@ -59,7 +84,7 @@ public class InventoryController : MonoBehaviour
     }
     public bool AddItem(Item item, int slot)
     {
-        if(slot >= inventory.Count || slot >= slotAmount) return false;
+        if (slot >= inventory.Count || slot >= slotAmount) return false;
 
         if (inventory[slot] == null)
         {
@@ -73,7 +98,20 @@ public class InventoryController : MonoBehaviour
         }
         return false;
     }
-
+    public Item GetItem(int slot)
+    {
+        return inventory[slot];
+    }
+    public Item[] GetItemByName(string itemName)
+    {
+        List<Item> list = new List<Item>();
+        foreach(Item i in inventory)
+        {
+            if(i.GetItemName() == itemName)
+            list.Add(i);
+        }
+        return list.ToArray();
+    }
     public IEnumerable<Item> AddItemRange(IEnumerable<Item> items)
     {
         List<Item> toReturn = new List<Item>();
@@ -143,11 +181,65 @@ public class InventoryController : MonoBehaviour
     {
         inventory.Clear();
     }
-    private void Update()
+
+    public bool HasItem(string itemName, int amount)
+    {
+        int remainingAmount = amount;
+        for(int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].GetItemName().Equals(itemName))
+            {
+                remainingAmount -= inventory[i].GetAmount();
+                if(remainingAmount <= 0) return true;
+            }
+        }
+        return false;
+    }
+    public bool HasItemByTag(string tag, int amount)
+    {
+        int remainingAmount = amount;
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if(inventory[i].tags == null) return false;
+            for(int j = 0; j < inventory[i].tags.Count; j++)
+            {
+                if (inventory[i].tags[j].Equals(tag))
+                {
+                    remainingAmount -= inventory[i].GetAmount();
+                    if (remainingAmount <= 0) return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public bool HasItem(ItemBase itemBase, int amount)
+    {
+        int remainingAmount = amount;
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].GetId() == itemBase.id)
+            {
+                remainingAmount -= inventory[i].GetAmount();
+                if (remainingAmount <= 0) return true;
+            }
+        }
+        return false;
+    }
+
+    protected void Update()
     {
         for(int i = 0; i < tickable.Count; i++)
         {
-            tickable[i].Tick(this);
+            tickable[i].Tick();
+        }
+    }
+
+    private void OnValidate()
+    {
+        foreach (Item i in inventory)
+        {
+            i.OnGUI();
         }
     }
 }

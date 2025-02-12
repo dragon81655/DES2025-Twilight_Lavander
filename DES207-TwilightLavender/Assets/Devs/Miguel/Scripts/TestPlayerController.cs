@@ -44,7 +44,8 @@ public class TestPlayerController : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(t.position, t.forward, out hit, 4))
             {
-                ITestInteractable i = t.GetComponent<ITestInteractable>();
+                ITestInteractable i = hit.transform.GetComponent<ITestInteractable>();
+                Debug.Log(i);
                 if(i != null)
                 {
                     i.Interact(gameObject);

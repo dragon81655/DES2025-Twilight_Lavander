@@ -13,7 +13,7 @@ public class AttributePropertyDrawer : PropertyDrawer
     private static List<Type> types = new List<Type>();
     private static string[] typeNames;
 
-    private static Dictionary<Type, int> typeMap= new Dictionary<Type, int>();
+    private static Dictionary<Type, int> typeMap = new Dictionary<Type, int>();
 
     SerializedObject serializedObject;
 
@@ -25,10 +25,10 @@ public class AttributePropertyDrawer : PropertyDrawer
     {
         EditorGUI.BeginProperty(position, label, property);
         GUILayout.Label("Select the type:");
-        if(property.managedReferenceValue!= null)
+        if (property.managedReferenceValue != null)
         {
             popUpInt = typeMap[property.managedReferenceValue.GetType()];
-            dropDownIndex= popUpInt;
+            dropDownIndex = popUpInt;
         }
         popUpInt = EditorGUILayout.Popup(popUpInt, typeNames);
         if (dropDownIndex != popUpInt)
@@ -53,10 +53,10 @@ public class AttributePropertyDrawer : PropertyDrawer
             .Where(type => (type.IsSubclassOf(typeof(AttributeBase)) && !type.IsAbstract))
             .ToList();
 
-        typeNames= new string[types.Count];
-        for(int i = 0; i < types.Count; i++)
+        typeNames = new string[types.Count];
+        for (int i = 0; i < types.Count; i++)
         {
-            typeNames[i]= types[i].Name;
+            typeNames[i] = types[i].Name;
             typeMap.Add(types[i], i);
         }
     }

@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
 using System;
-using System.Linq;
-using UnityEditor.Callbacks;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using UnityEditor;
+using UnityEditor.Callbacks;
+using UnityEngine;
 
 
 public class InventoryWindow : EditorWindow
@@ -16,7 +15,7 @@ public class InventoryWindow : EditorWindow
 
 
     //Types reflection (Only updated when script reloads)
-    private static List<Type> types= new List<Type>();
+    private static List<Type> types = new List<Type>();
     private static string[] typeNames;
 
     //New Item stuff
@@ -41,7 +40,7 @@ public class InventoryWindow : EditorWindow
         GUILayout.Label("Press to create new item", EditorStyles.boldLabel);
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button(onCreationMenu ? "Back" :"New Item", GUILayout.Height(30), GUILayout.Width(position.width/2)))
+        if (GUILayout.Button(onCreationMenu ? "Back" : "New Item", GUILayout.Height(30), GUILayout.Width(position.width / 2)))
         {
             NewItem();
         }
@@ -54,7 +53,7 @@ public class InventoryWindow : EditorWindow
             SelectedItemBase();
         else
             NewItemMenu();
-        
+
     }
 
     private void NewItem()
@@ -151,14 +150,14 @@ public class InventoryWindow : EditorWindow
 
     private void SaveEditorWindow(SerializedObject t)
     {
-        if(t == null) return;
+        if (t == null) return;
         t.ApplyModifiedProperties();
     }
 
     private void SaveItem(string path)
     {
-
-        if(selectedItemBase.itemName == "")
+        SaveEditorWindow(serializedObject);
+        if (selectedItemBase.itemName == "")
         {
             Debug.LogError("You must name the item");
         }
@@ -186,7 +185,7 @@ public class InventoryWindow : EditorWindow
         popUpInt = 0;
         dropDownIndex = 0;
     }
-    
+
     private void AddItemToRegistry(ItemBase item)
     {
         if (inventoryManager == null)
@@ -194,14 +193,19 @@ public class InventoryWindow : EditorWindow
             return;
         }
         Type inventoryType = typeof(InventoryManager);
-        FieldInfo registryField = inventoryType.GetField("itemRegistry", BindingFlags.NonPublic | BindingFlags.Instance);
+        MethodInfo registryField = inventoryType.GetMethod("AddItemToRegistry", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        List<ItemBase> itemRegistry = (List<ItemBase>)registryField.GetValue(inventoryManager);
+        if (registryField != null)
+        {
+            registryField.Invoke(inventoryManager, new object[] { item });
+            EditorUtility.SetDirty(inventoryManager);
+            AssetDatabase.SaveAssets();
+        }
+        else
+        {
+            Debug.LogError("Something went wrong with the save");
+        }
 
-        itemRegistry.Add(item);
-
-        EditorUtility.SetDirty(inventoryManager);
-        AssetDatabase.SaveAssets();
     }
 
     [DidReloadScripts]
@@ -214,10 +218,38 @@ public class InventoryWindow : EditorWindow
         types.Add(typeof(ItemBase));
         typeNames = new string[types.Count + 1];
         typeNames[0] = "None";
-        for(int i = 0; i < types.Count; i++)
+        for (int i = 0; i < types.Count; i++)
         {
-            typeNames[i+1] = types[i].Name;
+            typeNames[i + 1] = types[i].Name;
         }
+    }
+
+    [DidReloadScripts]
+    public static void CleanRegistry()
+    {
+        InventoryManager inventoryManager = null;
+
+        inventoryManager = AssetDatabase.LoadAssetAtPath<InventoryManager>("Assets/Prefabs/InventoryManager.prefab");
+        if (inventoryManager == null)
+        {
+            Debug.LogError("InventoryManager not in the folder!");
+            return;
+        }
+
+        Type inventoryType = typeof(InventoryManager);
+        MethodInfo registryField = inventoryType.GetMethod("CleanRegistry", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        if (registryField != null)
+        {
+            registryField.Invoke(inventoryManager, null);
+            EditorUtility.SetDirty(inventoryManager);
+            AssetDatabase.SaveAssets();
+        }
+        else
+        {
+            Debug.LogError("Something went wrong with the save");
+        }
+
     }
 }
 

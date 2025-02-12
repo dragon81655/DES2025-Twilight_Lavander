@@ -7,8 +7,9 @@ public class DurabilityAttribute : AttributeBase
     public int durability;
     public int maxDurability;
 
-    public override void Init()
+    public override void Init(InventoryController controller, Item item)
     {
+
     }
 
     public override AttributeBase Copy()
@@ -18,5 +19,20 @@ public class DurabilityAttribute : AttributeBase
         at.maxDurability= maxDurability;
         at.attributeName = attributeName;
         return at;
+    }
+
+    public override void RunAttribute(InventoryController controller, Item item)
+    {
+        durability--;
+        if(durability <=0)
+        {
+            item.TakeAmount(1);
+            durability = maxDurability;
+        }
+    }
+    
+    public override void TickAttribute(InventoryController controller, Item item)
+    {
+
     }
 }
