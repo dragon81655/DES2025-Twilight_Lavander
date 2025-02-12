@@ -2,17 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CraftingController : MonoBehaviour
+public class CraftingController : MonoBehaviour, ITestInteractable
 {
     // Start is called before the first frame update
-    void Start()
+
+    private InventoryController currentController;
+    private List<CraftBase> availableRecipes;
+    public void Interact(GameObject source)
     {
-        
+        //Open UI window and add this as the current controller.
+        Debug.Log("Interacted");
+        currentController= source.GetComponent<InventoryController>();
+        if(currentController != null )
+        {
+            TestUIManager.instance.craftUI.OpenMenu(this);
+        }
+        availableRecipes = (List<CraftBase>) CraftingManager.instance.GetUnlockedCrafts();
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerable<CraftBase> GetAvailableRecipes()
     {
-        
+        availableRecipes = (List<CraftBase>)CraftingManager.instance.GetUnlockedCrafts();
+        return availableRecipes;
+    }
+
+    public void Craft(int index)
+    {
+        availableRecipes[index].TryCraft(currentController);
     }
 }

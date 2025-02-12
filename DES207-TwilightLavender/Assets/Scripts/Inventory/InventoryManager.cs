@@ -32,7 +32,6 @@ public class InventoryManager : MonoBehaviour
     //Called through reflection on the InventoryWindow Editor Script
     private void AddItemToRegistry(ItemBase item)
     {
-        Debug.Log("Check if registry is null");
         if(itemRegistry != null)
         {
             itemRegistry.Add(item);

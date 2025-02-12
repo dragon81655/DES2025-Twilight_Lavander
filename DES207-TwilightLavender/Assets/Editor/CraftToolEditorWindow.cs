@@ -57,7 +57,7 @@ public class CraftToolEditorWindow : EditorWindow
             }
         }
         onCreationMenu = !onCreationMenu;
-        selectedCraftBase = new CraftBase();
+        selectedCraftBase = CreateInstance<CraftBase>();
         serializedObject = new SerializedObject(selectedCraftBase);
         SaveEditorWindow(serializedObject);
     }
@@ -134,12 +134,11 @@ public class CraftToolEditorWindow : EditorWindow
 
     private void SaveItem(string path)
     {
-
+        SaveEditorWindow(serializedObject);
         if (selectedCraftBase.craftId == "")
         {
             Debug.LogError("You must give an id to the craft");
         }
-        selectedCraftBase.craftId = selectedCraftBase.craftId.ToLower();
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
@@ -152,7 +151,6 @@ public class CraftToolEditorWindow : EditorWindow
             Debug.LogError($"Item {selectedCraftBase.craftId} already exists!");
             return;
         }
-        SaveEditorWindow(serializedObject);
         AssetDatabase.CreateAsset(selectedCraftBase, fullPath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -182,6 +180,7 @@ public class CraftToolEditorWindow : EditorWindow
     private void UpadteItems()
     {
         Debug.Log("Upadating Items");
+        if (selectedCraftBase == null || selectedCraftBase.outputs == null) return;
         foreach(Item i in selectedCraftBase.outputs)
         {
             i.OnGUI();

@@ -45,4 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   craftRegistry:
+  - {fileID: 0}
   - {fileID: 11400000, guid: f85a8418b8bde36479ff104b7d15af5c, type: 2}
+  - {fileID: 11400000, guid: 5f2cd2f4237c1814e869b23ed66f7394, type: 2}
+  - {fileID: 11400000, guid: 3e604cc2edbbdaf43a73fbb40b546d7b, type: 2}
+  - {fileID: 11400000, guid: 87e4ef3469684674ba450ade0b6b4a0a, type: 2}
+  - {fileID: 11400000, guid: ccfcf30571105f54cb020dfe97010458, type: 2}
+  unlockedCrafts: []

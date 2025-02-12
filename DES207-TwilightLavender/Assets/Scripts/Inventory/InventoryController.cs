@@ -67,6 +67,7 @@ public class InventoryController : MonoBehaviour
         }
         if (inventory.Count < slotAmount)
         {
+            item.UpdateController(this);
             inventory.Add(item);
             return true;
         }
@@ -76,11 +77,15 @@ public class InventoryController : MonoBehaviour
 
     public bool AddItem(ItemBase item)
     {
-        return AddItem(new Item(item));
+        Item t = new Item(item);
+        t.UpdateController(this);
+        return AddItem(t);
     }
     public bool AddItem(ItemBase item, int slot)
     {
-        return AddItem(new Item(item), slot);
+        Item t = new Item(item);
+        t.UpdateController(this);
+        return AddItem(t, slot);
     }
     public bool AddItem(Item item, int slot)
     {
@@ -88,6 +93,7 @@ public class InventoryController : MonoBehaviour
 
         if (inventory[slot] == null)
         {
+            item.UpdateController(this);
             inventory[slot] = item;
             return true;
         }
@@ -142,12 +148,12 @@ public class InventoryController : MonoBehaviour
     public void TakeItemAmount(int id, int amount)
     {
         int amountLeft = amount;
-        foreach (Item item in inventory)
+        foreach (Item item2 in inventory)
         {
-            if (item.GetId() == id)
+            if (item2.GetId() == id)
             {
-                int t = item.GetAmount();
-                item.TakeAmount(amountLeft);
+                int t = item2.GetAmount();
+                item2.TakeAmount(amountLeft);
                 if (amountLeft - t <= 0) return;
                 amountLeft -= t;
             }

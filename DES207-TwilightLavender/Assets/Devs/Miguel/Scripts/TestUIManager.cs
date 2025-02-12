@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class TestUIManager : MonoBehaviour
 {
-    
+    public static TestUIManager instance;
+
+    public TestCraftUI craftUI;
+    private void Awake()
+    {
+       instance = this;
+    }
+
     void Start()
     {
         

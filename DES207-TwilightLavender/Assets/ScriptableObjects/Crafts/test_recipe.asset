@@ -13,23 +13,47 @@ MonoBehaviour:
   m_Name: test_recipe
   m_EditorClassIdentifier: 
   craftId: test_recipe
+  displayName: Socialista
+  recipeSprite: {fileID: 21300000, guid: 5887b525864b5c447b84cb355318298f, type: 3}
   inputs:
-  - rid: 5123820125788569667
-  - rid: 5123820125788569668
-  outputs: []
-  unlocked: 0
+  - rid: 5123820127359598667
+  - rid: 5123820127359598668
+  outputs:
+  - itemBase: {fileID: 11400000, guid: 47976b522106ba84cb986cab0bcb31c6, type: 2}
+    displayName: nitroglycerin
+    amount: 22
+    tags:
+    - Explosive
+    - Killable
+    attributes:
+      list:
+      - rid: 5123820127359598689
+      - rid: 5123820127359598740
+  unlocked: 1
+  tags: []
   references:
     version: 2
     RefIds:
-    - rid: 5123820125788569667
-      type: {class: CraftItem, ns: , asm: Assembly-CSharp}
-      data:
-        tag: 
-        item: {fileID: 11400000, guid: 8b6ed34a038e05649aa402717bbaf713, type: 2}
-        amount: 3
-    - rid: 5123820125788569668
+    - rid: 5123820127359598667
       type: {class: CraftItem, ns: , asm: Assembly-CSharp}
       data:
         tag: 
         item: {fileID: 11400000, guid: 47976b522106ba84cb986cab0bcb31c6, type: 2}
-        amount: 1
+        amount: 20
+    - rid: 5123820127359598668
+      type: {class: CraftItem, ns: , asm: Assembly-CSharp}
+      data:
+        tag: 
+        item: {fileID: 11400000, guid: aa7b6eee589f345478e0310311b9bf34, type: 2}
+        amount: 10
+    - rid: 5123820127359598689
+      type: {class: CoolDownAttribute, ns: , asm: Assembly-CSharp}
+      data:
+        attributeName: 
+        timer: 0
+    - rid: 5123820127359598740
+      type: {class: DurabilityAttribute, ns: , asm: Assembly-CSharp}
+      data:
+        attributeName: lifetime
+        durability: 10
+        maxDurability: 10

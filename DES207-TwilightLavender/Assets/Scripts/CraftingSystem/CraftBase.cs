@@ -7,14 +7,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Crafts/CraftBase")]
 public class CraftBase : ScriptableObject
 {
-    [SerializeField]
     public string craftId;
+    public string displayName;
+    public Sprite recipeSprite;
+
     [SerializeReference]
     public List<CraftItem> inputs;
-    [SerializeField]
     public List<Item> outputs;
-    [SerializeField]
     public bool unlocked;
+
+
+    public List<string> tags;
 
     public bool IsCraftable(InventoryController controller)
     {
@@ -44,6 +47,8 @@ public class CraftBase : ScriptableObject
         if(!unlocked) return null;
         if (IsCraftable(controller))
         {
+            foreach (CraftItem c in inputs)
+                controller.TakeItemAmount(c.item.id, c.amount);
             return controller.AddItemRange(outputs);            
         }
         return null;

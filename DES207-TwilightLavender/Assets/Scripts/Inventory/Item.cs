@@ -145,6 +145,11 @@ public class Item
         }
     }
 
+    public void UpdateController(InventoryController controller)
+    {
+        this.controller = controller;
+    }
+
     private void UpdateOnItemBase(ItemBase itemBase)
     {
         Debug.Log("Updated based on ItemBase");
