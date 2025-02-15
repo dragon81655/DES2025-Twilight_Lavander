@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class CraftToolEditorWindow : EditorWindow
@@ -186,5 +187,33 @@ public class CraftToolEditorWindow : EditorWindow
             i.OnGUI();
         }
         serializedObject.Update();
+    }
+
+    [DidReloadScripts]
+    public static void CleanRegistry()
+    {
+        CraftingManager craftManager = null;
+
+        craftManager = AssetDatabase.LoadAssetAtPath<CraftingManager>("Assets/Prefabs/CraftManager.prefab");
+        if (craftManager == null)
+        {
+            Debug.LogError("Crafting Manager not in the folder!");
+            return;
+        }
+
+        Type inventoryType = typeof(CraftingManager);
+        MethodInfo registryField = inventoryType.GetMethod("CleanRegistry", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        if (registryField != null)
+        {
+            registryField.Invoke(craftManager, null);
+            EditorUtility.SetDirty(craftManager);
+            AssetDatabase.SaveAssets();
+        }
+        else
+        {
+            Debug.LogError("Something went wrong with the save");
+        }
+
     }
 }

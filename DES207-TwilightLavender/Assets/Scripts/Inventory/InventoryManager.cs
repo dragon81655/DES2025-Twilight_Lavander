@@ -104,10 +104,4 @@ public class InventoryManager : MonoBehaviour
         }
         return possibilities.Count == 0 ? null : new Item(possibilities[Random.Range(0, possibilities.Count)]);
     }
-
-    [DidReloadScripts]
-    public static void ClearRegistryHere()
-    {
-
-    }
 }

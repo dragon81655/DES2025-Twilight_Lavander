@@ -54,6 +54,11 @@ public class Item
         return displayName;
     }
 
+    public string GetDescription()
+    {
+        return itemBase.description;
+    }
+
     public void SetDisplayName(string name)
     {
         displayName = name;
