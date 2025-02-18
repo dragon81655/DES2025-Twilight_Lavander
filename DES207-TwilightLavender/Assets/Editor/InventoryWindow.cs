@@ -60,7 +60,7 @@ public class InventoryWindow : EditorWindow
     {
         if (inventoryManager == null)
         {
-            inventoryManager = AssetDatabase.LoadAssetAtPath<InventoryManager>("Assets/Prefabs/InventoryManager.prefab");
+            inventoryManager = AssetDatabase.LoadAssetAtPath<InventoryManager>("Assets/Prefabs/Managers/InventoryManager.prefab");
             if (inventoryManager == null)
             {
                 Debug.LogError("InventoryManager not in the folder!");
@@ -229,7 +229,7 @@ public class InventoryWindow : EditorWindow
     {
         InventoryManager inventoryManager = null;
 
-        inventoryManager = AssetDatabase.LoadAssetAtPath<InventoryManager>("Assets/Prefabs/InventoryManager.prefab");
+        inventoryManager = AssetDatabase.LoadAssetAtPath<InventoryManager>("Assets/Prefabs/Managers/InventoryManager.prefab");
         if (inventoryManager == null)
         {
             Debug.LogError("InventoryManager not in the folder!");

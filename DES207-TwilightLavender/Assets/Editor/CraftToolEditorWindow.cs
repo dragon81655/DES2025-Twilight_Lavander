@@ -27,10 +27,10 @@ public class CraftToolEditorWindow : EditorWindow
 
     private void OnGUI()
     {
-        GUILayout.Label("Press to create new item", EditorStyles.boldLabel);
+        GUILayout.Label("Press to create new craft", EditorStyles.boldLabel);
         GUILayout.BeginHorizontal();
         GUILayout.FlexibleSpace();
-        if (GUILayout.Button(onCreationMenu ? "Back" : "New Item", GUILayout.Height(30), GUILayout.Width(position.width / 2)))
+        if (GUILayout.Button(onCreationMenu ? "Back" : "New Craft", GUILayout.Height(30), GUILayout.Width(position.width / 2)))
         {
             NewItem();
         }
@@ -50,7 +50,7 @@ public class CraftToolEditorWindow : EditorWindow
     {
         if (craftManager == null)
         {
-            craftManager = AssetDatabase.LoadAssetAtPath<CraftingManager>("Assets/Prefabs/CraftManager.prefab");
+            craftManager = AssetDatabase.LoadAssetAtPath<CraftingManager>("Assets/Prefabs/Managers/CraftManager.prefab");
             if (craftManager == null)
             {
                 Debug.LogError("Crafting Manager not in the folder!");
@@ -194,7 +194,7 @@ public class CraftToolEditorWindow : EditorWindow
     {
         CraftingManager craftManager = null;
 
-        craftManager = AssetDatabase.LoadAssetAtPath<CraftingManager>("Assets/Prefabs/CraftManager.prefab");
+        craftManager = AssetDatabase.LoadAssetAtPath<CraftingManager>("Assets/Prefabs/Managers/CraftManager.prefab");
         if (craftManager == null)
         {
             Debug.LogError("Crafting Manager not in the folder!");
