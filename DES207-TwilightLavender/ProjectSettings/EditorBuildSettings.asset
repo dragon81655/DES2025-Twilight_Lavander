@@ -4,5 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Devs/Miguel/Scenes/InventoryScene.unity
+    guid: 9d4d160b0d7ae7049bfc6f3cc08a5663
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0

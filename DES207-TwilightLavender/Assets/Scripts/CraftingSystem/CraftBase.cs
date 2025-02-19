@@ -14,6 +14,8 @@ public class CraftBase : ScriptableObject
     [SerializeReference]
     public List<CraftItem> inputs;
     public List<Item> outputs;
+    public bool startUnlocked;
+    [HideInInspector]
     public bool unlocked;
 
 
@@ -52,6 +54,11 @@ public class CraftBase : ScriptableObject
             return controller.AddItemRange(outputs);            
         }
         return null;
+    }
+
+    public void Init()
+    {
+        unlocked = startUnlocked;
     }
 }
 

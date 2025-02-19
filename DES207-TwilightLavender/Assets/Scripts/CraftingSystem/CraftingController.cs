@@ -12,12 +12,14 @@ public class CraftingController : MonoBehaviour, ITestInteractable
     {
         //Open UI window and add this as the current controller.
         Debug.Log("Interacted");
-        currentController= source.GetComponent<InventoryController>();
+        CraftingManager.instance.CheckUnlockedCrafts();
+        availableRecipes = (List<CraftBase>)CraftingManager.instance.GetUnlockedCrafts();
+        currentController = source.GetComponent<InventoryController>();
         if(currentController != null )
         {
             TestUIManager.instance.craftUI.OpenMenu(this);
         }
-        availableRecipes = (List<CraftBase>) CraftingManager.instance.GetUnlockedCrafts();
+        
     }
 
     public IEnumerable<CraftBase> GetAvailableRecipes()
