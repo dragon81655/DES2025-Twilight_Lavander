@@ -10,25 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
-  m_Name: mynewitem
+  m_Name: concentrated_penicillin
   m_EditorClassIdentifier: 
-  id: 1
-  itemName: mynewitem
-  displayName: Testing this shitcs
-  description: A description
+  id: 0
+  itemName: concentrated_penicillin
+  displayName: Concentrated Penicillin
+  description: A purified form of the piranha virus penicillin.
   sprite: {fileID: 21300000, guid: 5887b525864b5c447b84cb355318298f, type: 3}
-  maxAmount: 30
-  isTickable: 1
+  maxAmount: 64
+  isTickable: 0
   tags:
-  - Dev
+  - cure_component
   attributes:
-    list:
-    - rid: 5123820016349741058
+    list: []
   references:
     version: 2
-    RefIds:
-    - rid: 5123820016349741058
-      type: {class: CoolDownAttribute, ns: , asm: Assembly-CSharp}
-      data:
-        attributeName: testAttribute
-        timer: 10
+    RefIds: []

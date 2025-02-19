@@ -18,7 +18,11 @@ public class GameStateManager : MonoBehaviour
             Debug.Log("Virus wins!");
         }else if(status == EndGameStatus.HumanWin)
         {
-            Debug.Log("Human wins!");
+            EndGamePortal[] portals = (EndGamePortal[])Resources.FindObjectsOfTypeAll(typeof(EndGamePortal));
+            foreach(EndGamePortal portal in portals)
+            {
+                portal.SwitchPortalState(true);
+            }
         }else
         {
             Debug.Log("Tough luck, you both suck!");

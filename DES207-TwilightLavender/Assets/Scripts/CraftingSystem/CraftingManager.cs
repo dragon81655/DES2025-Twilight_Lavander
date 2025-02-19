@@ -18,9 +18,12 @@ public class CraftingManager : MonoBehaviour
     {
         foreach (CraftBase c in craftRegistry)
         {
-            if (c.unlocked)
+            if (c != null)
             {
-                unlockedCrafts.Add(c);
+                if (c.unlocked)
+                {
+                    unlockedCrafts.Add(c);
+                }
             }
         }
     }

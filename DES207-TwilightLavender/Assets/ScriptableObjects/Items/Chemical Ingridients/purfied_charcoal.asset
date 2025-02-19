@@ -10,26 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
-  m_Name: demo_item
+  m_Name: purfied_charcoal
   m_EditorClassIdentifier: 
-  id: 4
-  itemName: demo_item
-  displayName: Demonstration Item
-  description: An item made for a demo.
-  sprite: {fileID: 21300000, guid: 5887b525864b5c447b84cb355318298f, type: 3}
+  id: 0
+  itemName: purfied_charcoal
+  displayName: Purfied Charcoal
+  description: Used to purify and remove contaminants
+  sprite: {fileID: 21300000, guid: fafce2931a32e98438bfae7a4c596b5f, type: 3}
   maxAmount: 64
   isTickable: 0
   tags:
-  - consumable
+  - cure_component
   attributes:
-    list:
-    - rid: 5123820175954018410
+    list: []
   references:
     version: 2
-    RefIds:
-    - rid: 5123820175954018410
-      type: {class: DurabilityAttribute, ns: , asm: Assembly-CSharp}
-      data:
-        attributeName: Uses
-        durability: 2
-        maxDurability: 2
+    RefIds: []

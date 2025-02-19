@@ -10,26 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
-  m_Name: github_back
+  m_Name: virus_penicillin
   m_EditorClassIdentifier: 
   id: 0
-  itemName: github_back
-  displayName: 
-  description: Aleluia!
-  sprite: {fileID: 21300000, guid: 5887b525864b5c447b84cb355318298f, type: 3}
-  maxAmount: 1
+  itemName: virus_penicillin
+  displayName: Virus Penicillin
+  description: A particularly uncommon fungus that grew around another fungi on virus
+    flora.
+  sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  maxAmount: 64
   isTickable: 0
   tags:
-  - Dev
+  - cure_component
   attributes:
-    list:
-    - rid: 5123820127359598647
+    list: []
   references:
     version: 2
-    RefIds:
-    - rid: 5123820127359598647
-      type: {class: DurabilityAttribute, ns: , asm: Assembly-CSharp}
-      data:
-        attributeName: durability
-        durability: 999
-        maxDurability: 999
+    RefIds: []

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
+  m_Name: diluted_penicillin
+  m_EditorClassIdentifier: 
+  id: 0
+  itemName: diluted_penicillin
+  displayName: Diluted Penicillin
+  description: A solution produced by diluting Piranha virus penicillin in phenylacetone.
+  sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  maxAmount: 64
+  isTickable: 0
+  tags:
+  - cure_component
+  attributes:
+    list: []
+  references:
+    version: 2
+    RefIds: []
