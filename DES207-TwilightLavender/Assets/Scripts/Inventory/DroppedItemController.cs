@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroppedItemController : InventoryController, ITestInteractable
+public class DroppedItemController : InventoryController, IInteractable
 {
     public void Interact(GameObject source)
     {

@@ -16,7 +16,7 @@ public class CameraRefController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float x = Input.mousePositionDelta.x;
+        float x = -Input.mousePositionDelta.x;
         float y = Input.mousePositionDelta.y;
 
         transform.LookAt(lookAtRef.transform.position);

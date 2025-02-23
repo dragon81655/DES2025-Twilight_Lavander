@@ -17,8 +17,8 @@ public class TPPlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float x = Input.GetAxis("Vertical");
-        float y = Input.GetAxis("Horizontal");
+        float x = Input.GetAxis("VerticalKB");
+        float y = Input.GetAxis("HorizontalKB");
 
         if (x != 0 || y != 0)
         {
@@ -30,10 +30,8 @@ public class TPPlayerController : MonoBehaviour
             }
             if (y != 0)
             {
-                if (lockedRight == Vector3.zero) lockedRight = cam.transform.right;
-                lookAt += new Vector3(lockedRight.x * y, 0, lockedRight.z * y);
+                lookAt += new Vector3(cam.transform.right.x * y, 0, cam.transform.right.z * y);
             }
-            else lockedRight = Vector3.zero;
             x = Mathf.Abs(x);
             y = Mathf.Abs(y);
             float speedMult = 0;
