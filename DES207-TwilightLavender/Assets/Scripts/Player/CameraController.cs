@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour, ICamAxisHandler
 
     public void MoveCam(float x, float y)
     {
-        v = new Vector2(x, y);
+        v = new Vector2(-x, y);
     }
     private void Start()
     {

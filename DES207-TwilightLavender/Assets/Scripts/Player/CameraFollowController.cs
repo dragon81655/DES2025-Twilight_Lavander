@@ -40,7 +40,7 @@ public class CameraFollowController : MonoBehaviour
     {
         if (m > tpOffSet)
         {
-            Debug.Log("Correction!");
+            //Debug.Log("Correction!");
             transform.position = truePos;
         }
     }

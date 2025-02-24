@@ -13,9 +13,15 @@ public class InputController : MonoBehaviour
     private IUsable1 use1;
     private IInteractorHandler interactor;
 
-    public void SwitchTarget(GameObject target, string type)
+    public string GetInputType()
     {
-        inputType= type;
+        return inputType;
+    }
+    public void SetInputType(string inputType)
+    { this.inputType = inputType; }
+
+    public void SwitchTarget(GameObject target)
+    {
         cameraC = target.GetComponent<ICamAxisHandler>();
         move = target.GetComponent<IAxisHandler>();
         use0= target.GetComponent<IUseable0>();
@@ -70,6 +76,7 @@ public class InputController : MonoBehaviour
             {
                 if (Input.GetButtonDown("Interact" + inputType))
                 {
+                    Debug.Log("interact!");
                     interactor.Interact();
                 }
             }
