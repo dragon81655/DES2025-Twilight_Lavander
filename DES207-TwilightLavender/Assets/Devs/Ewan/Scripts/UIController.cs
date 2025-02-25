@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using JetBrains.Annotations;
+using static UnityEditor.Progress;
 
 public class UIController : MonoBehaviour
 {
@@ -16,8 +17,10 @@ public class UIController : MonoBehaviour
     public GameObject DialogueContainer; // grabbing dialogue box
     public GameObject uiContainer; // grabbing UI
     public TextMeshProUGUI VirusWinsText; // grabbing virus wins text
+    public TextMeshProUGUI HumanWinsText; // grabbing human wins text
     public Image AbilityDown; // grabbing ability
     public TextMeshProUGUI InteractText; // grabbing interact text
+    public GameObject hbHolder; // grabbing hotbar
 
     // Takeover Timer Settings
 
@@ -34,7 +37,12 @@ public class UIController : MonoBehaviour
 
     public bool InteractRange; // whether or not player is within range to interact
     public bool MenuOpen; // check whether dialogue menu is open
+
+    // Other Scripts
+
     ProxInteraction ProxInteractionScript; // calling other script
+    InventoryController invController; // calling inventory controller
+    HotbarManager hotbarManager; // calling hotbar controller
 
     // Start is called before the first frame update
     void Start()
@@ -45,9 +53,17 @@ public class UIController : MonoBehaviour
         ActiveCD = false; // making sure input isnt locked out from start
 
         VirusWinsText.gameObject.SetActive(false); // ensuring virus wins is disabled from start
+        HumanWinsText.gameObject.SetActive(false); // ensuring human wins is disabled from start
         AbilityDown.gameObject.SetActive(false); // ensuring ability cd is disabled from start
 
         ProxInteractionScript = GameObject.FindGameObjectWithTag("uiTag").GetComponent<ProxInteraction>(); // calling interaction script
+        invController = GetComponent<InventoryController>(); // calling inventory script
+        hotbarManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HotbarManager>();
+
+        if (hotbarManager == null)
+        {
+            Debug.LogError("HotbarManager reference is missing!");
+        }
     }
 
     // Update is called once per frame
@@ -95,6 +111,8 @@ public class UIController : MonoBehaviour
             MenuOpen = false;
         }
 
+        hotbarManager.SlotManager(); // calling slot manager from hotbar manager
+
     }
 
     void VirusWins() // function for Virus win state
@@ -104,6 +122,12 @@ public class UIController : MonoBehaviour
         VirusWinsText.gameObject.SetActive(true); // enable virus win screen
     }
 
+    public void HumanWins() // function for human win state
+    {
+        uiContainer.SetActive(false); // disable UI
+        HumanWinsText.gameObject.SetActive(true); // enable human win screen
+    }
+
     void AbilityUsed() // function for ability being used
 
     {
@@ -111,22 +135,21 @@ public class UIController : MonoBehaviour
         ActiveCD = true; // locking out input
         CurrentCD = CooldownTime; // set cooldown
     }
-    
+
     public void Interact() // interaction function
 
     {
         InteractRange = true;
-        if (Input.GetKeyDown(KeyCode.E) && InteractRange == true)
+        if (Input.GetKeyDown(KeyCode.E) && InteractRange == true) // condition for opening dialoge box
         {
-            DialogueContainer.SetActive(true);
-            MenuOpen = true;
+            DialogueContainer.SetActive(true); // open dialogue box
+            MenuOpen = true; // set menu to open
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && MenuOpen == true)
+        if (Input.GetKeyDown(KeyCode.R) && MenuOpen == true) // condition for closing dialogue box willingly
         {
-            DialogueContainer.SetActive(false);
-            MenuOpen = false;
+            DialogueContainer.SetActive(false); // close dialogue box
+            MenuOpen = false; // set menu to closed
         }
     }
-
 }
