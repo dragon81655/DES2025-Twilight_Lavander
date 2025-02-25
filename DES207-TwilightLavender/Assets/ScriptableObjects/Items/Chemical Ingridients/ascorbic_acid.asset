@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: ascorbic_acid
   m_EditorClassIdentifier: 
-  id: 0
+  id: 2
   itemName: ascorbic_acid
   displayName: Ascorbic Acid
   description: Bascially vitamin C.
   sprite: {fileID: 21300000, guid: 5887b525864b5c447b84cb355318298f, type: 3}
+  droppedModel: {fileID: 3409236922969184938, guid: eb971ab565305a4429f9c29b60bf1b58, type: 3}
   maxAmount: 64
   isTickable: 0
   tags:

@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: science_notes
   m_EditorClassIdentifier: 
-  id: 0
+  id: 10
   itemName: science_notes
   displayName: Scientist Notes
   description: Papers containing information regarding the scientists research or
     logs.
-  sprite: {fileID: 0}
+  sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  droppedModel: {fileID: 7669599210276180244, guid: b3528930d21919345af7e975ea446682, type: 3}
   maxAmount: 1
   isTickable: 0
   tags:

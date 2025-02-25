@@ -37,6 +37,7 @@ public class LootTablesController : MonoBehaviour
             {
                 GameObject g = Instantiate(droppedItemPrefab, pos, Quaternion.identity);
                 bool t = g.GetComponent<InventoryController>().AddItem(item);
+                Instantiate(item.GetDroppedModel(), g.transform).transform.localPosition = Vector3.zero;
                 if (!t)
                 {
                     Debug.LogError("Something wrong with the droppedItemPrefab");

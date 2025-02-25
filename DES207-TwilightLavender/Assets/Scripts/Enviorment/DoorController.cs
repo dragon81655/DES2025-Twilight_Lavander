@@ -29,7 +29,7 @@ public class DoorController : MonoBehaviour, IInteractable
     public void Interact(GameObject source)
     {
         Debug.Log("Door interaction!");
-        if (!(controller != null && controller.HasPower())) return;
+        if (!(controller == null || controller.HasPower())) return;
         if (!canOpenWithInteraction) return;
         if (doorTag != null && doorTag != "")
         {

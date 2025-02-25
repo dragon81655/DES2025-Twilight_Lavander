@@ -12,10 +12,12 @@ public class ItemBase : ScriptableObject
     [TextArea(3,10)]
     public string description;
     public Sprite sprite;
+    public GameObject droppedModel;
     public int maxAmount;
     public bool isTickable;
     public List<string> tags;
     public AttributeControler attributes;
+    
 
 
     public virtual void Use(InventoryController controller, Item item)

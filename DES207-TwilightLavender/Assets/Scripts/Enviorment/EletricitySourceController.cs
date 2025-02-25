@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EletricitySourceController : MonoBehaviour, IInteractable, IDamageable
 {
-    // Start is called before the first frame update~~
     [SerializeField] private bool hasPower;
 
     [Header("Minigame related!")]
     [SerializeField] private float interactionTotalDamage;
-    [SerializeField] private GeneratorMiniGame miniGameController;
+    [SerializeField] private TemporaryGeneratorGame miniGameController;
 
+    [SerializeField]private float damageAmount;
     public bool HasPower()
     {
         return hasPower;
@@ -20,10 +20,11 @@ public class EletricitySourceController : MonoBehaviour, IInteractable, IDamagea
     {
         if(InputManager.instance!= null)
         {
-            if (hasPower)
+            if (!hasPower)
             {
-                /*miniGameController.Init(null);
-                InputManager.instance.SwitchMiniGame(source, miniGameController.gameObject);*/
+                miniGameController.gameObject.SetActive(true);
+                miniGameController.Init(this, damageAmount, InputManager.instance.CheckObjectRole(source));
+                InputManager.instance.SwitchMiniGame(InputManager.instance.CheckObjectRole(source), miniGameController.gameObject);
             }
             else Damage(interactionTotalDamage);
         }
@@ -32,7 +33,7 @@ public class EletricitySourceController : MonoBehaviour, IInteractable, IDamagea
     public void Damage(float secondsToRepair)
     {
         hasPower = false;
-        miniGameController.Damage(secondsToRepair);
+        damageAmount= secondsToRepair;
     }
 
     public void Repair()

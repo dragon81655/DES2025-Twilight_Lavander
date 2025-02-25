@@ -62,11 +62,14 @@ public class InputManager : MonoBehaviour
         if (human)
         {
             p1.currentlyControlled = p1.currentlyControlled == miniGameController ? TypeToController(p1.currentlyControlledType) : miniGameController;
+            p1.UpdateController() ;
         }
         else
         {
             p2.currentlyControlled = p2.currentlyControlled == miniGameController ? TypeToController(p2.currentlyControlledType) : miniGameController;
+            p2.UpdateController() ;
         }
+
     }
 
     //If the object returns true, it's the human, otherwise it's the virus

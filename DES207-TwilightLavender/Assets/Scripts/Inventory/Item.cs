@@ -35,6 +35,10 @@ public class Item
         return itemBase.itemName;
     }
     
+    public GameObject GetDroppedModel()
+    {
+        return itemBase.droppedModel;
+    }
     public Sprite GetItemSprite()
     {
         return itemBase.sprite;

@@ -12,6 +12,7 @@ public class InputController : MonoBehaviour
     private IUseable0 use0;
     private IUsable1 use1;
     private IInteractorHandler interactor;
+    private IDropHandler drop;
 
     public string GetInputType()
     {
@@ -27,6 +28,7 @@ public class InputController : MonoBehaviour
         use0= target.GetComponent<IUseable0>();
         use1= target.GetComponent<IUsable1>();
         interactor = target.GetComponent<IInteractorHandler>();
+        drop = target.GetComponent<IDropHandler>();
     }
     private void Start()
     {
@@ -78,6 +80,14 @@ public class InputController : MonoBehaviour
                 {
                     Debug.Log("interact!");
                     interactor.Interact();
+                }
+            }
+            if (drop != null)
+            {
+                if (Input.GetButtonDown("Drop" + inputType))
+                {
+                    Debug.Log("Drop!");
+                    drop.Drop();
                 }
             }
         }

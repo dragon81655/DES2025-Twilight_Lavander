@@ -5,14 +5,26 @@ using UnityEngine;
 public class InteractionController : MonoBehaviour, IInteractorHandler
 {
     private GameObject toInteract;
+
+    [SerializeField]
+    private List<GameObject> interactables = new List<GameObject>();
+    
     public void Interact()
     {
-        if(toInteract != null)
+        CheckOtherInteractables();
+        if(toInteract!= null)
+        toInteract.GetComponent<IInteractable>().Interact(gameObject);
+        
+        
+    }
+    private void CheckOtherInteractables()
+    {
+        if (interactables.Count > 0)
         {
-            toInteract.GetComponent<IInteractable>().Interact(gameObject);
+            toInteract= interactables[0];
+            interactables.Remove(toInteract);
         }
     }
-
     public IInteractable GetInteractable()
     {
         return toInteract.GetComponent<IInteractable>();
@@ -24,7 +36,7 @@ public class InteractionController : MonoBehaviour, IInteractorHandler
         Debug.Log("Try interact!");
         if(i != null )
         {
-            toInteract = other.gameObject;
+            interactables.Add(other.gameObject);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -32,6 +44,13 @@ public class InteractionController : MonoBehaviour, IInteractorHandler
         if(toInteract == other.gameObject)
         {
             toInteract = null;
+        }
+        else
+        {
+            if (interactables.Contains(other.gameObject))
+            {
+                interactables.Remove(other.gameObject);
+            }
         }
     }
 }
