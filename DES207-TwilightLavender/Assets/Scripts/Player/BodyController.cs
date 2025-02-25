@@ -2,26 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyController : MonoBehaviour, IAxisHandler, IInteractorHandler
+public class BodyController : MonoBehaviour, IAxisHandler
 {
     [SerializeField] private float playerSpeed;
     [SerializeField] private Camera cam;
     
     private Rigidbody rb;
     private Vector3 dir;
-    public void Interact()
-    {
-        Transform t = Camera.main.transform;
-        RaycastHit hit;
-        if (Physics.Raycast(t.position, t.forward, out hit, 4))
-        {
-            IInteractable i = hit.transform.GetComponent<IInteractable>();
-            if (i != null)
-            {
-                i.Interact(gameObject);
-            }
-        }
-    }
+   
 
     public void Move(float x, float y)
     {

@@ -28,6 +28,7 @@ MonoBehaviour:
       list:
       - rid: 5123820267832082500
       - rid: 5123820267832082501
+  startUnlocked: 1
   unlocked: 0
   tags:
   - cure_recipe

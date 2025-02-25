@@ -157,7 +157,6 @@ public class Item
 
     private void UpdateOnItemBase(ItemBase itemBase)
     {
-        Debug.Log("Updated based on ItemBase");
         if (itemBase == null) return;
         this.itemBase = itemBase;
         this.displayName = itemBase.itemName;

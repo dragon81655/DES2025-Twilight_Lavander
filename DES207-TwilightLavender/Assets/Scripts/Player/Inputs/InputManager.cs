@@ -33,10 +33,13 @@ public class InputManager : MonoBehaviour
     }
     public void SwitchChars()
     {
-        if(p1.currentlyControlledType == ControllableObjects.Body)
+
+        //p1.currentlyControlled.Clear();
+        //p2.currentlyControlled.Clear();
+        if (p1.currentlyControlledType == ControllableObjects.Body)
         {
             p1.currentlyControlledType = ControllableObjects.Subconscious;
-            p1.currentlyControlled = subconscious;
+            p1.currentlyControlled = subconscious ;
 
             p2.currentlyControlledType = ControllableObjects.Body;
             p2.currentlyControlled = humanBody;
@@ -47,15 +50,16 @@ public class InputManager : MonoBehaviour
             p1.currentlyControlled = humanBody;
 
             p2.currentlyControlledType = ControllableObjects.Subconscious;
-            p2.currentlyControlled = subconscious;
+            p2.currentlyControlled =subconscious ;
         }
         p1.UpdateController();
         p2.UpdateController();
     }
 
-    public void SwitchMiniGame(bool human, GameObject miniGameController )
+
+    public void SwitchMiniGame(bool human, GameObject miniGameController)
     {
-        if(human)
+        if (human)
         {
             p1.currentlyControlled = p1.currentlyControlled == miniGameController ? TypeToController(p1.currentlyControlledType) : miniGameController;
         }
@@ -63,6 +67,12 @@ public class InputManager : MonoBehaviour
         {
             p2.currentlyControlled = p2.currentlyControlled == miniGameController ? TypeToController(p2.currentlyControlledType) : miniGameController;
         }
+    }
+
+    //If the object returns true, it's the human, otherwise it's the virus
+    public bool CheckObjectRole(GameObject obj)
+    {
+        return obj == p1.currentlyControlled;
     }
 
     private GameObject TypeToController(ControllableObjects currentObject)

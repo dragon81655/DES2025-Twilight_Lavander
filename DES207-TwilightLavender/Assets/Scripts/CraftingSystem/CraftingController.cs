@@ -11,7 +11,6 @@ public class CraftingController : MonoBehaviour, IInteractable
     public void Interact(GameObject source)
     {
         //Open UI window and add this as the current controller.
-        Debug.Log("Interacted");
         CraftingManager.instance.CheckUnlockedCrafts();
         availableRecipes = (List<CraftBase>)CraftingManager.instance.GetUnlockedCrafts();
         currentController = source.GetComponent<InventoryController>();
