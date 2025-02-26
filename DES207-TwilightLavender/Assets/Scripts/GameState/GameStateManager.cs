@@ -87,6 +87,7 @@ public class GameStateManager : MonoBehaviour
         if(status == EndGameStatus.VirusWin)
         {
             Debug.Log("Virus wins!");
+            onVirusWin.Invoke();
         }else if(status == EndGameStatus.HumanWin)
         {
             EndGamePortal[] portals = (EndGamePortal[])Resources.FindObjectsOfTypeAll(typeof(EndGamePortal));
@@ -94,9 +95,12 @@ public class GameStateManager : MonoBehaviour
             {
                 portal.SwitchPortalState(true);
             }
+            StopTimer();
+            onHumanWin.Invoke();
         }else
         {
             Debug.Log("Tough luck, you both suck!");
+            
         }
     }
 }

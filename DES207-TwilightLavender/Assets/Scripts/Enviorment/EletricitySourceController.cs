@@ -11,6 +11,11 @@ public class EletricitySourceController : MonoBehaviour, IInteractable, IDamagea
     [SerializeField] private TemporaryGeneratorGame miniGameController;
 
     [SerializeField]private float damageAmount;
+
+    [SerializeField] private Material workingMat;
+    [SerializeField] private Material notWorkingMat;
+
+    private MeshRenderer mesh;
     public bool HasPower()
     {
         return hasPower;
@@ -29,15 +34,21 @@ public class EletricitySourceController : MonoBehaviour, IInteractable, IDamagea
             else Damage(interactionTotalDamage);
         }
     }
-
+    private void Start()
+    {
+        mesh = GetComponent<MeshRenderer>();
+        mesh.material = hasPower? workingMat : notWorkingMat;
+    }
     public void Damage(float secondsToRepair)
     {
         hasPower = false;
         damageAmount= secondsToRepair;
+        mesh.material = hasPower ? workingMat : notWorkingMat;
     }
 
     public void Repair()
     {
         hasPower= true;
+        mesh.material = hasPower ? workingMat : notWorkingMat;
     }
 }

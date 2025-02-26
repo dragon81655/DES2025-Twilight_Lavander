@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: cure
   m_EditorClassIdentifier: 
-  id: 3
+  id: 0
   itemName: cure
   displayName: The Cure
   description: 'The cure for the Piranha Virus.
@@ -20,6 +20,7 @@ MonoBehaviour:
     Anyone who uses it becomes immune
     to the virus.'
   sprite: {fileID: 0}
+  droppedModel: {fileID: 3409236922969184938, guid: eb971ab565305a4429f9c29b60bf1b58, type: 3}
   maxAmount: 1
   isTickable: 0
   tags:
