@@ -15,7 +15,7 @@ public class CraftBase : ScriptableObject
     public List<CraftItem> inputs;
     public List<Item> outputs;
     public bool startUnlocked;
-    [HideInInspector]
+    //[HideInInspector]
     public bool unlocked;
 
 
@@ -51,7 +51,13 @@ public class CraftBase : ScriptableObject
         {
             foreach (CraftItem c in inputs)
                 controller.TakeItemAmount(c.item.id, c.amount);
-            return controller.AddItemRange(outputs);            
+            List<Item> toReturn = new List<Item>();
+            foreach (Item item in outputs)
+            {
+                toReturn.Add(new Item(item));
+            }
+            return controller.AddItemRange(toReturn);
+
         }
         return null;
     }

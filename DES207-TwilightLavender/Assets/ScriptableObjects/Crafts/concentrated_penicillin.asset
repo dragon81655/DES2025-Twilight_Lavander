@@ -26,7 +26,7 @@ MonoBehaviour:
     - cure_component
     attributes:
       list: []
-  startUnlocked: 1
+  startUnlocked: 0
   unlocked: 0
   tags:
   - cure_recipe

@@ -8,6 +8,12 @@ public class CraftingController : MonoBehaviour, IInteractable
 
     private InventoryController currentController;
     private List<CraftBase> availableRecipes;
+    private TemporaryCraftingUI craftUI;
+
+    private void Start()
+    {
+        craftUI= GetComponent<TemporaryCraftingUI>();
+    }
     public void Interact(GameObject source)
     {
         //Open UI window and add this as the current controller.
@@ -16,7 +22,7 @@ public class CraftingController : MonoBehaviour, IInteractable
         currentController = source.GetComponent<InventoryController>();
         if(currentController != null )
         {
-            TestUIManager.instance.craftUI.OpenMenu(this);
+            craftUI.Init(availableRecipes, source);
         }
         
     }
