@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EndGamePortal : MonoBehaviour, IInteractable
 {
@@ -8,6 +9,7 @@ public class EndGamePortal : MonoBehaviour, IInteractable
     [SerializeField] private Material openMat;
     [SerializeField] private Material closeMat;
 
+    [SerializeField] private UnityEvent onWin;
     private MeshRenderer mr;
     private bool state = false;
 
@@ -25,7 +27,7 @@ public class EndGamePortal : MonoBehaviour, IInteractable
 
     public void Interact(GameObject source)
     {
-        if (state)
-        Debug.Log("Human wins!");
+        if (state) onWin.Invoke();
+        
     }
 }

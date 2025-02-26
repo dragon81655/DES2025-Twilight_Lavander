@@ -8,7 +8,6 @@ public class GeneratorMiniGame : MinigameBase, IInteractorHandler
 
 
     [SerializeField] private bool isFinished = false;
-    [SerializeField] private bool success = false;
 
     private float totalTimer;
     private float timer;

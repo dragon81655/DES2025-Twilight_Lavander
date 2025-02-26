@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Devs/Miguel/Scenes/InventoryScene.unity
-    guid: 9d4d160b0d7ae7049bfc6f3cc08a5663
+    path: Assets/Scenes2/MainLevel.unity
+    guid: 245e6c1d8de022142bd9db834cabdad4
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

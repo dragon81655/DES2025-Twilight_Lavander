@@ -33,7 +33,6 @@ public class InteractionController : MonoBehaviour, IInteractorHandler
     private void OnTriggerEnter(Collider other)
     {
         IInteractable i = other.transform.GetComponent<IInteractable>();
-        Debug.Log("Try interact!");
         if(i != null )
         {
             interactables.Add(other.gameObject);
