@@ -35,6 +35,10 @@ public class Item
         return itemBase.itemName;
     }
     
+    public GameObject GetDroppedModel()
+    {
+        return itemBase.droppedModel;
+    }
     public Sprite GetItemSprite()
     {
         return itemBase.sprite;
@@ -157,7 +161,6 @@ public class Item
 
     private void UpdateOnItemBase(ItemBase itemBase)
     {
-        Debug.Log("Updated based on ItemBase");
         if (itemBase == null) return;
         this.itemBase = itemBase;
         this.displayName = itemBase.itemName;

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d009a1f5eead840ab09734d118f254, type: 3}
+  m_Name: LootTable1
+  m_EditorClassIdentifier: 
+  minAmountOfItemsToSpawn: 5
+  maxAmountOfItemsToSpawn: 7
+  items:
+  - itemBase: {fileID: 11400000, guid: f4aeb19896d3a494ebd95fa3ba0612e4, type: 2}
+    minAmount: 1
+    maxAmount: 2
+    spawnChance: 0.1
+  - itemBase: {fileID: 11400000, guid: 35ecece76cfb7ee48ba8de92cd8a7b37, type: 2}
+    minAmount: 5
+    maxAmount: 10
+    spawnChance: 0.1
+  chances: 0.2
