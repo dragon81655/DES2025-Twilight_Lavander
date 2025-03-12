@@ -28,8 +28,8 @@ public class EletricitySourceController : MonoBehaviour, IInteractable, IDamagea
             if (!hasPower)
             {
                 miniGameController.gameObject.SetActive(true);
-                miniGameController.Init(this, damageAmount, InputManager.instance.CheckObjectRole(source));
-                InputManager.instance.SwitchMiniGame(InputManager.instance.CheckObjectRole(source), miniGameController.gameObject);
+                miniGameController.Init(this, damageAmount, source);
+                //InputManager.instance.SwitchMiniGame(source, miniGameController.gameObject);
             }
             else Damage(interactionTotalDamage);
         }

@@ -5548,106 +5548,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: inventory.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: inventory.Array.data[1].amount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: inventory.Array.data[1].itemBase
-      value: 
-      objectReference: {fileID: 11400000, guid: f6d52d9c4a90382488ff9d0d4a0bc96f, type: 2}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: inventory.Array.data[1].displayName
-      value: cure
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'managedReferences[5123820442715947074]'
-      value: Assembly-CSharp EndGameAttribute
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'managedReferences[5123820442715947075]'
-      value: Assembly-CSharp DurabilityAttribute
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'managedReferences[5123820443107328112]'
-      value: Assembly-CSharp EndGameAttribute
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'managedReferences[5123820443107328113]'
-      value: Assembly-CSharp DurabilityAttribute
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: inventory.Array.data[1].tags.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'inventory.Array.data[1].tags.Array.data[0]'
-      value: consumable
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'inventory.Array.data[1].tags.Array.data[1]'
-      value: key_card_lvl2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'inventory.Array.data[1].tags.Array.data[2]'
-      value: key_card_lvl3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820442715947074].status
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820443107328112].status
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820442715947075].durability
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820443107328113].durability
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: inventory.Array.data[1].attributes.list.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820442715947074].attributeName
-      value: EndGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820442715947075].attributeName
-      value: Uses
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820442715947075].maxDurability
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820443107328112].attributeName
-      value: EndGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820443107328113].attributeName
-      value: Uses
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: managedReferences[5123820443107328113].maxDurability
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'inventory.Array.data[1].attributes.list.Array.data[0]'
-      value: 5123820443107328112
-      objectReference: {fileID: 0}
-    - target: {fileID: 2038174163891458009, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: 'inventory.Array.data[1].attributes.list.Array.data[1]'
-      value: 5123820443107328113
-      objectReference: {fileID: 0}
     - target: {fileID: 2333151730315855787, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.31
@@ -5696,10 +5596,6 @@ PrefabInstance:
       propertyPath: slotInfo
       value: 
       objectReference: {fileID: 1165676726}
-    - target: {fileID: 8433666200281705147, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: dropPrefab
-      value: 
-      objectReference: {fileID: 4763926099001232828, guid: f21ff231b3cf8004e8b7912f8b64363b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

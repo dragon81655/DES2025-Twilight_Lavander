@@ -342,6 +342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSlot: 0
+  dropPrefab: {fileID: 4763926099001232828, guid: f21ff231b3cf8004e8b7912f8b64363b, type: 3}
+  slotInfo: {fileID: 0}
 --- !u!1 &7039499013167171924
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class InputController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private string inputType;
+    [SerializeField] private GameObject controlling;
 
     private ICamAxisHandler cameraC;
     private IAxisHandler move;
@@ -23,6 +24,8 @@ public class InputController : MonoBehaviour
 
     public void SwitchTarget(GameObject target)
     {
+        Debug.Log("Attempt switch");
+        controlling = target;
         cameraC = target.GetComponent<ICamAxisHandler>();
         move = target.GetComponent<IAxisHandler>();
         use0= target.GetComponent<IUseable0>();

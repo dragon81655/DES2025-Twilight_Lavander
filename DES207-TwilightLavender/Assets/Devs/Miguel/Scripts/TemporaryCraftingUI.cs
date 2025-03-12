@@ -16,7 +16,7 @@ public class TemporaryCraftingUI : MonoBehaviour, IAxisHandler, IInteractorHandl
 
     public void Interact()
     {
-        InputManager.instance.SwitchMiniGame(InputManager.instance.CheckObjectRole(gameObject), gameObject);
+        //InputManager.instance.SwitchMiniGame(, gameObject);
         GameStateManager.instance.ContinueTimer();
         craftingCanvas.SetActive(false);
     }
@@ -40,7 +40,7 @@ public class TemporaryCraftingUI : MonoBehaviour, IAxisHandler, IInteractorHandl
     {
         craftingCanvas.SetActive(true);
         GameStateManager.instance.StopTimer();
-        InputManager.instance.SwitchMiniGame(InputManager.instance.CheckObjectRole(obj), gameObject);
+        //InputManager.instance.SwitchMiniGame(obj, gameObject);
         this.availableRecipes = availableRecipes;
         UpdateInformation();
     }

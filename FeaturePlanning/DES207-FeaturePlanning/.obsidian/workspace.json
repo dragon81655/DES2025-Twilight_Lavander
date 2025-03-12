@@ -22,6 +22,18 @@
             }
           },
           {
+            "id": "c3fbf7511e859b21",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.8.3"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.8.3"
+            }
+          },
+          {
             "id": "1a77193e660025fb",
             "type": "leaf",
             "state": {
@@ -35,7 +47,8 @@
               "title": "Crafting Manager"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -54,7 +67,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -176,7 +190,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "78c3d05830cbbfa9",
+  "active": "c3fbf7511e859b21",
   "lastOpenFiles": [
     "GameSystems/Inventory Manager.md",
     "GameSystems/Item.md",

@@ -7,13 +7,14 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager instance;
     [Header("PlayerData")]
-    [SerializeField] private PlayerInfo p1;
-    [SerializeField] private PlayerInfo p2;
+    [SerializeField] private PlayerInfo[] players;
 
     [Header("References")]
     [SerializeField] private GameObject humanBody;
     [SerializeField] private GameObject subconscious;
 
+    private bool lockChange = false;
+    private bool requestChange = false;
 
     private void Awake()
     {
@@ -23,88 +24,80 @@ public class InputManager : MonoBehaviour
     {
         //p1.inputDevice = InputDataStaticClass.player1Input;
         //p2.inputDevice = InputDataStaticClass.player2Input;
-
-        p1.UpdateController();
-        p2.UpdateController();
+        foreach(PlayerInfo player in players)
+        {
+            player.UpdateController();
+        }
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P)) SwitchChars();
-    }
-    public void SwitchChars()
-    {
+        if (Input.GetKeyDown(KeyCode.P)) requestChange = true;
 
-        //p1.currentlyControlled.Clear();
-        //p2.currentlyControlled.Clear();
-        if (p1.currentlyControlledType == ControllableObjects.Body)
+        if(requestChange)
         {
-            p1.currentlyControlledType = ControllableObjects.Subconscious;
-            p1.currentlyControlled = subconscious ;
-
-            p2.currentlyControlledType = ControllableObjects.Body;
-            p2.currentlyControlled = humanBody;
+            if (!lockChange)
+            {
+                requestChange = false;
+                SwitchChars();
+            }
         }
-        else
-        {
-            p1.currentlyControlledType = ControllableObjects.Body;
-            p1.currentlyControlled = humanBody;
-
-            p2.currentlyControlledType = ControllableObjects.Subconscious;
-            p2.currentlyControlled =subconscious ;
-        }
-        p1.UpdateController();
-        p2.UpdateController();
     }
 
-
-    public void SwitchMiniGame(bool human, GameObject miniGameController)
+    private void SwitchChars()
     {
-        if (human)
+        GameObject t = players[0].currentlyControlling;
+        players[0].currentlyControlling = players[1].currentlyControlling;
+        players[1].currentlyControlling = t;
+        foreach (PlayerInfo player in players)
         {
-            p1.currentlyControlled = p1.currentlyControlled == miniGameController ? TypeToController(p1.currentlyControlledType) : miniGameController;
-            p1.UpdateController() ;
+            player.UpdateController();
         }
-        else
-        {
-            p2.currentlyControlled = p2.currentlyControlled == miniGameController ? TypeToController(p2.currentlyControlledType) : miniGameController;
-            p2.UpdateController() ;
-        }
+    }
+    public void LockSwitch()
+    {
+        lockChange = true;
+    }
+    public void UnlockSwitch()
+    {
+        lockChange = false;
+    }
+    public void RequestSwitchChars()
+    {
+        requestChange= true;
 
     }
 
-    //If the object returns true, it's the human, otherwise it's the virus
-    public bool CheckObjectRole(GameObject obj)
+    public void UpdateCurrentlyControlled(GameObject source, GameObject newControllable)
     {
-        return obj == p1.currentlyControlled;
+        foreach(PlayerInfo target in players)
+        {
+            if(target.currentlyControlling == source)
+            {
+                target.currentlyControlling = newControllable;
+                target.UpdateController();
+                Debug.Log("Updated controllers!");
+                return;
+            }
+        }
     }
 
-    private GameObject TypeToController(ControllableObjects currentObject)
+    public bool isVirus(GameObject target)
     {
-        if (currentObject == ControllableObjects.Body) return humanBody;
-        else return subconscious;
+        return target == players[1].currentlyControlling;
     }
 }
 
 [Serializable]
 public class PlayerInfo
 {
-    
-
-    public bool isHuman;
     public string inputDevice;
     public InputController inputController;
-    public GameObject currentlyControlled;
-    public ControllableObjects currentlyControlledType;
+    public GameObject currentlyControlling;
+    //public Stack<BaseActivityController> currentlyControlled = new Stack<BaseActivityController>();
 
     public void UpdateController()
     {
         inputController.SetInputType(inputDevice);
-        inputController.SwitchTarget(currentlyControlled);
+        inputController.SwitchTarget(currentlyControlling);
     }
-    
-}
-public enum ControllableObjects
-{
-    Body = 0,
-    Subconscious
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BodyController : MonoBehaviour, IAxisHandler
 {
-    [SerializeField] private float playerSpeed;
+    public float playerSpeed;
     [SerializeField] private Camera cam;
     
     private Rigidbody rb;

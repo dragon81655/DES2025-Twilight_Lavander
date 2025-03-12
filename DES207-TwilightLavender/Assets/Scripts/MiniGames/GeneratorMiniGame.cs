@@ -2,77 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneratorMiniGame : MinigameBase, IInteractorHandler
+public class GeneratorMiniGame : BaseActivityController
 {
-    [SerializeField] private List<MinigameBase> possibleGames;
-
-
-    [SerializeField] private bool isFinished = false;
-
-    private float totalTimer;
-    private float timer;
-    private float nextMiniGameTimer;
-
-    private bool runTimer = false;
-
-    public void Damage(float time)
+    public override GameObject GetControllable(MiniGameController source)
     {
-        totalTimer = time;
+        throw new System.NotImplementedException();
     }
 
-    public override bool Finish(object param)
+    public override void Init(MiniGameController source)
     {
-        return isFinished;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnFinish()
     {
-        if (runTimer)
-        {
-            timer -= Time.deltaTime;
-            nextMiniGameTimer= -Time.time;
-            if (timer <= 0)
-            {
-                runTimer = false;
-                InputManager.instance.SwitchMiniGame(gameObject, gameObject);
-            }
-            if (nextMiniGameTimer <= 0)
-            {
-                runTimer = false;
-                //Minigame code here
-            }
-            
-        }
-    }
-
-    private void NextMiniGameRandomizer()
-    {
-
-    }
-
-    public void AddToTimer(float time)
-    {
-        timer += time;
-    }
-
-    public void Interact()
-    {
-        runTimer = false;
-        InputManager.instance.SwitchMiniGame(gameObject, gameObject);
-    }
-
-    public override void Init(GameObject creator, object param)
-    {
-        timer = totalTimer;
-        runTimer = true;
     }
 
     public override void Pause()
     {
     }
 
-    public override void Resume()
+    public override void Resume(int result)
     {
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
