@@ -20,7 +20,6 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI HumanWinsText; // grabbing human wins text
     public Image AbilityDown; // grabbing ability
     public TextMeshProUGUI InteractText; // grabbing interact text
-    public GameObject hbHolder; // grabbing hotbar
 
     // Takeover Timer Settings
 
@@ -42,7 +41,6 @@ public class UIController : MonoBehaviour
 
     ProxInteraction ProxInteractionScript; // calling other script
     InventoryController invController; // calling inventory controller
-    HotbarManager hotbarManager; // calling hotbar controller
 
     // Start is called before the first frame update
     void Start()
@@ -58,12 +56,6 @@ public class UIController : MonoBehaviour
 
         ProxInteractionScript = GameObject.FindGameObjectWithTag("uiTag").GetComponent<ProxInteraction>(); // calling interaction script
         invController = GetComponent<InventoryController>(); // calling inventory script
-        hotbarManager = GameObject.FindGameObjectWithTag("Player").GetComponent<HotbarManager>();
-
-        if (hotbarManager == null)
-        {
-            Debug.LogError("HotbarManager reference is missing!");
-        }
     }
 
     // Update is called once per frame
@@ -110,9 +102,6 @@ public class UIController : MonoBehaviour
             InteractText.gameObject.SetActive(false);
             MenuOpen = false;
         }
-
-        hotbarManager.SlotManager(); // calling slot manager from hotbar manager
-
     }
 
     void VirusWins() // function for Virus win state
