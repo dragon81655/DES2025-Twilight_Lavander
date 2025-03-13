@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.Callbacks;
-using Unity.VisualScripting;
-using System.Threading;
 
 public class InventoryManager : MonoBehaviour
 {

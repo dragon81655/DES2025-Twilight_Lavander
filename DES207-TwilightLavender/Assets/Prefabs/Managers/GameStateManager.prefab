@@ -44,3 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2cdbcb332a67349be52901683ea553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  switchTimer: 10
+  endGameTimer: 30
+  onHumanWin:
+    m_PersistentCalls:
+      m_Calls: []
+  onVirusWin:
+    m_PersistentCalls:
+      m_Calls: []
+  onSwitch:
+    m_PersistentCalls:
+      m_Calls: []

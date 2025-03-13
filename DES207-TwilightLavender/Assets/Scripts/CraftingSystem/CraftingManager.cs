@@ -12,10 +12,19 @@ public class CraftingManager : MonoBehaviour
     {
         instance= this;
         CleanRegistry();
+    }
+    private void Start()
+    {
+        foreach(CraftBase craft in craftRegistry)
+        {
+            craft.Init();
+        }
         CheckUnlockedCrafts();
     }
     public void CheckUnlockedCrafts()
     {
+        if(unlockedCrafts== null) unlockedCrafts= new List<CraftBase>();
+        unlockedCrafts.Clear();
         foreach (CraftBase c in craftRegistry)
         {
             if (c != null)

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestInteractionInventory : MonoBehaviour, ITestInteractable
+public class InteractionInventory : MonoBehaviour, IInteractable
 {
     InventoryController inventoryController;
     public void Interact(GameObject source)

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: penicillin_salt
   m_EditorClassIdentifier: 
-  id: 0
+  id: 4
   itemName: penicillin_salt
   displayName: Penicillin Salt
   description: A more concentrated form of Piranha virus penicillin.
   sprite: {fileID: 21300000, guid: fafce2931a32e98438bfae7a4c596b5f, type: 3}
+  droppedModel: {fileID: 2307809401307310518, guid: 62d25a2eb235c254795034392d95f618, type: 3}
   maxAmount: 64
   isTickable: 0
   tags:
