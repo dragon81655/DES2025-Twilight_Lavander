@@ -7,7 +7,7 @@ public class HotbarCTRL : MonoBehaviour
     public InventoryController inventoryController; // getting inventory script
     public GameObject hotbarSlotPrefab; // getting slot prefab
     public Transform hotbarContainer; // getting hotbar container
-    private List<GameObject> hotbarSlots = new List<GameObject>(); // list of slots
+    public List<GameObject> hotbarSlots = new List<GameObject>(); // list of slots
 
     void Update()
     {
@@ -16,17 +16,11 @@ public class HotbarCTRL : MonoBehaviour
 
     void RefreshHotbar() // function for keeping hotbar up to date
     {
-        foreach (GameObject slot in hotbarSlots) // for every slot in hotbar
-        {
-            Destroy(slot); // destroy the slot
-        }
-        hotbarSlots.Clear(); // clear slot total
-
         List<Item> items = inventoryController.GetInventoryCopy(); // grabbing current inventory
 
         int slotsToCreate = Mathf.Min(items.Count, inventoryController.GetSlotAmount()); // grabbing slot amount and limiting total slots
 
-        for (int i = 0; i < slotsToCreate; i++) // creating new slots
+        for (int i = 0; i < slotsToCreate; i++) // iterate over inventory items
         {
             Item item = items[i];
 
@@ -35,14 +29,33 @@ public class HotbarCTRL : MonoBehaviour
                 continue; // do not create a slot for this item
             }
 
-            GameObject newSlot = Instantiate(hotbarSlotPrefab, hotbarContainer); // create new slot
-            HotbarSlot slotComponent = newSlot.GetComponent<HotbarSlot>(); // get slot details
-
-            if (slotComponent != null) // if slot details empty
+            if (i < hotbarSlots.Count) // If a slot exists for this index, update it
             {
-                slotComponent.Initialize(item); // call function for replacing slot info from HotbarSlot script
-                hotbarSlots.Add(newSlot); // add new slot
+                HotbarSlot slotComponent = hotbarSlots[i].GetComponent<HotbarSlot>();
+                if (slotComponent != null)
+                {
+                    slotComponent.Initialize(item); // update existing slot with new item info
+                }
+            }
+            else // if no slot exists create one
+            {
+                GameObject newSlot = Instantiate(hotbarSlotPrefab, hotbarContainer); // create new slot
+                HotbarSlot slotComponent = newSlot.GetComponent<HotbarSlot>(); // get slot details
+
+                if (slotComponent != null) // if slot details empty
+                {
+                    slotComponent.Initialize(item); // initialize the slot with item data
+                    hotbarSlots.Add(newSlot); // add new slot
+                }
             }
         }
+
+        for (int i = slotsToCreate; i < hotbarSlots.Count; i++) // remove any extra slots
+        {
+            Destroy(hotbarSlots[i]); // destroy the excess slot
+        }
+
+        
+        hotbarSlots.RemoveRange(slotsToCreate, hotbarSlots.Count - slotsToCreate);
     }
 }

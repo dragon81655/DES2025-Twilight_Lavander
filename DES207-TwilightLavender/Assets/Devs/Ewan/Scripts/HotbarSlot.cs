@@ -7,6 +7,8 @@ public class HotbarSlot : MonoBehaviour
 {
     public Text itemQuantity; // grabbing item quantity
     public Text itemName; // grabbing item name
+    public Image itemSprite; // grabbing slot image
+    public Image slotBG; // grabbing slot background
 
     private Item item;
 
@@ -19,6 +21,19 @@ public class HotbarSlot : MonoBehaviour
     public void UpdateSlot(Item updatedItem) // updating the slot with relevant info (quantity, name, sprite)
     {
         itemQuantity.text = updatedItem.GetAmount().ToString(); // returning the item amount as a string
-        itemName.text = updatedItem.GetItemName().ToString(); // returning the item name as a string
+        itemName.text = updatedItem.GetDisplayName(); // returning the item name as a string
+        itemSprite.sprite = updatedItem.GetItemSprite(); // getting item image
+    }
+
+    public void SetSelected(bool isSelected) // indicator to show if the slot is selected in the hotbar
+    {
+        if (isSelected) // if selected
+        {
+            slotBG.color = new Color(0.2f, 0.2f, 0.2f); // darken slot background
+        }
+        else
+        {
+            slotBG.color = new Color(0.5f, 0.5f, 0.5f); // else back to original colour
+        }
     }
 }
