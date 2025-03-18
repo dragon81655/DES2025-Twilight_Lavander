@@ -31,7 +31,7 @@ public class DemoMultiPlayerMinigame : BaseActivityController
 
     }
 
-    public override void Init(MiniGameController source)
+    public override void Init(MiniGameController source, IMiniGameDependent objs)
     {
         creator = source;
         GameStateManager.instance.PauseSwitchTimer();

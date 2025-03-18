@@ -55,7 +55,7 @@ public class HiveMindUIController : BaseActivityController, IInteractorHandler, 
         return gameObject;
     }
 
-    public override void Init(MiniGameController source)
+    public override void Init(MiniGameController source, IMiniGameDependent objs)
     {
         InputManager.instance.LockSwitch();
         this.source = source;

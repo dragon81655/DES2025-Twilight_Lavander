@@ -12,7 +12,7 @@ public class HiveMindActivator : MonoBehaviour, IHiveMindSummoner
         Debug.Log("Summon!");
         HiveMindUIController t = Instantiate(prefabMenu, canvas).GetComponent<HiveMindUIController>();
         miniGameController.AddMiniGame(t);
-        t.Init(miniGameController);
+        t.Init(miniGameController, null);
     }
 
     private void Start()

@@ -29,11 +29,9 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
         return gameObject;
     }
 
-    public override void Init(MiniGameController source)
+    public override void Init(MiniGameController source, IMiniGameDependent objs)
     {
         this.source = source;
-        InputManager.instance.LockSwitch();
-
     }
 
     public void Interact()
@@ -47,7 +45,6 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
     public override void OnFinish()
     {
         source.OnFinishMiniGame(result);
-        InputManager.instance.UnlockSwitch();
         //TEMPORARY
         if (alterTime) {
             if ((InputManager.instance.isVirusWithBase(source.gameObject) && InputManager.instance.isVirusOnBody()) || (!InputManager.instance.isVirusWithBase(source.gameObject) && !InputManager.instance.isVirusOnBody()))

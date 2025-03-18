@@ -27,7 +27,7 @@ public class CastMinigameAbility : HiveMindAbility
             int toCast = UnityEngine.Random.Range(0, (int) availableMinigames.Count);
             BaseActivityController t = GameObject.Instantiate(availableMinigames[toCast].controller, availableMinigames[toCast].parent);
             this.controller.AddMiniGame(t);
-            t.Init(this.controller);
+            t.Init(this.controller, null);
             controller.StartCoroutine(Cooldown());
             return true;
         }

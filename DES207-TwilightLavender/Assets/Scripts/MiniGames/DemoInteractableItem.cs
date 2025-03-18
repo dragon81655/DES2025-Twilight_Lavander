@@ -12,7 +12,7 @@ public class DemoInteractableItem : MonoBehaviour, IInteractable
         if (mg != null)
         {
             MiniGameController mgc = source.GetComponent<MiniGameController>();
-            mg.Init(mgc);
+            mg.Init(mgc, null);
 
             mgc.AddMiniGame(mg);
             GameObject.Find("Subconscious").GetComponent<MiniGameController>().AddMiniGame(mg);
