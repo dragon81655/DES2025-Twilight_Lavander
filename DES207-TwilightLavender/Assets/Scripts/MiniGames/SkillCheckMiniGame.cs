@@ -16,8 +16,14 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
     [SerializeField] private Quaternion endVal;
     [SerializeField] private float speed;
 
+    [Header("Rewards")]
+    [SerializeField] private float timeToAdd;
+    [SerializeField] private float timeToLose;
+    [SerializeField] private bool alterTime;
+
     bool goingBack = false;
-    private Vector2 successRange= Vector2.zero;
+    [SerializeField]
+    private Vector2 successRange;
     public override GameObject GetControllable(MiniGameController source)
     {
         return gameObject;
@@ -33,8 +39,8 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
     public void Interact()
     {
         result = 0;
-        float angle = needle.transform.localRotation.eulerAngles.z / 180;
-        result = (angle > successRange.x && angle < successRange.y) ? 1 : 0;
+        float angle = needle.transform.localRotation.eulerAngles.z;
+        result = (angle < successRange.x || angle > successRange.y) ? 1 : 0;
         OnFinish();
     }
 
@@ -42,6 +48,25 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
     {
         source.OnFinishMiniGame(result);
         InputManager.instance.UnlockSwitch();
+        //TEMPORARY
+        if (alterTime) {
+            if ((InputManager.instance.isVirusWithBase(source.gameObject) && InputManager.instance.isVirusOnBody()) || (!InputManager.instance.isVirusWithBase(source.gameObject) && !InputManager.instance.isVirusOnBody()))
+            {
+                if (result == 1)
+                {
+                    GameStateManager.instance.AddSwitchTimer(timeToAdd);
+                }
+                else GameStateManager.instance.TakeSwitchTimer(timeToLose);
+            }
+            else if((!InputManager.instance.isVirusWithBase(source.gameObject) && InputManager.instance.isVirusOnBody()) || (InputManager.instance.isVirusWithBase(source.gameObject) && !InputManager.instance.isVirusOnBody()))
+            {
+                if (result == 1)
+                {
+                    GameStateManager.instance.TakeSwitchTimer(timeToLose);
+                }
+                else GameStateManager.instance.AddSwitchTimer(timeToAdd);
+            }
+        }
         Destroy(gameObject);
     }
 
@@ -53,10 +78,20 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
     {
     }
 
+    private void Start()
+    {
+        Debug.Log(needle.transform.localRotation.ToString());
+    }
+
     private void Update()
     {
         needle.transform.rotation = Quaternion.Lerp(needle.transform.localRotation, goingBack ? baseVal : endVal, speed * Time.deltaTime);
-        if (needle.transform.localRotation.Equals(goingBack ? baseVal : endVal)) goingBack = !goingBack;
+        if(Mathf.Abs(needle.transform.localRotation.z - (goingBack ? baseVal : endVal).z) < 0.05f) goingBack = !goingBack;
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Interact();
+        }
     }
         
 }

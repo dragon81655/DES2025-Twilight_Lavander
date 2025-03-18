@@ -8,11 +8,18 @@ public class HiveMindController : MonoBehaviour
     [SerializeField]
     private List<HiveMindAbility> hiveMindAbilities;
     [SerializeField]
+    private List<MinigamesToSpawn> minigamesToSpawn;
+
+    [SerializeField]
     private bool isHuman;
 
     private void Awake()
     {
         if (hiveMindAbilities == null) hiveMindAbilities = new List<HiveMindAbility>();
+        if(minigamesToSpawn != null && minigamesToSpawn.Count > 0)
+        {
+            hiveMindAbilities.Add(new CastMinigameAbility(minigamesToSpawn, 10));
+        }
         if (hiveMindAbilities != null && hiveMindAbilities.Count > 0)
         {
             foreach (HiveMindAbility ab in hiveMindAbilities)

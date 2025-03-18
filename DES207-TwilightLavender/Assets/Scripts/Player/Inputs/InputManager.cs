@@ -115,6 +115,11 @@ public class InputManager : MonoBehaviour
         return target == players[1].baseControlling;
 
     }
+    public bool isVirusOnBody()
+    {
+        return humanBody == players[1].baseControlling;
+
+    }
 }
 
 [Serializable]

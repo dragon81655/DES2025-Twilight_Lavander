@@ -45,10 +45,5 @@ public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSumm
 
     public void Notify()
     {
-        if (t)
-            cameraSensibility /= 4;
-        else
-            cameraSensibility *= 4;
-        t = !t;
     }
 }

@@ -10,6 +10,7 @@ public class GameStateManager : MonoBehaviour
 
     [Header("Timers")]
     [SerializeField] private float switchTimer;
+    [SerializeField]
     private float currentSwitchTimer;
 
     [SerializeField] private float endGameTimer;
