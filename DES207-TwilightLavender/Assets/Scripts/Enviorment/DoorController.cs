@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorController : MonoBehaviour, IInteractable
+public class DoorController : MonoBehaviour, IInteractable, IUnlockable
 {
     // Start is called before the first frame update
     [Header("Open parameters!")]
@@ -92,5 +92,11 @@ public class DoorController : MonoBehaviour, IInteractable
             if(transform.localPosition != closePos)
                 transform.localPosition = Vector3.Lerp(transform.localPosition, closePos, Time.deltaTime * doorSpeed);
         }
+    }
+
+    public void Unlock()
+    {
+        if ((controller != null && controller.HasPower()) || controller == null) return;
+        OpenDoor();
     }
 }

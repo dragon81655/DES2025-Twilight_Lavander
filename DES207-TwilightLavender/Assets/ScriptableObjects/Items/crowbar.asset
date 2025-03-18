@@ -17,8 +17,8 @@ MonoBehaviour:
   displayName: Crowbar
   description: A crowbar to open doors or locks. Well the lab doors might be too
     heavy, but maybe this item still might have a destructive porpuse.
-  sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  droppedModel: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 7b7c31ffdd9a31a4a8e4352b13135e34, type: 3}
+  droppedModel: {fileID: 919132149155446097, guid: 0b81b9beef0eb9844a3d8f5796701891, type: 3}
   maxAmount: 1
   isTickable: 0
   tags:
@@ -26,12 +26,17 @@ MonoBehaviour:
   attributes:
     list:
     - rid: 5123820400316514419
+    - rid: 1544201830156730573
   references:
     version: 2
     RefIds:
+    - rid: 1544201830156730573
+      type: {class: KeyAttribute, ns: , asm: Assembly-CSharp}
+      data:
+        attributeName: ForceOpener
     - rid: 5123820400316514419
       type: {class: DurabilityAttribute, ns: , asm: Assembly-CSharp}
       data:
         attributeName: durability
-        durability: 10
-        maxDurability: 10
+        durability: 3
+        maxDurability: 3

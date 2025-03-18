@@ -30,6 +30,11 @@ public class InteractionController : MonoBehaviour, IInteractorHandler
         return toInteract.GetComponent<IInteractable>();
     }
 
+    public IEnumerable<GameObject> GetInteractables()
+    {
+        return interactables;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         IInteractable i = other.transform.GetComponent<IInteractable>();
