@@ -99,6 +99,16 @@ public class GameStateManager : MonoBehaviour
             Debug.Log("Tough luck, you both suck!");
         }
     }
+
+    public float GetCurrentSwitchTimer() // for UI depletion bar
+    {
+        return currentSwitchTimer;
+    }
+
+    public float GetSwitchTimer() // for UI depletion bar
+    {
+        return switchTimer;
+    }
 }
 
 [Serializable]

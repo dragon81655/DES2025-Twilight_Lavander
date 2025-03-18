@@ -23,8 +23,8 @@ public class UIController : MonoBehaviour
 
     // Takeover Timer Settings
 
-    public float DepletionTime; // time taken for the bar to deplete
-    public float CurrentTime; // track time remaining
+    private float switchTimerB; // getting time limit for bar
+    private float switchTimerValueB; // getting time remaining for bar
 
     // Ability Timer Settings
 
@@ -47,7 +47,6 @@ public class UIController : MonoBehaviour
     void Start()
 
     {
-        CurrentTime = DepletionTime; // for takeover timer
         CurrentCD = 0f; // setting ability CD to 0 at start
         ActiveCD = false; // making sure input isnt locked out from start
 
@@ -57,19 +56,34 @@ public class UIController : MonoBehaviour
 
         ProxInteractionScript = GameObject.FindGameObjectWithTag("uiTag").GetComponent<ProxInteraction>(); // calling interaction script
         invController = GetComponent<InventoryController>(); // calling inventory script
+
+        float switchTimerB = GameStateManager.instance.GetSwitchTimer(); // setting switch timer to gamestatemanager declared value
+        Debug.Log("Switch Timer: " + switchTimerB); // for testing
+
+        float switchTimerValueB = GameStateManager.instance.GetCurrentSwitchTimer(); // setting current switch timer to gamestatemanager declared value
+        Debug.Log("Current Switch Timer: " + switchTimerValueB); // for testing
     }
 
     // Update is called once per frame
     void Update()
 
     {
-        if (CurrentTime > 0) // for takeover timer
-            CurrentTime -= Time.deltaTime;
-        Bar.fillAmount = CurrentTime / DepletionTime; // calculating bar depletion rate
+        float switchTimerValueB = GameStateManager.instance.GetCurrentSwitchTimer(); // updating current switch time for bar
+        float switchTimerB = GameStateManager.instance.GetSwitchTimer(); // updating total time for bar
 
-        int minutes = Mathf.FloorToInt(CurrentTime / 60); // get whole minutes
-        int seconds = Mathf.FloorToInt(CurrentTime % 60); // get remaining seconds
-        TimerText.text = $"{minutes:00}:{seconds:00}"; // converting to mm:ss
+        if (switchTimerValueB > 0) // if timer is above 0s
+        {
+            Bar.fillAmount = switchTimerValueB / switchTimerB; // start bar drain
+        }
+        else
+        {
+            Bar.fillAmount = 0; // set to zero
+        }
+
+        int minutes = Mathf.FloorToInt(switchTimerValueB / 60); // converting to mm:ss
+        int seconds = Mathf.FloorToInt(switchTimerValueB % 60); // converting to mm:ss
+        TimerText.text = $"{minutes:00}:{seconds:00}"; // displaying timer in mm:ss
+        Debug.Log("Current Switch Timer: " + switchTimerValueB); // for testing
 
         if (CurrentCD > 0) // for ability timer
             CurrentCD -= Time.deltaTime;
@@ -83,9 +97,6 @@ public class UIController : MonoBehaviour
     private void FixedUpdate()
 
     {
-        if (CurrentTime < 1) // check if time is out
-            Invoke("VirusWins", 0.8f); // call virus win state after delay
-
         if (Input.GetKeyDown(KeyCode.F) && !ActiveCD) // if F key is pressed
             AbilityUsed(); // call ability use function
 
