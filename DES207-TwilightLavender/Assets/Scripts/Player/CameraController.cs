@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour, ICamAxisHandler
+public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSummoner
 {
     [SerializeField] private float cameraSensibility;
     [SerializeField] private float maxOffSet;
@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour, ICamAxisHandler
 
     private float distance;
 
+    bool t = true;
     public void MoveCam(float x, float y)
     {
         v = new Vector2(-x, y);
@@ -40,5 +41,14 @@ public class CameraController : MonoBehaviour, ICamAxisHandler
     {
         Vector3 toReturn = (cameraRef.transform.position - cameraLookRef.transform.position).normalized * distance;
         return toReturn;
+    }
+
+    public void Notify()
+    {
+        if (t)
+            cameraSensibility /= 4;
+        else
+            cameraSensibility *= 4;
+        t = !t;
     }
 }

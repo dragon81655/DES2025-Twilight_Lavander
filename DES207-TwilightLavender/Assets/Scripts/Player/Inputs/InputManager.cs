@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class InputManager : MonoBehaviour
 {
     public static InputManager instance;
+    [SerializeField] private UnityEvent onSwitch;
+    [SerializeField] private UnityEvent onSwitchRequest;
+
     [Header("PlayerData")]
     [SerializeField] private PlayerInfo[] players;
 
@@ -27,6 +31,7 @@ public class InputManager : MonoBehaviour
         foreach(PlayerInfo player in players)
         {
             player.UpdateController();
+            player.baseControlling = player.currentlyControlling;
         }
     }
     private void Update()
@@ -48,10 +53,15 @@ public class InputManager : MonoBehaviour
         GameObject t = players[0].currentlyControlling;
         players[0].currentlyControlling = players[1].currentlyControlling;
         players[1].currentlyControlling = t;
+
+        GameObject t2 = players[0].baseControlling;
+        players[0].baseControlling = players[1].baseControlling;
+        players[1].baseControlling = t;
         foreach (PlayerInfo player in players)
         {
             player.UpdateController();
         }
+        onSwitch.Invoke();
     }
     public void LockSwitch()
     {
@@ -64,6 +74,7 @@ public class InputManager : MonoBehaviour
     public void RequestSwitchChars()
     {
         requestChange= true;
+        onSwitchRequest.Invoke();
 
     }
 
@@ -81,9 +92,28 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    public bool isVirus(GameObject target)
+    public string GetInputType(GameObject target)
+    {
+        foreach (PlayerInfo player in players)
+        {
+            if(player.currentlyControlling == target)
+            {
+                return player.inputDevice;
+            }
+        }
+        Debug.LogError("Tried to obtain the input device of a non bound object");
+        return "";
+    }
+
+    public bool isVirusWithCurrent(GameObject target)
     {
         return target == players[1].currentlyControlling;
+    }
+
+    public bool isVirusWithBase(GameObject target)
+    {
+        return target == players[1].baseControlling;
+
     }
 }
 
@@ -93,7 +123,7 @@ public class PlayerInfo
     public string inputDevice;
     public InputController inputController;
     public GameObject currentlyControlling;
-    //public Stack<BaseActivityController> currentlyControlled = new Stack<BaseActivityController>();
+    public GameObject baseControlling;
 
     public void UpdateController()
     {

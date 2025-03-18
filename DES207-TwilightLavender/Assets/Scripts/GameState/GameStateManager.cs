@@ -19,7 +19,6 @@ public class GameStateManager : MonoBehaviour
     [Header("Events")]
     [SerializeField] private UnityEvent onHumanWin; 
     [SerializeField] private UnityEvent onVirusWin; 
-    [SerializeField] private UnityEvent onSwitch; 
     private bool runTimer = false;
     private bool switchTimerCheck = false;
     private void Awake()

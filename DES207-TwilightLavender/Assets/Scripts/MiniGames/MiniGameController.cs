@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 
@@ -8,6 +9,7 @@ public class MiniGameController : MonoBehaviour
 {
     private Stack<BaseActivityController> controllers = new Stack<BaseActivityController>();
 
+    [SerializeField] private UnityEvent onChangedMinigame;
     public void AddMiniGame(BaseActivityController controller)
     {
         if (controllers.Count > 0 && controllers.Peek() == controller)
@@ -15,9 +17,9 @@ public class MiniGameController : MonoBehaviour
             Debug.LogError("Sweet lord of stupidity, ask Miguel for help NOW! You just tried to add the same minigame instance TWICE to the stack you moron!");
             return;
         }
-
         InputManager.instance.UpdateCurrentlyControlled(controllers.Count > 0 ? controllers.Peek().GetControllable(this) : gameObject, controller.GetControllable(this));
         controllers.Push(controller);
+        onChangedMinigame.Invoke();
     }
 
     public void OnFinishMiniGame(int result)

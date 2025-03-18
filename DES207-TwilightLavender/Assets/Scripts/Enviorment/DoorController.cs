@@ -9,6 +9,8 @@ public class DoorController : MonoBehaviour, IInteractable
     [SerializeField] private EletricitySourceController controller;
     [Tooltip("If the door doesn't require a key")]
     [SerializeField] private string doorTag;
+    [SerializeField] private bool isVoiceActivated;
+    [SerializeField] private bool isHiveMindActivated;
 
     [Header("Door configs")]
     [SerializeField] private bool canOpenWithInteraction;
@@ -18,6 +20,10 @@ public class DoorController : MonoBehaviour, IInteractable
     private bool doorOpen;
     private float currentTime;
 
+    [Header("Door details")]
+    public string doorName;
+    [TextArea(2, 3)]
+    public string doorDesc;
 
     private Vector3 closePos;
     private Vector3 openPos;
@@ -43,10 +49,32 @@ public class DoorController : MonoBehaviour, IInteractable
 
     }
 
+    public int AttemptDoorOpeningByHiveMind(bool human)
+    {
+        if (controller != null && !controller.HasPower()) return 0; //No Power
+        if (!IsControllable(human)) return 1; //It's not hive mind controllable
+        OpenDoor();
+        return 2; //Success
+    }
+
+    public bool IsControllable(bool human)
+    {
+        return (human && isVoiceActivated) || (!human && isHiveMindActivated);
+    }
     public void OpenDoor()
     {
         doorOpen = true;
         currentTime = timeRemainingOpen;
+    }
+
+    public string GetDoorName()
+    {
+        return doorName;
+    }
+
+    public string GetDoorDesc()
+    {
+        return doorDesc;
     }
 
     private void Update()

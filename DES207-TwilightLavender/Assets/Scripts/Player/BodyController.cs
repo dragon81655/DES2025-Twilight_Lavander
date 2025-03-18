@@ -10,7 +10,10 @@ public class BodyController : MonoBehaviour, IAxisHandler
     private Rigidbody rb;
     private Vector3 dir;
    
-
+    public void StopPlayer()
+    {
+        dir = Vector3.zero;
+    }
     public void Move(float x, float y)
     {
         Vector3 lookAt = Vector3.zero;

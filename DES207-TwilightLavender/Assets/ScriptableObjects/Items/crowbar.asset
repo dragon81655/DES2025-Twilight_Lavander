@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: crowbar
   m_EditorClassIdentifier: 
-  id: 0
+  id: 11
   itemName: crowbar
   displayName: Crowbar
   description: A crowbar to open doors or locks. Well the lab doors might be too
     heavy, but maybe this item still might have a destructive porpuse.
   sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  droppedModel: {fileID: 0}
   maxAmount: 1
   isTickable: 0
   tags:

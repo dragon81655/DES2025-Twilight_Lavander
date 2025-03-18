@@ -14,6 +14,7 @@ public class InputController : MonoBehaviour
     private IUsable1 use1;
     private IInteractorHandler interactor;
     private IDropHandler drop;
+    private IHiveMindSummoner hiveMindSummoner;
 
     public string GetInputType()
     {
@@ -32,6 +33,16 @@ public class InputController : MonoBehaviour
         use1= target.GetComponent<IUsable1>();
         interactor = target.GetComponent<IInteractorHandler>();
         drop = target.GetComponent<IDropHandler>();
+        hiveMindSummoner = target.GetComponent<IHiveMindSummoner>();
+
+        IInputChangeSummoner[] inputChangeSummoner = target.GetComponents<IInputChangeSummoner>();
+        if(inputChangeSummoner != null)
+        {
+            foreach(IInputChangeSummoner i in inputChangeSummoner)
+            {
+                i.Notify();
+            }
+        }
     }
     private void Start()
     {
@@ -91,6 +102,13 @@ public class InputController : MonoBehaviour
                 {
                     Debug.Log("Drop!");
                     drop.Drop();
+                }
+            }
+            if (hiveMindSummoner != null)
+            {
+                if (Input.GetButtonDown("OpenHiveMind" + inputType))
+                {
+                    hiveMindSummoner.Summon();
                 }
             }
         }
