@@ -39,8 +39,9 @@ public class UIController : MonoBehaviour
 
     // Other Scripts
 
-    ProxInteraction ProxInteractionScript; // calling other script
-    InventoryController invController; // calling inventory controller
+    ProxInteraction ProxInteractionScript; // calling prox interaction script
+    InventoryController invController; // calling inventory controller script
+    public GameStateManager GameStateManager; // grabbing game state manager script
 
     // Start is called before the first frame update
     void Start()
