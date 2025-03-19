@@ -83,7 +83,7 @@ public class UIController : MonoBehaviour
         int minutes = Mathf.FloorToInt(switchTimerValueB / 60); // converting to mm:ss
         int seconds = Mathf.FloorToInt(switchTimerValueB % 60); // converting to mm:ss
         TimerText.text = $"{minutes:00}:{seconds:00}"; // displaying timer in mm:ss
-        Debug.Log("Current Switch Timer: " + switchTimerValueB); // for testing
+        // Debug.Log("Current Switch Timer: " + switchTimerValueB); // FOR TESTING
 
         if (CurrentCD > 0) // for ability timer
             CurrentCD -= Time.deltaTime;
