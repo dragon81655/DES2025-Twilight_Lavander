@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndGamePortal : MonoBehaviour, ITestInteractable
+public class EndGamePortal : MonoBehaviour, IInteractable
 {
     // Start is called before the first frame update
     [SerializeField] private Material openMat;

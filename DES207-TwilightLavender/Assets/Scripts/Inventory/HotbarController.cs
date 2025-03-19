@@ -15,6 +15,9 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler
     [SerializeField]
     private TextMeshProUGUI slotInfo;
 
+    [SerializeField]
+    private HotbarSelector selector;
+
     float timer = 1;
     void Start()
     {
@@ -40,12 +43,7 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler
     {
         if(ic != null)
         {
-            int mouse = (int)Input.mouseScrollDelta.y;
-            if (mouse != 0)
-            {
-                currentSlot = Mathf.Clamp(currentSlot + mouse, 0, ic.GetSlotAmount() - 1);
-                UpdateSlotUI();
-            }
+            currentSlot = selector.selectedIndex;
 
             timer-= Time.deltaTime;
             if(timer <= 0)

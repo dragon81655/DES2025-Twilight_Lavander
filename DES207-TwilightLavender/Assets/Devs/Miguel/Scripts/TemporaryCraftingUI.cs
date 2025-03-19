@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
-public class TemporaryCraftingUI : MonoBehaviour, IAxisHandler, IInteractorHandler, IUsable1
+public class TemporaryCraftingUI : BaseActivityController, IAxisHandler, IInteractorHandler, IUsable1
 {
     [SerializeField] private int currentlySelected;
 
@@ -10,15 +11,14 @@ public class TemporaryCraftingUI : MonoBehaviour, IAxisHandler, IInteractorHandl
     private CraftingController controller;
     private List<CraftBase> availableRecipes;
 
-    [SerializeField] private GameObject craftingCanvas;
     [SerializeField] private TextMeshProUGUI ingridients;
     [SerializeField] private TextMeshProUGUI outputs;
 
+    private MiniGameController source;
+
     public void Interact()
     {
-        //InputManager.instance.SwitchMiniGame(, gameObject);
-        GameStateManager.instance.ContinueTimer();
-        craftingCanvas.SetActive(false);
+        OnFinish();
     }
 
     public void Move(float x, float y)
@@ -35,14 +35,6 @@ public class TemporaryCraftingUI : MonoBehaviour, IAxisHandler, IInteractorHandl
     public void Use1()
     {
         controller.Craft(currentlySelected);
-    }
-    public void Init(List<CraftBase> availableRecipes, GameObject obj)
-    {
-        craftingCanvas.SetActive(true);
-        GameStateManager.instance.StopTimer();
-        //InputManager.instance.SwitchMiniGame(obj, gameObject);
-        this.availableRecipes = availableRecipes;
-        UpdateInformation();
     }
     private void UpdateInformation()
     {
@@ -65,9 +57,34 @@ public class TemporaryCraftingUI : MonoBehaviour, IAxisHandler, IInteractorHandl
         }
 
     }
-    // Start is called before the first frame update
-    void Start()
+
+    public override GameObject GetControllable(MiniGameController source)
     {
-        controller = GetComponent<CraftingController>();
+        return gameObject;
+    }
+
+    public override void Init(MiniGameController source, IMiniGameDependent objs)
+    {
+        GameStateManager.instance.StopTimer();
+        CraftingManager.instance.CheckUnlockedCrafts();
+        this.source= source;
+        this.controller = GetComponent<CraftingController>();
+        this.controller.Init(source.GetComponent<InventoryController>());
+        this.availableRecipes = (List<CraftBase>)controller.GetAvailableRecipes();
+        UpdateInformation();
+    }
+
+    public override void Resume(int result)
+    {
+    }
+
+    public override void Pause()
+    {
+    }
+
+    public override void OnFinish()
+    {
+        source.OnFinishMiniGame(0);
+        Destroy(gameObject);
     }
 }
