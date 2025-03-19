@@ -118,6 +118,16 @@ public class GameStateManager : MonoBehaviour
             
         }
     }
+
+    public float GetCurrentSwitchTimer() // for UI depletion bar
+    {
+        return currentSwitchTimer;
+    }
+
+    public float GetSwitchTimer() // for UI depletion bar
+    {
+        return switchTimer;
+    }
 }
 
 [Serializable]

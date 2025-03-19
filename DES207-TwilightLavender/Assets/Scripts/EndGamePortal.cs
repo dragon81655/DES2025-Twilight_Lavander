@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-public class EndGamePortal : MonoBehaviour, IInteractable
+public class EndGamePortal : MonoBehaviour, ITestInteractable
 {
     // Start is called before the first frame update
     [SerializeField] private Material openMat;
     [SerializeField] private Material closeMat;
+    UIController uiController; // grabbing UI Controller
 
-    [SerializeField] private UnityEvent onWin;
     private MeshRenderer mr;
     private bool state = false;
 
     private void Start()
     {
         mr = GetComponent<MeshRenderer>();
+        uiController = GameObject.FindGameObjectWithTag("uiTag").GetComponent<UIController>(); // grabbing UI Controller
     }
     public void SwitchPortalState(bool state)
     {
@@ -27,7 +27,11 @@ public class EndGamePortal : MonoBehaviour, IInteractable
 
     public void Interact(GameObject source)
     {
-        if (state) onWin.Invoke();
-        
+        if (state)
+        {
+            Debug.Log("Human wins!");
+            uiController.HumanWins(); // calling human win UI state
+
+        }
     }
 }
