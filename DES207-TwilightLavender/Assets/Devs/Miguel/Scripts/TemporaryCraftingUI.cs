@@ -65,7 +65,6 @@ public class TemporaryCraftingUI : BaseActivityController, IAxisHandler, IIntera
 
     public override void Init(MiniGameController source, IMiniGameDependent objs)
     {
-        GameStateManager.instance.StopTimer();
         CraftingManager.instance.CheckUnlockedCrafts();
         this.source= source;
         this.controller = GetComponent<CraftingController>();
