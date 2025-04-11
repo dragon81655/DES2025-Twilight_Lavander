@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSumm
     private float _rayCastCheckTimer;
     [SerializeField] private GameObject cameraRef;
     [SerializeField] private GameObject cameraLookRef;
-    [SerializeField] private GameObject cam;
+    [SerializeField] private CameraFollowController cam;
     Vector2 v = Vector2.zero;
 
     private float distance;
@@ -43,12 +43,15 @@ public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSumm
         if(_rayCastCheckTimer <= 0 )
         {
             RaycastHit hit;
-            if(Physics.Raycast(cameraLookRef.transform.position, -cam.transform.forward, out hit, distance,LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
+            if(Physics.Raycast(cameraLookRef.transform.position, -cam.transform.forward, out hit))
             {
-                if(hit.transform != transform)
+                if(hit.transform != cam.transform && hit.transform != transform)
                 {
                     Debug.Log("Adjust! " + hit.transform.name);
                     cam.transform.position = hit.transform.position + cam.transform.forward * 0.5f;
+
+                    Vector3 t = cameraRef.transform.position - cameraLookRef.transform.position;
+                    //cam._offset = Vector3.Dot(cam.transform.position - cameraLookRef.transform.position, t)/t.sqrMagnitude;
                 }
             }
             _rayCastCheckTimer = rayCastCheckTimer;

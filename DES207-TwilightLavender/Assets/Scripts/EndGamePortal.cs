@@ -15,7 +15,11 @@ public class EndGamePortal : MonoBehaviour, IInteractable
     private void Start()
     {
         mr = GetComponent<MeshRenderer>();
-        uiController = GameObject.FindGameObjectWithTag("uiTag").GetComponent<UIController>(); // grabbing UI Controller
+
+        GameObject t = GameObject.FindGameObjectWithTag("uiTag");
+        if (t)
+            uiController = t.GetComponent<UIController>(); // grabbing UI Controller
+        else Debug.LogWarning("No UI Controller in scene!");
     }
     public void SwitchPortalState(bool state)
     {
@@ -30,6 +34,7 @@ public class EndGamePortal : MonoBehaviour, IInteractable
         if (state)
         {
             Debug.Log("Human wins!");
+            if(uiController)
             uiController.HumanWins(); // calling human win UI state
 
         }

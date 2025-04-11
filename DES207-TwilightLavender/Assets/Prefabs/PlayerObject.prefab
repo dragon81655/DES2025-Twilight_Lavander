@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 2172108604128043359}
   - component: {fileID: 5422004484201172039}
   - component: {fileID: 855150940388222902}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -231,8 +231,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraSensibility: 5
   maxOffSet: 0.1
+  rayCastCheckTimer: 0.2
   cameraRef: {fileID: 2193395697136960321}
   cameraLookRef: {fileID: 4229394373741252764}
+  cam: {fileID: 2140984292913132140}
 --- !u!114 &2045493999177007340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +269,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -334,7 +336,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6415885784936119371}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0cd1a52e51a3c14d81462786aad2f5c, type: 3}
   m_Name: 
@@ -420,7 +422,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6415885784936119371}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db69d229f5547eb4cbc5b664ff1eb855, type: 3}
   m_Name: 
@@ -441,7 +443,7 @@ GameObject:
   - component: {fileID: 2140984292913132140}
   - component: {fileID: 2956882225029880246}
   - component: {fileID: 497060515587092229}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -537,8 +539,9 @@ MonoBehaviour:
   lookRef: {fileID: 4229394373741252764}
   posRef: {fileID: 2193395697136960321}
   stopOffSet: 0.2
-  tpOffSet: 3
-  speedRatio: 15
+  speedRatio: 5
+  _offset: 0
+  offset: 0.5
 --- !u!54 &2956882225029880246
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -558,7 +561,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0

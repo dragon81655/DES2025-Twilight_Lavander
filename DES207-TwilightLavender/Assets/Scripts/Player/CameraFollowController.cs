@@ -13,7 +13,8 @@ public class CameraFollowController : MonoBehaviour
 
     [HideInInspector]
     public float _offset;
-    public float offset;
+    [SerializeField]
+    private float offset;
 
     Vector3 truePos = Vector3.zero;
     float m = 0f;
@@ -21,12 +22,18 @@ public class CameraFollowController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        _offset = offset;
+    }
+
+    public Vector3 GetTargetPos()
+    {
+        return truePos;
     }
 
     // Update is called once per frame
     void Update()
     {
-        truePos = (posRef.transform.position + lookRef.transform.position) * _offset;
+        truePos = lookRef.transform.position + (posRef.transform.position - lookRef.transform.position) * _offset;
         if (Mathf.Abs(transform.position.x - lookRef.transform.position.x) > 0.05f || Mathf.Abs(transform.position.z - lookRef.transform.position.z) > 0.05f)
         transform.LookAt(lookRef.transform.position);
         Vector3 dis = truePos - transform.position;

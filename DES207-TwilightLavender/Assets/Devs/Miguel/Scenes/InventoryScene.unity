@@ -845,11 +845,17 @@ MonoBehaviour:
     baseControlling: {fileID: 0}
   humanBody: {fileID: 1637395029}
   subconscious: {fileID: 962817553}
---- !u!1 &1115280952 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7039499013167171924, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
+--- !u!114 &1115280956 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2140984292913132140, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
   m_PrefabInstance: {fileID: 7171744691511309263}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 144c491de04fef34eb07c9d76987ff09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1240663081
 GameObject:
   m_ObjectHideFlags: 0
@@ -2212,8 +2218,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2140984292913132140, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
+      propertyPath: offset
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2140984292913132140, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
       propertyPath: speedRatio
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2333151730315855787, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2255,7 +2265,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3579451447747465517, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
+    - target: {fileID: 2956882225029880246, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 4569540875498648904, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -2263,14 +2277,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerObject
       objectReference: {fileID: 0}
+    - target: {fileID: 6415885784936119371, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6932875370106019191, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
       propertyPath: cam
       value: 
-      objectReference: {fileID: 1115280952}
-    - target: {fileID: 6932875370106019191, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
-      propertyPath: maxOffSet
-      value: 0.5
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1115280956}
     - target: {fileID: 6932875370106019191, guid: 625c5056b3d5f4447ac480ba91aae0b7, type: 3}
       propertyPath: rayCastCheckTimer
       value: 0.2
