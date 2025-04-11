@@ -9,8 +9,11 @@ public class CameraFollowController : MonoBehaviour
     [SerializeField] private GameObject posRef;
 
     [SerializeField] private float stopOffSet;
-    [SerializeField] private float tpOffSet;
     [SerializeField] private float speedRatio;
+
+    [HideInInspector]
+    public float _offset;
+    public float offset;
 
     Vector3 truePos = Vector3.zero;
     float m = 0f;
@@ -23,7 +26,7 @@ public class CameraFollowController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         truePos = (posRef.transform.position + lookRef.transform.position) / 2;
+        truePos = (posRef.transform.position + lookRef.transform.position) * _offset;
         if (Mathf.Abs(transform.position.x - lookRef.transform.position.x) > 0.05f || Mathf.Abs(transform.position.z - lookRef.transform.position.z) > 0.05f)
         transform.LookAt(lookRef.transform.position);
         Vector3 dis = truePos - transform.position;
@@ -34,14 +37,5 @@ public class CameraFollowController : MonoBehaviour
         }
         
         rb.velocity = dis*speedRatio;
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (m > tpOffSet)
-        {
-            //Debug.Log("Correction!");
-            transform.position = truePos;
-        }
     }
 }

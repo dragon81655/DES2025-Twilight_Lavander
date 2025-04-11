@@ -6,6 +6,7 @@ public class BodyController : MonoBehaviour, IAxisHandler
 {
     public float playerSpeed;
     [SerializeField] private Camera cam;
+    [SerializeField] private GameObject model;
     
     private Rigidbody rb;
     private Vector3 dir;
@@ -30,8 +31,8 @@ public class BodyController : MonoBehaviour, IAxisHandler
             speedMult = new Vector2(x,y).magnitude;
         else speedMult = x == 0 ? y : x;
 
-        transform.LookAt(lookAt + transform.position);
-        dir = transform.forward * speedMult ;
+        model.transform.LookAt(lookAt + model.transform.position);
+        dir = model.transform.forward * speedMult ;
     }
 
 
