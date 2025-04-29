@@ -1,21 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class MenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class PauseMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    public UIController UIController;
     public Image normalImage;
     public Image blueImage;
-    public bool isExitButton = false;
 
+    // Start is called before the first frame update
     void Start()
     {
-        blueImage.gameObject.SetActive(false);
+
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
         normalImage.gameObject.SetActive(false);
@@ -28,27 +36,23 @@ public class MenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         blueImage.gameObject.SetActive(false);
     }
 
-    public void OnClick()
-    {
-        if (isExitButton)
-        {
-            Debug.Log("Exiting Game...");
-            Application.Quit(); // Quits the game
-        }
-    }
-
-    public void OnStartButtonClicked()
-    {
-        SceneManager.LoadScene("ChoiceMenu");
-    }
-
-    public void OnCreditsButtonClicked()
-    {
-        SceneManager.LoadScene("CreditPage");
-    }
-
     public void OnSettingsButtonClicked()
     {
         SceneManager.LoadScene("Settings");
+    }
+
+    public void OnRestartButtonClicked()
+    {
+        SceneManager.LoadScene("FinalLevel");
+    }
+
+    public void OnResumeButtonClicked()
+    {
+        UIController.Resume();
+    }
+
+    public void OnExitButtonClicked()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

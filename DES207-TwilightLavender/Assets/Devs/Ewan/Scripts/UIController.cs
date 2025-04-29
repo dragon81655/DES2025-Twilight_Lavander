@@ -11,17 +11,23 @@ public class UIController : MonoBehaviour
 
     public Image HumanAbilityMenu; // grabbing human ability menu
     public Image VirusAbilityMenu; // grabbing virus ability menu
-    public TextMeshProUGUI TimerText; // grabbing timer text
+
     public GameObject DialogueContainer; // grabbing dialogue box
     public GameObject uiContainer; // grabbing UI
+    public GameObject PauseMenu; // grabbing pause menu
+
+    public GameObject AbilDecontam; // for human abil menu
+    public GameObject AbilHDoor; // for human abil menu
+    public GameObject AbilHSkill; // for human abil menu
+
+    public GameObject AbilContam; // for virus abil menu
+    public GameObject AbilVDoor; // for virus abil menu
+    public GameObject AbilVSkill; // for virus abil menu
+
+    public TextMeshProUGUI TimerText; // grabbing timer text
     public TextMeshProUGUI VirusWinsText; // grabbing virus wins text
     public TextMeshProUGUI HumanWinsText; // grabbing human wins text
     public TextMeshProUGUI InteractText; // grabbing interact text
-
-    // Takeover Timer Settings
-
-    private float switchTimerB; // getting time limit for bar
-    private float switchTimerValueB; // getting time remaining for bar
 
     // Human Ability Menu Settings
 
@@ -48,6 +54,9 @@ public class UIController : MonoBehaviour
     InventoryController invController; // calling inventory controller script
     public GameStateManager GameStateManager; // grabbing game state manager script
     public HiveMindController HiveMindController; // grabbing hive mind controller script
+    public ContaminationZoneController ContaminationZoneController; // grabbing zone script for abil
+    public DoorController DoorController; // grabbing door control for abil
+    public PauseMenu PauseGame; // grabbing pause menu
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +65,7 @@ public class UIController : MonoBehaviour
 
         VirusWinsText.gameObject.SetActive(false); // ensuring virus wins is disabled from start
         HumanWinsText.gameObject.SetActive(false); // ensuring human wins is disabled from start
+        PauseMenu.SetActive(false); // making sure pause menu is disabled on start
 
         ProxInteractionScript = GameObject.FindGameObjectWithTag("uiTag").GetComponent<ProxInteraction>(); // calling interaction script
         invController = GetComponent<InventoryController>(); // calling inventory script
@@ -65,6 +75,12 @@ public class UIController : MonoBehaviour
     void Update()
 
     {
+
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Pause();
+        }
+
         // Human Ability Code
 
 
@@ -134,6 +150,32 @@ public class UIController : MonoBehaviour
         }
     }
 
+    public void Pause() // for pausing game and timer
+    {
+        PauseMenu.SetActive(true);
+        GameStateManager.StopTimer();
+        UnlockMouse();
+    }
+
+    public void Resume() // for pausing game and timer
+    {
+        PauseMenu.SetActive(false);
+        GameStateManager.ContinueTimer();
+        LockMouse();
+    }
+
+    public void UnlockMouse() // for pause menu
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;                  
+    }
+
+    public void LockMouse() // for pause menu
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;                  
+    }
+
 
     // Human Ability Menu Code
 
@@ -164,6 +206,8 @@ public class UIController : MonoBehaviour
     {
         GameObject middleSlotIcon = HumanAbilIcons[1]; // slot 2 is index 1 in the array
         Debug.Log("Middle Slot: " + middleSlotIcon.name); // printing slot icon for testing
+
+        UpdateHumanAbilityNameImage(); // calling name image
     }
 
     void HAbilityUse() // function for using human ability
@@ -172,21 +216,55 @@ public class UIController : MonoBehaviour
 
         if (middleSlotIcon.name == "HSkill") // if skill check is in middle slot
         {
+            HiveMindAbility ability = HiveMindController.GetAbility(0); // couldnt find skill check for regular player but it does the same thing so works for now
+            if (ability is CastMinigameAbility castMinigameAbility)
+            {
+                castMinigameAbility.Act(HiveMindController);
+            }
+            else
+            {
+                Debug.Log("The ability at this index is not a CastMinigameAbility");
+            }
             Debug.Log("Call Skill Check");
         }
 
         else if (middleSlotIcon.name == "HDecontam") // if decontamination is in middle slot
         {
-            Debug.Log("Call Decontamination");
+            Debug.Log("Call Decontamination"); // needs adding
         }
 
         else if (middleSlotIcon.name == "HDoor") // if door is in middle slot
         {
-            Debug.Log("Call Door");
+            DoorController.OpenDoor();
         }
         else
         {
             Debug.Log("No Match"); // for bug testing
+        }
+    }
+
+    void UpdateHumanAbilityNameImage() // function for showing the correct ability name with whatever ability is currently in slot 2
+    {
+
+        AbilDecontam.SetActive(false); // deactivating all 3 name images
+        AbilHDoor.SetActive(false); // deactivating all 3 name images
+        AbilHSkill.SetActive(false); // deactivating all 3 name images
+
+        GameObject middleSlotIcon = HumanAbilIcons[1]; // grabbing slot 2
+
+        switch (middleSlotIcon.name)
+        {
+            case "HDecontam":
+                AbilDecontam.SetActive(true);
+                break;
+            case "HDoor":
+                AbilHDoor.SetActive(true);
+                break;
+            case "HSkill":
+                AbilHSkill.SetActive(true);
+                break;
+            default:
+                break; // show nothing if no match, mainly for testing
         }
     }
 
@@ -220,6 +298,8 @@ public class UIController : MonoBehaviour
     {
         GameObject middleSlotIcon = VirusAbilIcons[1]; // slot 2 is index 1 in the array
         Debug.Log("Middle Slot: " + middleSlotIcon.name); // printing slot icon for testing
+
+        UpdateVirusAbilityNameImage(); // calling name image
     }
 
     void VAbilityUse() // function for using virus ability
@@ -244,33 +324,14 @@ public class UIController : MonoBehaviour
 
         else if (middleSlotIcon.name == "VContam") // if contamination/spore cloud is in middle slot
         {
-            HiveMindAbility ability = HiveMindController.GetAbility(1);
-            if (ability is ContaminationZoneAbility contaminationZoneAbility)
-            {
-                contaminationZoneAbility.Act(HiveMindController);
-            }
-            else
-            {
-                Debug.Log("The ability at this index is not a ContaminationZoneAbility");
-            }
-                Debug.Log("Call Contamination/Spore Cloud");
+            ContaminationZoneController.ActivateZone();
         }
 
 
 
         else if (middleSlotIcon.name == "VDoor") // if door is in middle slot
         {
-            HiveMindAbility ability = HiveMindController.GetAbility(2);
-            if (ability is DoorControllerAbility doorControllerAbility)
-            {
-                doorControllerAbility.Act(HiveMindController);
-            }
-            else
-            {
-                Debug.Log("The ability at this index is not a DoorControllerAbility");
-            }
-
-                Debug.Log("Call Door");
+            DoorController.OpenDoor();
         }
 
 
@@ -279,4 +340,31 @@ public class UIController : MonoBehaviour
             Debug.Log("No Match"); // for bug testing
         }
     }
+
+    void UpdateVirusAbilityNameImage() // function for showing the correct ability name with whatever ability is currently in slot 2
+    {
+
+        AbilContam.SetActive(false); // deactivating all 3 name images
+        AbilVDoor.SetActive(false); // deactivating all 3 name images
+        AbilVSkill.SetActive(false); // deactivating all 3 name images
+
+        GameObject middleSlotIcon = VirusAbilIcons[1]; // grabbing slot 2
+
+        switch (middleSlotIcon.name)
+        {
+            case "VContam":
+                AbilContam.SetActive(true);
+                break;
+            case "VDoor":
+                AbilVDoor.SetActive(true);
+                break;
+            case "VSkill":
+                AbilVSkill.SetActive(true);
+                break;
+            default:
+                break; // show nothing if no match, mainly for testing
+        }
+    }
+
+
 }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class MenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class XWinsMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Image normalImage;
     public Image blueImage;
@@ -37,18 +37,13 @@ public class MenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-    public void OnStartButtonClicked()
+    public void OnRestartButtonClicked()
     {
-        SceneManager.LoadScene("ChoiceMenu");
+        SceneManager.LoadScene("FinalLevel");
     }
 
     public void OnCreditsButtonClicked()
     {
         SceneManager.LoadScene("CreditPage");
-    }
-
-    public void OnSettingsButtonClicked()
-    {
-        SceneManager.LoadScene("Settings");
     }
 }
