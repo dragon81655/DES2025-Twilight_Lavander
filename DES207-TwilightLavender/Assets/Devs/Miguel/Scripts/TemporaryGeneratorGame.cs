@@ -31,7 +31,7 @@ public class TemporaryGeneratorGame : MonoBehaviour
         pressInteract.SetActive(false);
         toCall.Repair();
         gameObject.SetActive(false);
-        InputManager.instance.SwitchMiniGame(human, gameObject);
+        //InputManager.instance.SwitchMiniGame(human, gameObject);
     }
 
     void Update()

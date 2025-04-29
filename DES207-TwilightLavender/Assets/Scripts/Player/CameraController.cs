@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour, ICamAxisHandler
+public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSummoner
 {
     [SerializeField] private float cameraSensibility;
     [SerializeField] private float maxOffSet;
+    [SerializeField] private float rayCastCheckTimer;
+    private float _rayCastCheckTimer;
     [SerializeField] private GameObject cameraRef;
     [SerializeField] private GameObject cameraLookRef;
+    [SerializeField] private CameraFollowController cam;
     Vector2 v = Vector2.zero;
 
     private float distance;
 
+    bool t = true;
     public void MoveCam(float x, float y)
     {
         v = new Vector2(-x, y);
@@ -20,6 +24,7 @@ public class CameraController : MonoBehaviour, ICamAxisHandler
     private void Start()
     {
         distance = Vector3.Distance(cameraLookRef.transform.position, cameraRef.transform.position);
+        _rayCastCheckTimer = rayCastCheckTimer;
     }
     void Update()
     {
@@ -34,11 +39,33 @@ public class CameraController : MonoBehaviour, ICamAxisHandler
         {
             cameraRef.transform.position = CorrectionVector() + cameraLookRef.transform.position;
         }
+        _rayCastCheckTimer -= Time.fixedDeltaTime;
+        if(_rayCastCheckTimer <= 0 )
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(cameraLookRef.transform.position, -cam.transform.forward, out hit))
+            {
+                if(hit.transform != cam.transform && hit.transform != transform)
+                {
+                    Debug.Log("Adjust! " + hit.transform.name);
+                    cam.transform.position = hit.transform.position + cam.transform.forward * 0.5f;
+
+                    Vector3 t = cameraRef.transform.position - cameraLookRef.transform.position;
+                    //cam._offset = Vector3.Dot(cam.transform.position - cameraLookRef.transform.position, t)/t.sqrMagnitude;
+                }
+            }
+            _rayCastCheckTimer = rayCastCheckTimer;
+        }
     }
 
     private Vector3 CorrectionVector()
     {
+        //Debug.Log("Correction needed!");
         Vector3 toReturn = (cameraRef.transform.position - cameraLookRef.transform.position).normalized * distance;
         return toReturn;
+    }
+
+    public void Notify()
+    {
     }
 }

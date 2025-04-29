@@ -6,6 +6,7 @@ public class InputController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private string inputType;
+    [SerializeField] private GameObject controlling;
 
     private ICamAxisHandler cameraC;
     private IAxisHandler move;
@@ -13,6 +14,7 @@ public class InputController : MonoBehaviour
     private IUsable1 use1;
     private IInteractorHandler interactor;
     private IDropHandler drop;
+    private IHiveMindSummoner hiveMindSummoner;
 
     public string GetInputType()
     {
@@ -23,12 +25,24 @@ public class InputController : MonoBehaviour
 
     public void SwitchTarget(GameObject target)
     {
+        Debug.Log("Attempt switch");
+        controlling = target;
         cameraC = target.GetComponent<ICamAxisHandler>();
         move = target.GetComponent<IAxisHandler>();
         use0= target.GetComponent<IUseable0>();
         use1= target.GetComponent<IUsable1>();
         interactor = target.GetComponent<IInteractorHandler>();
         drop = target.GetComponent<IDropHandler>();
+        hiveMindSummoner = target.GetComponent<IHiveMindSummoner>();
+
+        IInputChangeSummoner[] inputChangeSummoner = target.GetComponents<IInputChangeSummoner>();
+        if(inputChangeSummoner != null)
+        {
+            foreach(IInputChangeSummoner i in inputChangeSummoner)
+            {
+                i.Notify();
+            }
+        }
     }
     private void Start()
     {
@@ -88,6 +102,13 @@ public class InputController : MonoBehaviour
                 {
                     Debug.Log("Drop!");
                     drop.Drop();
+                }
+            }
+            if (hiveMindSummoner != null)
+            {
+                if (Input.GetButtonDown("OpenHiveMind" + inputType))
+                {
+                    hiveMindSummoner.Summon();
                 }
             }
         }

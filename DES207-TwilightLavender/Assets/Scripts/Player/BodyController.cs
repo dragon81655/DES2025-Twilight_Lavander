@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class BodyController : MonoBehaviour, IAxisHandler
 {
-    [SerializeField] private float playerSpeed;
+    public float playerSpeed;
     [SerializeField] private Camera cam;
+    [SerializeField] private GameObject model;
     
     private Rigidbody rb;
     private Vector3 dir;
    
-
+    public void StopPlayer()
+    {
+        dir = Vector3.zero;
+    }
     public void Move(float x, float y)
     {
         Vector3 lookAt = Vector3.zero;
@@ -27,8 +31,8 @@ public class BodyController : MonoBehaviour, IAxisHandler
             speedMult = new Vector2(x,y).magnitude;
         else speedMult = x == 0 ? y : x;
 
-        transform.LookAt(lookAt + transform.position);
-        dir = transform.forward * speedMult ;
+        model.transform.LookAt(lookAt + model.transform.position);
+        dir = model.transform.forward * speedMult ;
     }
 
 

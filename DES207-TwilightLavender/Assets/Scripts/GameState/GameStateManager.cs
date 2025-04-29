@@ -10,6 +10,7 @@ public class GameStateManager : MonoBehaviour
 
     [Header("Timers")]
     [SerializeField] private float switchTimer;
+    [SerializeField]
     private float currentSwitchTimer;
 
     [SerializeField] private float endGameTimer;
@@ -19,8 +20,8 @@ public class GameStateManager : MonoBehaviour
     [Header("Events")]
     [SerializeField] private UnityEvent onHumanWin; 
     [SerializeField] private UnityEvent onVirusWin; 
-    [SerializeField] private UnityEvent onSwitch; 
     private bool runTimer = false;
+    private bool switchTimerCheck = false;
     private void Awake()
     {
         instance = this;
@@ -29,7 +30,8 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         runTimer = true;
-        currentEndGameTimer= endGameTimer;
+        switchTimerCheck = true;
+        currentEndGameTimer = endGameTimer;
         currentSwitchTimer = switchTimer;
     }
     public void StopTimer()
@@ -39,6 +41,16 @@ public class GameStateManager : MonoBehaviour
     public void ContinueTimer()
     {
         runTimer = true;
+    }
+
+    public void PauseSwitchTimer()
+    {
+        switchTimerCheck = false;
+    }
+
+    public void ContinueSwitchTimer()
+    {
+        switchTimerCheck = true;
     }
     public void AddSwitchTimer(float value)
     {
@@ -63,7 +75,10 @@ public class GameStateManager : MonoBehaviour
         {
             float t = Time.deltaTime;
             currentEndGameTimer -= t;
-            currentSwitchTimer -= t;
+            if (switchTimerCheck)
+            {
+                currentSwitchTimer -= t;
+            }
             if(currentEndGameTimer <= 0)
             {
                 FinishGame(EndGameStatus.VirusWin);
@@ -72,7 +87,7 @@ public class GameStateManager : MonoBehaviour
             {
                 if (InputManager.instance != null)
                 {
-                    InputManager.instance.SwitchChars();
+                    InputManager.instance.RequestSwitchChars();
                 }
                 else Debug.LogError("No InputManager in scene!");
                 currentSwitchTimer = switchTimer;
@@ -87,6 +102,7 @@ public class GameStateManager : MonoBehaviour
         if(status == EndGameStatus.VirusWin)
         {
             Debug.Log("Virus wins!");
+            onVirusWin.Invoke();
         }else if(status == EndGameStatus.HumanWin)
         {
             EndGamePortal[] portals = (EndGamePortal[])Resources.FindObjectsOfTypeAll(typeof(EndGamePortal));
@@ -94,9 +110,12 @@ public class GameStateManager : MonoBehaviour
             {
                 portal.SwitchPortalState(true);
             }
+            StopTimer();
+            onHumanWin.Invoke();
         }else
         {
             Debug.Log("Tough luck, you both suck!");
+            
         }
     }
 
