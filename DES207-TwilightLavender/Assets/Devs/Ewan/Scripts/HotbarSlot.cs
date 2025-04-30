@@ -10,19 +10,19 @@ public class HotbarSlot : MonoBehaviour
     public Image itemSprite; // grabbing slot image
     public Image slotBG; // grabbing slot background
 
-    private Item item;
+    public Item item;
 
     public void Initialize(Item newItem) // create blank item in slot to then be updated with item info
     {
         item = newItem;
-        UpdateSlot(item); // calling function to update item info
+        //UpdateSlot(item); // calling function to update item info
     }
 
-    public void UpdateSlot(Item updatedItem) // updating the slot with relevant info (quantity, name, sprite)
+    public void UpdateSlot() // updating the slot with relevant info (quantity, name, sprite)
     {
-        itemQuantity.text = updatedItem.GetAmount().ToString(); // returning the item amount as a string
-        itemName.text = updatedItem.GetDisplayName(); // returning the item name as a string
-        itemSprite.sprite = updatedItem.GetItemSprite(); // getting item image
+        itemQuantity.text = item.GetAmount().ToString(); // returning the item amount as a string
+        itemName.text = item.GetDisplayName(); // returning the item name as a string
+        itemSprite.sprite = item.GetItemSprite(); // getting item image
     }
 
     public void SetSelected(bool isSelected) // indicator to show if the slot is selected in the hotbar
