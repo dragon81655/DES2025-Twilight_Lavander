@@ -68355,7 +68355,10 @@ Transform:
   m_Father: {fileID: 1640600541}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 <<<<<<< HEAD
 --- !u!1001 &1603254440
 PrefabInstance:
@@ -68431,6 +68434,9 @@ PrefabInstance:
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: daf64447fb5cdd148a98910960670722, type: 3}
 =======
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 --- !u!114 &1603432360 stripped
 MonoBehaviour:
@@ -68444,6 +68450,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+>>>>>>> parent of 472a9c1 (Revert "Merge pull request #2 from dragon81655/uiDev")
+>>>>>>> Stashed changes
 =======
 >>>>>>> parent of 472a9c1 (Revert "Merge pull request #2 from dragon81655/uiDev")
 >>>>>>> Stashed changes
