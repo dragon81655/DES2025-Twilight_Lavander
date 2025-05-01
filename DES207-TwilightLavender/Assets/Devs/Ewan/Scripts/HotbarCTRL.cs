@@ -7,14 +7,42 @@ public class HotbarCTRL : MonoBehaviour
     public InventoryController inventoryController; // getting inventory script
     public GameObject hotbarSlotPrefab; // getting slot prefab
     public Transform hotbarContainer; // getting hotbar container
-    public List<GameObject> hotbarSlots = new List<GameObject>(); // list of slots
+    public List<HotbarSlot> hotbarSlots = new List<HotbarSlot>(); // list of slots
 
     void Update()
     {
-        RefreshHotbar(); // calling to keep hotbar accurate
+        //RefreshHotbar(); // calling to keep hotbar accurate
     }
+    public void UpdateSlot(Item item, int index, bool selected)
+    {
+        if(index >= hotbarSlots.Count)
+        {
+            GameObject g = Instantiate(hotbarSlotPrefab, hotbarContainer);
+            HotbarSlot slotComponent = g.GetComponent<HotbarSlot>();
+            slotComponent.Initialize(item);
+            hotbarSlots.Add(slotComponent);
+        }
+        if (item != hotbarSlots[index].item)
+        {
+            hotbarSlots[index].Initialize(item);
+        }
+        hotbarSlots[index].UpdateSlot();
 
-    void RefreshHotbar() // function for keeping hotbar up to date
+        if (selected) hotbarSlots[index].SetSelected(true);
+        else hotbarSlots[index].SetSelected(false);
+    }
+    public void CheckDestroy(int currentMax)
+    {
+        if(currentMax < hotbarSlots.Count)
+        {
+            for (int i = currentMax; i < hotbarSlots.Count; i++)
+            {
+                Destroy(hotbarSlots[i].gameObject);
+            }
+            hotbarSlots.RemoveRange(currentMax, hotbarSlots.Count - currentMax);
+        }
+    }
+    /*void RefreshHotbar() // function for keeping hotbar up to date
     {
         List<Item> items = inventoryController.GetInventoryCopy(); // grabbing current inventory
 
@@ -57,5 +85,5 @@ public class HotbarCTRL : MonoBehaviour
 
         
         hotbarSlots.RemoveRange(slotsToCreate, hotbarSlots.Count - slotsToCreate);
-    }
+    }*/
 }

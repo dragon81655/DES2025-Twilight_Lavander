@@ -264,6 +264,8 @@ public class InventoryController : MonoBehaviour
         return false;
     }
 
+    public int GetCurrentItemAmount() { return inventory.Count; }
+
     protected void Update()
     {
         for(int i = 0; i < tickable.Count; i++)
