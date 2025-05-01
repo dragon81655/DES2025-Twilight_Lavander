@@ -14,5 +14,23 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes2/LoseScene.unity
     guid: 752c906d973dae948b7a2854c7b7c23d
+  - enabled: 1
+    path: Assets/Devs/Ewan/Scenes/VirusWin.unity
+    guid: 969bbfa8ed9fd8d479c62bb06a97e13e
+  - enabled: 1
+    path: Assets/Devs/Ewan/Scenes/HumanWin.unity
+    guid: 3afb239670f7f75418db1c5cbbca770d
+  - enabled: 1
+    path: Assets/Devs/Ewan/Scenes/CreditPage.unity
+    guid: 00c5a031f78b4ee449e3329587845b09
+  - enabled: 1
+    path: Assets/Devs/Ewan/Scenes/MainMenu.unity
+    guid: 45ff9395476e1d646afc0bfb82d758ba
+  - enabled: 1
+    path: Assets/Devs/Ewan/Scenes/Settings.unity
+    guid: f1f7627ec055f2b4aaa60c825ec2e495
+  - enabled: 1
+    path: Assets/Devs/Ewan/Scenes/ChoiceMenu.unity
+    guid: e63a8ac6168042a44a42fd07ac348a47
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
