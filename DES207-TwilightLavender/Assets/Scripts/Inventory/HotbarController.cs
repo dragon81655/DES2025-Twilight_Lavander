@@ -17,6 +17,8 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollab
 
     private HotbarCTRL hotbarCTRL;
 
+    public SFXManager SFXManager; // for sfx
+
     float timer = 0.1f;
     bool camLock = true;
 
@@ -93,6 +95,7 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollab
         if (i != null)
         {
             ic.RemoveItem(i);
+            SFXManager.DropSFX(); // drop sfx
             GameObject g = Instantiate(dropPrefab, transform.position + transform.forward, Quaternion.identity);
             bool t = g.GetComponent<InventoryController>().AddItem(i);
             Instantiate(i.GetDroppedModel(), g.transform).transform.localPosition = Vector3.zero;

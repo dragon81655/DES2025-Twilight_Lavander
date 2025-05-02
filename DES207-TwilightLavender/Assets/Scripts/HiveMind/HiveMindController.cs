@@ -13,6 +13,8 @@ public class HiveMindController : MonoBehaviour
     [SerializeField]
     private bool isHuman;
 
+    public bool IsHuman => isHuman;
+
     private void Awake()
     {
         if (hiveMindAbilities == null) hiveMindAbilities = new List<HiveMindAbility>();

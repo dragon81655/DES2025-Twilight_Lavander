@@ -20,6 +20,8 @@ public class DoorController : MonoBehaviour, IInteractable, IUnlockable
     private bool doorOpen;
     private float currentTime;
 
+    public SFXManager SFXManager; // grabbing for SFX
+
     [Header("Door details")]
     public string doorName;
     [TextArea(2, 3)]
@@ -65,6 +67,7 @@ public class DoorController : MonoBehaviour, IInteractable, IUnlockable
     {
         doorOpen = true;
         currentTime = timeRemainingOpen;
+        SFXManager.DoorOpenSFX(); // SFX for door opening
     }
 
     public string GetDoorName()
@@ -84,7 +87,11 @@ public class DoorController : MonoBehaviour, IInteractable, IUnlockable
             if (transform.localPosition != openPos)
                 transform.localPosition = Vector3.Lerp(transform.localPosition, openPos, Time.deltaTime * doorSpeed);
             currentTime -= Time.deltaTime;
-            if(currentTime <= 0) doorOpen= false;
+            if (currentTime <= 0)
+            {
+                doorOpen = false;
+                SFXManager.DoorCloseSFX(); // SFX for door closing
+            }
 
         }
         else

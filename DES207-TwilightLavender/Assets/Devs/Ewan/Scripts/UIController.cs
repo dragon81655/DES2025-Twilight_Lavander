@@ -12,7 +12,6 @@ public class UIController : MonoBehaviour
     public Image HumanAbilityMenu; // grabbing human ability menu
     public Image VirusAbilityMenu; // grabbing virus ability menu
 
-    public GameObject DialogueContainer; // grabbing dialogue box
     public GameObject uiContainer; // grabbing UI
     public GameObject PauseMenu; // grabbing pause menu
 
@@ -25,9 +24,6 @@ public class UIController : MonoBehaviour
     public GameObject AbilVSkill; // for virus abil menu
 
     public TextMeshProUGUI TimerText; // grabbing timer text
-    public TextMeshProUGUI VirusWinsText; // grabbing virus wins text
-    public TextMeshProUGUI HumanWinsText; // grabbing human wins text
-    public TextMeshProUGUI InteractText; // grabbing interact text
 
     // Human Ability Menu Settings
 
@@ -39,10 +35,6 @@ public class UIController : MonoBehaviour
     public GameObject[] VirusAbilIcons; // grabbing virus ability icons
     public Transform[] VirusAbilSlots; // for moving slot icons
 
-    // Ability Timer Settings
-
-
-
     // Misc
 
     public bool InteractRange; // whether or not player is within range to interact
@@ -50,7 +42,6 @@ public class UIController : MonoBehaviour
 
     // Other Scripts
 
-    ProxInteraction ProxInteractionScript; // calling prox interaction script
     InventoryController invController; // calling inventory controller script
     public GameStateManager GameStateManager; // grabbing game state manager script
     public HiveMindController HiveMindController; // grabbing hive mind controller script
@@ -63,11 +54,8 @@ public class UIController : MonoBehaviour
 
     {
 
-        VirusWinsText.gameObject.SetActive(false); // ensuring virus wins is disabled from start
-        HumanWinsText.gameObject.SetActive(false); // ensuring human wins is disabled from start
         PauseMenu.SetActive(false); // making sure pause menu is disabled on start
 
-        ProxInteractionScript = GameObject.FindGameObjectWithTag("uiTag").GetComponent<ProxInteraction>(); // calling interaction script
         invController = GetComponent<InventoryController>(); // calling inventory script
     }
 
@@ -112,42 +100,17 @@ public class UIController : MonoBehaviour
     private void FixedUpdate()
 
     {
-        if (InteractRange == false) // hiding dialogue and interact elements when not in range
-        {
-            DialogueContainer.gameObject.SetActive(false);
-            InteractText.gameObject.SetActive(false);
-            MenuOpen = false;
-        }
+
     }
 
-    void VirusWins() // function for Virus win state
-
+    public void HideAll() // for hiding all
     {
-        uiContainer.SetActive(false); // disable UI
-        VirusWinsText.gameObject.SetActive(true); // enable virus win screen
+        uiContainer.gameObject.SetActive(false);
     }
 
-    public void HumanWins() // function for human win state
+    public void ShowAll() // for showing all
     {
-        uiContainer.SetActive(false); // disable UI
-        HumanWinsText.gameObject.SetActive(true); // enable human win screen
-    }
-
-    public void Interact() // interaction function
-
-    {
-        InteractRange = true;
-        if (Input.GetKeyDown(KeyCode.E) && InteractRange == true) // condition for opening dialogue box
-        {
-            DialogueContainer.SetActive(true); // open dialogue box
-            MenuOpen = true; // set menu to open
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) && MenuOpen == true) // condition for closing dialogue box willingly
-        {
-            DialogueContainer.SetActive(false); // close dialogue box
-            MenuOpen = false; // set menu to closed
-        }
+        uiContainer.gameObject.SetActive(true);
     }
 
     public void Pause() // for pausing game and timer

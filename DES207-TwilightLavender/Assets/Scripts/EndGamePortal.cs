@@ -34,8 +34,6 @@ public class EndGamePortal : MonoBehaviour, IInteractable
         if (state)
         {
             Debug.Log("Human wins!");
-            if(uiController)
-            uiController.HumanWins(); // calling human win UI state
 
         }
     }

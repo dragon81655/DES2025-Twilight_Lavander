@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TestTag
   - uiTag
+  - SFX
   layers:
   - Default
   - TransparentFX

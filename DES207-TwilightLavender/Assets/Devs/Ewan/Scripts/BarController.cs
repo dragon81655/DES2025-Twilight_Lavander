@@ -14,6 +14,7 @@ public class BarController : MonoBehaviour
     public TextMeshProUGUI TimerText; // grabbing timer text
 
     public GameStateManager GameStateManager; // grabbing gamestatemanager script for time
+    public SFXManager SFXManager; // for bar flip
 
     // Start is called before the first frame update
     void Start()
