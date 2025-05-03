@@ -11,10 +11,7 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollab
 
     [SerializeField]
     private GameObject dropPrefab;
-
-    [SerializeField]
-    private TextMeshProUGUI slotInfo;
-
+    
     private HotbarCTRL hotbarCTRL;
 
     public SFXManager SFXManager; // for sfx
@@ -63,17 +60,7 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollab
     {
         if (ic == null) return;
         Item i = ic.GetItem(currentSlot);
-        if (i != null)
-        {
-            slotInfo.text = "Slot number: " + (currentSlot + 1);
-            slotInfo.text += "\nItem name: " + i.GetDisplayName();
-            slotInfo.text += "\nAmount: " + i.GetAmount() + "/" + i.GetMaxAmount();
-        }
-        else
-        {
-            slotInfo.text = "Slot number: " + (currentSlot + 1);
-            slotInfo.text += "\nNo Item ";
-        }
+        
         int amount = ic.GetCurrentItemAmount();
         for (int j = 0; j < amount; j++) 
         { 

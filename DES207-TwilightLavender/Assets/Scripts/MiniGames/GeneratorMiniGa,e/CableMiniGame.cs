@@ -26,28 +26,28 @@ public class CableMiniGame : BaseActivityController, ICamAxisHandler
 
     [SerializeField]
     private Vector3 vel;
+
+    [SerializeField] private Camera myCam;
+    private Camera mainCam;
     public override GameObject GetControllable(MiniGameController source)
     {
         return gameObject;
     }
-
-    private void Start()
-    {
-        Init(null, null);
-    }
-
     private bool IsKB()
     {
-        return false; //InputManager.instance.GetInputType(gameObject) == "KB";
+        return InputManager.instance.GetInputType(gameObject) == "KB";
     }
 
     public override void Init(MiniGameController source, IMiniGameDependent objs)
     {
         this.source = source;
         toNotify = objs;
-        currentPos = cableEnding[currentlySelected].transform.position;
         lockPoint = new Vector4(lockPositions[currentlySelected].x - offSet.x, lockPositions[currentlySelected].x + offSet.x,
             lockPositions[currentlySelected].y - offSet.y, lockPositions[currentlySelected].y + offSet.y);
+        currentPos = cableEnding[currentlySelected].transform.position;
+        mainCam = source.transform.parent.GetComponentInChildren<Camera>();
+        mainCam.enabled = false;
+        myCam.enabled = true;
     }
 
     public void MoveCam(float x, float y)
@@ -79,7 +79,7 @@ public class CableMiniGame : BaseActivityController, ICamAxisHandler
             y = -y;
             t = 0.4f;
         }
-        currentPos += new Vector3(x, y, 0) * speed * Time.deltaTime * t;
+        currentPos += (transform.right * x + transform.up * y) * speed * Time.deltaTime * t;
         point.transform.position = currentPos;
         return currentPos;
 
@@ -123,6 +123,13 @@ public class CableMiniGame : BaseActivityController, ICamAxisHandler
     }
     public override void OnFinish()
     {
+        mainCam.enabled = true;
+        myCam.enabled = false;
+        source.OnFinishMiniGame(1);
+        if (toNotify != null)
+        {
+            toNotify.Notify(1);
+        }   
         Destroy(gameObject);
     }
 

@@ -11,10 +11,9 @@ public class EletricitySourceController : MonoBehaviour, IInteractable,IDamageab
     [SerializeField] private BaseActivityController miniGameController;
     [SerializeField] private Transform canvas;
 
-    [SerializeField] private Material workingMat;
-    [SerializeField] private Material notWorkingMat;
+    [SerializeField] private GameObject workingMat;
+    [SerializeField] private GameObject notWorkingMat;
 
-    private MeshRenderer mesh;
     public bool HasPower()
     {
         return hasPower;
@@ -36,14 +35,13 @@ public class EletricitySourceController : MonoBehaviour, IInteractable,IDamageab
     }
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
-        mesh.material = hasPower? workingMat : notWorkingMat;
+        ActiveModel();
     }
 
     public void Repair()
     {
         hasPower= true;
-        mesh.material = hasPower ? workingMat : notWorkingMat;
+        ActiveModel();
     }
 
     public void Notify(int result)
@@ -55,6 +53,12 @@ public class EletricitySourceController : MonoBehaviour, IInteractable,IDamageab
     public void Damage(float secondsToRepair)
     {
         hasPower = false;
-        mesh.material = hasPower ? workingMat : notWorkingMat;
+        ActiveModel();
+    }
+
+    private void ActiveModel()
+    {
+        workingMat.SetActive(hasPower);
+        notWorkingMat.SetActive(!hasPower);
     }
 }

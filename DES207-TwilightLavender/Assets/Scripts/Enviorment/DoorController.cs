@@ -6,7 +6,7 @@ public class DoorController : MonoBehaviour, IInteractable, IUnlockable
 {
     // Start is called before the first frame update
     [Header("Open parameters!")]
-    [SerializeField] private EletricitySourceController controller;
+    [SerializeField] private List<EletricitySourceController> controller;
     [Tooltip("If the door doesn't require a key")]
     [SerializeField] private string doorTag;
     [SerializeField] private bool isVoiceActivated;
@@ -15,7 +15,9 @@ public class DoorController : MonoBehaviour, IInteractable, IUnlockable
     [Header("Door configs")]
     [SerializeField] private bool canOpenWithInteraction;
     [SerializeField] private float timeRemainingOpen;
-    [SerializeField] private Vector3 openLocation;
+    [SerializeField] private float openAmount;
+    [SerializeField] private GameObject doorR;
+    [SerializeField] private GameObject doorL;
     [SerializeField] private float doorSpeed;
     private bool doorOpen;
     private float currentTime;
@@ -27,17 +29,23 @@ public class DoorController : MonoBehaviour, IInteractable, IUnlockable
     [TextArea(2, 3)]
     public string doorDesc;
 
-    private Vector3 closePos;
-    private Vector3 openPos;
+
+
+    private Vector3 closePosR;
+    private Vector3 openPosR;
+    private Vector3 closePosL;
+    private Vector3 openPosL;
     private void Start()
     {
-        closePos= transform.localPosition;
-        openPos = openLocation;
+        closePosR= doorR.transform.localPosition;
+        openPosR = closePosR + transform.right * openAmount;
+        closePosL = doorL.transform.localPosition;
+        openPosL = closePosL - transform.right * openAmount;
     }
     public void Interact(GameObject source)
     {
         Debug.Log("Door interaction!");
-        if (!(controller == null || controller.HasPower())) return;
+        if(!CheckDoorPower()) return;
         if (!canOpenWithInteraction) return;
         if (doorTag != null && doorTag != "")
         {
@@ -51,9 +59,19 @@ public class DoorController : MonoBehaviour, IInteractable, IUnlockable
 
     }
 
+    private bool CheckDoorPower()
+    {
+        if (controller == null || controller.Count == 0) return true;
+        foreach (EletricitySourceController c in controller)
+        {
+            if (!c.HasPower()) return false;
+        }
+        return true;
+    }
+
     public int AttemptDoorOpeningByHiveMind(bool human)
     {
-        if (controller != null && !controller.HasPower()) return 0; //No Power
+        if (!CheckDoorPower()) return 0; //No Power
         if (!IsControllable(human)) return 1; //It's not hive mind controllable
         OpenDoor();
         return 2; //Success
@@ -84,26 +102,27 @@ public class DoorController : MonoBehaviour, IInteractable, IUnlockable
     {
         if (doorOpen)
         {
-            if (transform.localPosition != openPos)
-                transform.localPosition = Vector3.Lerp(transform.localPosition, openPos, Time.deltaTime * doorSpeed);
-            currentTime -= Time.deltaTime;
-            if (currentTime <= 0)
-            {
-                doorOpen = false;
-                SFXManager.DoorCloseSFX(); // SFX for door closing
-            }
+            if (doorR.transform.localPosition != openPosR)
+                doorR.transform.localPosition = Vector3.Lerp(doorR.transform.localPosition, openPosR, Time.deltaTime * doorSpeed);
+            if (doorL.transform.localPosition != openPosL)
+                doorL.transform.localPosition = Vector3.Lerp(doorL.transform.localPosition, openPosL, Time.deltaTime * doorSpeed);
 
+            currentTime -= Time.deltaTime;
+            if(currentTime <= 0) doorOpen= false;
         }
         else
         {
-            if(transform.localPosition != closePos)
-                transform.localPosition = Vector3.Lerp(transform.localPosition, closePos, Time.deltaTime * doorSpeed);
+            if (doorR.transform.localPosition != closePosR)
+                doorR.transform.localPosition = Vector3.Lerp(doorR.transform.localPosition, closePosR, Time.deltaTime * doorSpeed);
+
+            if (doorL.transform.localPosition != closePosL)
+                doorL.transform.localPosition = Vector3.Lerp(doorL.transform.localPosition, closePosL, Time.deltaTime * doorSpeed);
         }
     }
 
     public void Unlock()
     {
-        if ((controller != null && controller.HasPower()) || controller == null) return;
+        if (!CheckDoorPower()) return;
         OpenDoor();
     }
 }
