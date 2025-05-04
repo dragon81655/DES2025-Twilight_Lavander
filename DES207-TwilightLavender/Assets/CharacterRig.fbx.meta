@@ -3,7 +3,37 @@ guid: 42c5aeedb390cd44b99668e997c64886
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CharacterMode_V1_Attached1
+    second: {fileID: 2100000, guid: 36e716df8975c1c41870b425a2c958c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Extract33
+    second: {fileID: 2100000, guid: 792e7c4e1c149de439ceb1df4070bb2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Extract34
+    second: {fileID: 2100000, guid: 624f8831dedd4c54abcf978c4a9ac66b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Extract35
+    second: {fileID: 2100000, guid: cde021666638bdd49951e4884895d4e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Extract36
+    second: {fileID: 2100000, guid: b6532b6cfda2fef48941444111ec6ff2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Extract37
+    second: {fileID: 2100000, guid: 8d183ec21823a8441ac86cdca4d1cb01, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -20,7 +50,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    importAnimatedCustomProperties: 0
+    importAnimatedCustomProperties: 1
     importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
