@@ -9,7 +9,7 @@ public class HotbarSelector : MonoBehaviour
 
     void Update()
     {
-        HotbarSelect(); // function for selecting hotbar slot
+        //HotbarSelect(); // function for selecting hotbar slot
     }
 
     void HotbarSelect() // function for selecting hotbar slot

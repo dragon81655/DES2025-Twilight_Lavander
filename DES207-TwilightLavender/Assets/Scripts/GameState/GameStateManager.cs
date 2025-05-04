@@ -119,14 +119,24 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    public float GetCurrentSwitchTimer() // for UI depletion bar
+    public float GetCurrentSwitchTimer() // for golden line
     {
         return currentSwitchTimer;
     }
 
-    public float GetSwitchTimer() // for UI depletion bar
+    public float GetSwitchTimer() // for golden line
     {
         return switchTimer;
+    }
+
+    public float GetCurrentEndGameTimer() // for takeover bar
+    {
+        return currentEndGameTimer;
+    }
+
+    public float GetEndGameTimer() // for takeover bar
+    {
+        return endGameTimer;
     }
 }
 

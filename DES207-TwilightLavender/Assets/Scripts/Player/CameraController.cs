@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSummoner
+public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSummoner, IScrollable, ICamLockable
 {
     [SerializeField] private float cameraSensibility;
     [SerializeField] private float maxOffSet;
@@ -13,13 +13,29 @@ public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSumm
     [SerializeField] private GameObject cameraLookRef;
     [SerializeField] private CameraFollowController cam;
     Vector2 v = Vector2.zero;
+    [SerializeField] private float lerpSpeed;
 
     private float distance;
+    private bool camLock = false;
 
-    bool t = true;
+    bool isController = true;
+
     public void MoveCam(float x, float y)
     {
-        v = new Vector2(-x, y);
+        if (!isController)
+        {
+            v = new Vector2(-x, y);
+            return;
+        }
+
+        if (!camLock)
+        {
+            v = new Vector2(-x, y) * 3;
+        }
+        else
+        {
+            cam.ChangeOffSet(y * Time.deltaTime * lerpSpeed/2);
+        }
     }
     private void Start()
     {
@@ -51,7 +67,7 @@ public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSumm
                     cam.transform.position = hit.transform.position + cam.transform.forward * 0.5f;
 
                     Vector3 t = cameraRef.transform.position - cameraLookRef.transform.position;
-                    //cam._offset = Vector3.Dot(cam.transform.position - cameraLookRef.transform.position, t)/t.sqrMagnitude;
+                    cam.SetOffSet(Vector3.Dot(cam.transform.position - cameraLookRef.transform.position, t)/t.sqrMagnitude);
                 }
             }
             _rayCastCheckTimer = rayCastCheckTimer;
@@ -60,12 +76,28 @@ public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSumm
 
     private Vector3 CorrectionVector()
     {
-        //Debug.Log("Correction needed!");
+        Debug.Log("Correction needed!");
         Vector3 toReturn = (cameraRef.transform.position - cameraLookRef.transform.position).normalized * distance;
         return toReturn;
     }
 
+    public void Scroll(float val)
+    {
+        if (camLock && !isController)
+        {
+            cam.ChangeOffSet(val * Time.deltaTime * lerpSpeed);
+        }
+    }
+
+    public void CamLock()
+    {
+        camLock = !camLock;
+        Debug.Log(camLock);
+    }
+
     public void Notify()
     {
+        isController = "KB" != InputManager.instance.GetInputType(gameObject);
+        Debug.Log("Notify switch " +isController);
     }
 }

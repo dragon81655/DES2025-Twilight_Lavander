@@ -103,6 +103,7 @@ public class SliderMinigameController : BaseActivityController, IAxisHandler
 
     void Update()
     {
+
     }
 
 

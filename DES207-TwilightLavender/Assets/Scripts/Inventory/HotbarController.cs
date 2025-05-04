@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class HotbarController : MonoBehaviour, IUsable1, IDropHandler
+public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollable, ICamLockable, IInputChangeSummoner
 {
     private InventoryController ic;
     [SerializeField]
@@ -11,17 +11,21 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler
 
     [SerializeField]
     private GameObject dropPrefab;
+    
+    private HotbarCTRL hotbarCTRL;
 
-    [SerializeField]
-    private TextMeshProUGUI slotInfo;
+    public SFXManager SFXManager; // for sfx
 
-    [SerializeField]
-    private HotbarSelector selector;
+    float timer = 0.1f;
+    bool camLock = true;
 
-    float timer = 1;
+    int selected = 0;
+
+    bool isController = false;
     void Start()
     {
         ic = GetComponent<InventoryController>();
+        hotbarCTRL = FindAnyObjectByType<HotbarCTRL>();
         UpdateSlotUI();
     }
     private void UseItem()
@@ -43,13 +47,11 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler
     {
         if(ic != null)
         {
-            currentSlot = selector.selectedIndex;
-
             timer-= Time.deltaTime;
             if(timer <= 0)
             {
                 UpdateSlotUI();
-                timer = 1;
+                timer = 0.1f;
             }
         }
     }
@@ -58,17 +60,14 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler
     {
         if (ic == null) return;
         Item i = ic.GetItem(currentSlot);
-        if (i != null)
-        {
-            slotInfo.text = "Slot number: " + (currentSlot + 1);
-            slotInfo.text += "\nItem name: " + i.GetDisplayName();
-            slotInfo.text += "\nAmount: " + i.GetAmount() + "/" + i.GetMaxAmount();
+        
+        int amount = ic.GetCurrentItemAmount();
+        for (int j = 0; j < amount; j++) 
+        { 
+            Item item = ic.GetItem(j);
+            hotbarCTRL.UpdateSlot(item, j, j == currentSlot);
         }
-        else
-        {
-            slotInfo.text = "Slot number: " + (currentSlot + 1);
-            slotInfo.text += "\nNo Item ";
-        }
+        hotbarCTRL.CheckDestroy(amount);
     }
 
     public void Use1()
@@ -83,6 +82,7 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler
         if (i != null)
         {
             ic.RemoveItem(i);
+            SFXManager.DropSFX(); // drop sfx
             GameObject g = Instantiate(dropPrefab, transform.position + transform.forward, Quaternion.identity);
             bool t = g.GetComponent<InventoryController>().AddItem(i);
             Instantiate(i.GetDroppedModel(), g.transform).transform.localPosition = Vector3.zero;
@@ -92,5 +92,23 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler
                 Debug.LogError("Something wrong with the droppedItemPrefab");
             }
         }
+    }
+
+    public void CamLock()
+    {
+        camLock = !camLock;
+    }
+
+    public void Scroll(float val)
+    {
+        if (camLock || isController)
+        {
+            currentSlot = Mathf.Clamp((int)val + currentSlot, 0, ic.GetCurrentItemAmount() > 0 ? ic.GetCurrentItemAmount()-1 : 0);
+        }
+    }
+
+    public void Notify()
+    {
+        isController = "KB" != InputManager.instance.GetInputType(gameObject);
     }
 }

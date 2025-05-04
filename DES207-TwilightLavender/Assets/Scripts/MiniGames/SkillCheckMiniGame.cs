@@ -6,6 +6,9 @@ using static Unity.VisualScripting.Member;
 public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
 {
     private MiniGameController source;
+
+    SFXManager SFXManager; // for sfx
+
     private int result = -1;
 
     [Header("Objects")]
@@ -52,16 +55,20 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
                 if (result == 1)
                 {
                     GameStateManager.instance.AddSwitchTimer(timeToAdd);
+                    SFXManager.MiniWinSFX(); // win sfx
                 }
                 else GameStateManager.instance.TakeSwitchTimer(timeToLose);
+                SFXManager.MiniLoseSFX(); // lose sfx
             }
             else if((!InputManager.instance.isVirusWithBase(source.gameObject) && InputManager.instance.isVirusOnBody()) || (InputManager.instance.isVirusWithBase(source.gameObject) && !InputManager.instance.isVirusOnBody()))
             {
                 if (result == 1)
                 {
                     GameStateManager.instance.TakeSwitchTimer(timeToLose);
+                    SFXManager.MiniWinSFX(); // win sfx
                 }
                 else GameStateManager.instance.AddSwitchTimer(timeToAdd);
+                SFXManager.MiniLoseSFX(); // lose sfx
             }
         }
         Destroy(gameObject);
@@ -78,6 +85,7 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
     private void Start()
     {
         Debug.Log(needle.transform.localRotation.ToString());
+        SFXManager sfxManager = GameObject.FindWithTag("SFX")?.GetComponent<SFXManager>();
     }
 
     private void Update()
