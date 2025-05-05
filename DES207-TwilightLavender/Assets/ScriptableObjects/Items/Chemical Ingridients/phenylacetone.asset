@@ -18,7 +18,7 @@ MonoBehaviour:
   description: Solution used to dillute regular penicillin. Should work on the virus
     one too.
   sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  droppedModel: {fileID: 6315882842863989358, guid: 46d3e889cc49dc2478524aad75f81bd3, type: 3}
+  droppedModel: {fileID: 4210030688080098247, guid: e3c0f5ad7b04a734d9c368e0406628ae, type: 3}
   maxAmount: 64
   isTickable: 0
   tags:

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: sodium_salts
   m_EditorClassIdentifier: 
-  id: 5
+  id: 10
   itemName: sodium_salts
   displayName: Sodium Salts
   description: Chemical used to make precipitation reactions easier.
-  sprite: {fileID: 21300000, guid: 9726b589d36466640a00fac8e8e7c14b, type: 3}
-  droppedModel: {fileID: 1705496790566107479, guid: 689599bf3b47666459a840dadbf533fe, type: 3}
+  sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  droppedModel: {fileID: 1420125404840432715, guid: ecd038e942b97294aa40c74443cf8ec6, type: 3}
   maxAmount: 64
   isTickable: 0
   tags:

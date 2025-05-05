@@ -9,6 +9,8 @@ public abstract class HiveMindAbility
 
     public string abilityName;
     public string abilityDesc;
+
+    public int spriteId;
     public abstract void Tick(HiveMindController controller);
     public abstract void Init(HiveMindController controller);
     public abstract void Stop(HiveMindController controller);

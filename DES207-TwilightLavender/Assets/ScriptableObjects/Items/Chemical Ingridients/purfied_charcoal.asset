@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: purfied_charcoal
   m_EditorClassIdentifier: 
-  id: 3
+  id: 9
   itemName: purfied_charcoal
   displayName: Purfied Charcoal
   description: Used to purify and remove contaminants
-  sprite: {fileID: 21300000, guid: fafce2931a32e98438bfae7a4c596b5f, type: 3}
-  droppedModel: {fileID: 2307809401307310518, guid: 62d25a2eb235c254795034392d95f618, type: 3}
+  sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  droppedModel: {fileID: 1091878333075954217, guid: 55596af4dad2eac4684a8f1c7ac743d2, type: 3}
   maxAmount: 64
   isTickable: 0
   tags:

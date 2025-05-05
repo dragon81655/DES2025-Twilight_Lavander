@@ -32,6 +32,7 @@ public class DoorControllerAbility : HiveMindAbility
     {
         abilityName = abName;
         abilityDesc = abDes;
+        spriteId = 0;
     }
 
     public override void Stop(HiveMindController controller)

@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSumm
             cameraRef.transform.position = CorrectionVector() + cameraLookRef.transform.position;
         }
         _rayCastCheckTimer -= Time.fixedDeltaTime;
-        if(_rayCastCheckTimer <= 0 )
+        /*if(_rayCastCheckTimer <= 0 )
         {
             RaycastHit hit;
             if(Physics.Raycast(cameraLookRef.transform.position, -cam.transform.forward, out hit))
@@ -71,12 +71,11 @@ public class CameraController : MonoBehaviour, ICamAxisHandler, IInputChangeSumm
                 }
             }
             _rayCastCheckTimer = rayCastCheckTimer;
-        }
+        }*/
     }
 
     private Vector3 CorrectionVector()
     {
-        Debug.Log("Correction needed!");
         Vector3 toReturn = (cameraRef.transform.position - cameraLookRef.transform.position).normalized * distance;
         return toReturn;
     }

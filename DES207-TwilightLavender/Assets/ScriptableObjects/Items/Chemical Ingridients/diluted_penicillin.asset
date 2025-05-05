@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: diluted_penicillin
   m_EditorClassIdentifier: 
-  id: 7
+  id: 6
   itemName: diluted_penicillin
   displayName: Diluted Penicillin
   description: A solution produced by diluting Piranha virus penicillin in phenylacetone.
-  sprite: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
-  droppedModel: {fileID: 1705496790566107479, guid: 689599bf3b47666459a840dadbf533fe, type: 3}
+  sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  droppedModel: {fileID: 6444428521900113969, guid: ef3f42e093a95984ca4a8a7406a44a93, type: 3}
   maxAmount: 64
   isTickable: 0
   tags:

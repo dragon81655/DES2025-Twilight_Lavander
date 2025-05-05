@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b9dfbc8753d8d499d9b194d555cc40, type: 3}
   m_Name: keycard
   m_EditorClassIdentifier: 
-  id: 12
+  id: 2
   itemName: keycard
   displayName: Level X Keycard
   description: A keycard to open certain doors.
   sprite: {fileID: 21300000, guid: 5887b525864b5c447b84cb355318298f, type: 3}
-  droppedModel: {fileID: 2590809463412547355, guid: fc7e7278fbd73a64ca652d3e9fe7ef85, type: 3}
+  droppedModel: {fileID: 4615176375053859927, guid: e187a3f985bc957439326ef6bb73c5ae, type: 3}
   maxAmount: 1
   isTickable: 0
   tags:

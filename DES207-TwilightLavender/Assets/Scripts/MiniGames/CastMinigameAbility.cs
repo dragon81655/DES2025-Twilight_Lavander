@@ -46,6 +46,7 @@ public class CastMinigameAbility : HiveMindAbility
     public override void Init(HiveMindController controller)
     {
         this.controller = controller.GetComponent<MiniGameController>();
+        spriteId = 1;
     }
 
     public override void Stop(HiveMindController controller)

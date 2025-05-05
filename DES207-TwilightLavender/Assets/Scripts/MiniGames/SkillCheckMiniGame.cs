@@ -85,7 +85,7 @@ public class SkillCheckMiniGame : BaseActivityController, IInteractorHandler
     private void Start()
     {
         Debug.Log(needle.transform.localRotation.ToString());
-        SFXManager sfxManager = GameObject.FindWithTag("SFX")?.GetComponent<SFXManager>();
+        SFXManager = GameObject.FindWithTag("SFX")?.GetComponent<SFXManager>();
     }
 
     private void Update()

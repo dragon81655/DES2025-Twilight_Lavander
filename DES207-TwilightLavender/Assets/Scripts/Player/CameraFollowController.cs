@@ -15,6 +15,7 @@ public class CameraFollowController : MonoBehaviour
     public float offset;
     [SerializeField] private float speedLerp;
     [SerializeField] private float lerpTimer;
+    [SerializeField] private float maxDis = 2f;
 
     private float _offset;
 
@@ -60,7 +61,11 @@ public class CameraFollowController : MonoBehaviour
         {
             dis = Vector3.zero;
         }
-        
+        if(m > maxDis)
+        {
+            transform.position = truePos;
+        }
+
         rb.velocity = dis*speedRatio;
     }
 }

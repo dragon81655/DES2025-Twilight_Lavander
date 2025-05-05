@@ -72,7 +72,7 @@ public class UIController : MonoBehaviour
         // Human Ability Code
 
 
-        if (Input.GetKeyDown(KeyCode.X)) // checking for input to cycle human ability icon
+        /*if (Input.GetKeyDown(KeyCode.X)) // checking for input to cycle human ability icon
         {
             HCycleIcons(); // calling human ability cycle function
         }
@@ -94,7 +94,7 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L)) // checking for input to use virus ability
         {
             VAbilityUse(); // calling virus ability use
-        }
+        }*/
     }
 
     private void FixedUpdate()
@@ -175,7 +175,7 @@ public class UIController : MonoBehaviour
 
     void HAbilityUse() // function for using human ability
     {
-        GameObject middleSlotIcon = HumanAbilIcons[1]; // slot 2 is index 1 in the array
+        /*GameObject middleSlotIcon = HumanAbilIcons[1]; // slot 2 is index 1 in the array
 
         if (middleSlotIcon.name == "HSkill") // if skill check is in middle slot
         {
@@ -203,7 +203,7 @@ public class UIController : MonoBehaviour
         else
         {
             Debug.Log("No Match"); // for bug testing
-        }
+        }*/
     }
 
     void UpdateHumanAbilityNameImage() // function for showing the correct ability name with whatever ability is currently in slot 2

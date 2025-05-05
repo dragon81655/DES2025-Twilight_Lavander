@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyController : MonoBehaviour, IAxisHandler
+public class BodyController : MonoBehaviour, IAxisHandler, IHiveMindSummoner, IInputChangeSummoner
 {
     public float playerSpeed;
     [SerializeField] private Camera cam;
@@ -11,12 +11,14 @@ public class BodyController : MonoBehaviour, IAxisHandler
     private Rigidbody rb;
     private Vector3 dir;
    
+    private bool usingHiveMind = false;
     public void StopPlayer()
     {
         dir = Vector3.zero;
     }
     public void Move(float x, float y)
     {
+        if(usingHiveMind) return;
         Vector3 lookAt = Vector3.zero;
         if (y != 0)
             lookAt += new Vector3(cam.transform.forward.x * y, 0, cam.transform.forward.z * y);
@@ -46,5 +48,16 @@ public class BodyController : MonoBehaviour, IAxisHandler
     void FixedUpdate()
     {
         rb.velocity = dir * playerSpeed + new Vector3(0, rb.velocity.y, 0);
+    }
+
+    public void Summon()
+    {
+        usingHiveMind = !usingHiveMind;
+        StopPlayer();
+    }
+
+    public void Notify()
+    {
+        usingHiveMind = false;
     }
 }

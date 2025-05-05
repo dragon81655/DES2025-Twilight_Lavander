@@ -28,7 +28,7 @@ public class Interactables : MonoBehaviour
     void Start()
     {
         UIController = GameObject.FindGameObjectWithTag("uiTag").GetComponent<UIController>(); // for disabling rest of UI while dialogue is present
-
+        Player = GameObject.Find("Player");
         foreach (Image img in DialogueSequence)
         {
             img.gameObject.SetActive(false);

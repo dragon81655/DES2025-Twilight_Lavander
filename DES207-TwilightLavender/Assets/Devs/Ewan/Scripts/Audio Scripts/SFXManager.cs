@@ -158,7 +158,6 @@ public class SFXManager : MonoBehaviour
     public void HeartbeatSFX() // function for heartbeat switch sfx
     {
         float switchTimerValueA = GameStateManager.instance.GetCurrentSwitchTimer();
-        Debug.Log("Audio");
         AudioSource.clip = Heartbeat;
         AudioSource.Play();
     }

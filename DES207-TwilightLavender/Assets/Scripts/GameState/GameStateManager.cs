@@ -29,8 +29,8 @@ public class GameStateManager : MonoBehaviour
 
     private void Start()
     {
-        runTimer = true;
-        switchTimerCheck = true;
+        runTimer = false;
+        switchTimerCheck = false;
         currentEndGameTimer = endGameTimer;
         currentSwitchTimer = switchTimer;
     }

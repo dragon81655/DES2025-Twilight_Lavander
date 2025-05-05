@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollable, ICamLockable, IInputChangeSummoner
+public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollable, ICamLockable, IInputChangeSummoner, IHiveMindSummoner
 {
     private InventoryController ic;
     [SerializeField]
@@ -20,6 +20,8 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollab
     bool camLock = true;
 
     int selected = 0;
+
+    private bool isHiveMind = false;
 
     bool isController = false;
     void Start()
@@ -72,6 +74,7 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollab
 
     public void Use1()
     {
+        if (isHiveMind) return;
         UseItem();
     }
 
@@ -110,5 +113,11 @@ public class HotbarController : MonoBehaviour, IUsable1, IDropHandler, IScrollab
     public void Notify()
     {
         isController = "KB" != InputManager.instance.GetInputType(gameObject);
+        isHiveMind = false;
+    }
+
+    public void Summon()
+    {
+        isHiveMind = !isHiveMind;
     }
 }

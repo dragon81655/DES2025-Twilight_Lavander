@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public static class InputDataStaticClass
+[CreateAssetMenu(menuName = "InputDataStaticClass")]
+public class InputDataStaticClass: ScriptableObject
 {
-    public static string player1Input;
-    public static string player2Input;
+    public string player1Input;
+    public string player2Input;
+
+    public ColorBlindMode colorBlindMode;
 }
