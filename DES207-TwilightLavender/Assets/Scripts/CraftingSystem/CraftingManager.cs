@@ -50,4 +50,16 @@ public class CraftingManager : MonoBehaviour
             }
         }
     }
+
+    public void UnlockAllCrafts()
+    {
+        foreach (CraftBase c in craftRegistry)
+        {
+            if (c != null)
+            {
+                c.unlocked = true;
+            }
+        }
+        CheckUnlockedCrafts();
+    }
 }

@@ -44,6 +44,13 @@ public class InputManager : MonoBehaviour
             {
                 requestChange = false;
                 SwitchChars();
+                GameStateManager.instance.ContinueSwitchTimer();
+                GameStateManager.instance.ContinueTimer();
+            }
+            else
+            {
+                GameStateManager.instance.PauseSwitchTimer();
+                GameStateManager.instance.StopTimer();
             }
         }
     }

@@ -14,6 +14,7 @@ public class XWinsMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     void Start()
     {
         blueImage.gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

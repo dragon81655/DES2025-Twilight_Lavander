@@ -23,6 +23,7 @@ public class Interactables : MonoBehaviour
     public bool MenuOpen; // for checking if menu is open
     public bool CanInteract; // for checking if interact is eligible
 
+    [SerializeField] private bool unlockAllRecipes;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +74,10 @@ public class Interactables : MonoBehaviour
         {
             MenuOpen = true;
             MenuOpened();
+            if (unlockAllRecipes)
+            {
+                CraftingManager.instance.UnlockAllCrafts();
+            }
         }
 
         if (MenuOpen == true && Input.GetMouseButtonDown(0)) // calling function to progress dialogue
@@ -86,17 +91,17 @@ public class Interactables : MonoBehaviour
         UIController.Pause();
         UIController.HideAll();
 
-        foreach (Image img in DialogueSequence)
+        /*foreach (Image img in DialogueSequence)
         {
             img.gameObject.SetActive(false);
-        }
+        }*/
 
         CurrentDialogueIndex = 0;
         ShowDialogueImage(CurrentDialogueIndex);
 
         EToInteract.gameObject.SetActive(false);
         DialogueContainer.gameObject.SetActive(true);
-        // LabReport.gameObject.SetActive(true);
+        //LabReport.gameObject.SetActive(true);
     }
 
     public void MenuClosed() // function for disabling all relevant dialogue menu elements
@@ -104,19 +109,23 @@ public class Interactables : MonoBehaviour
         UIController.Resume();
         UIController.ShowAll();
 
-        DialogueContainer.gameObject.SetActive(false);
-        // LabReport.gameObject.SetActive(false);
         foreach (Image img in DialogueSequence)
         {
             img.gameObject.SetActive(false);
         }
+
+        DialogueContainer.gameObject.SetActive(false);
+        // LabReport.gameObject.SetActive(false);
+        
     }
 
     public void ShowDialogueImage(int index)
     {
         for (int i = 0; i < DialogueSequence.Length; i++)
         {
-            DialogueSequence[i].gameObject.SetActive(i == index);
+            bool t = i == index;
+            DialogueSequence[i].gameObject.SetActive(t);
+            Debug.Log(DialogueSequence[i].gameObject.name + " setted to " + t);
         }
     }
 

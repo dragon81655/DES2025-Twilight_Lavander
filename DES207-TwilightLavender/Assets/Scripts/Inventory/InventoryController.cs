@@ -278,7 +278,8 @@ public class InventoryController : MonoBehaviour
     {
         foreach (Item i in inventory)
         {
-            i.OnGUI();
+            //I had to comment due to a bug in the final build where some items were being reseted and tags for the keycard were broken if not instantiated, so I disabled this.
+            //i.OnGUI();
         }
     }
 }

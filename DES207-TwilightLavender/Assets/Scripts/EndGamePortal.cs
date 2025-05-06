@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndGamePortal : MonoBehaviour, IInteractable
 {
@@ -34,7 +35,7 @@ public class EndGamePortal : MonoBehaviour, IInteractable
         if (state)
         {
             Debug.Log("Human wins!");
-
+            SceneManager.LoadScene("HumanWin");
         }
     }
 }

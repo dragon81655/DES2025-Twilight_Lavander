@@ -14,6 +14,7 @@ public class HiveMindInputController : MonoBehaviour, IAxisHandler, IHiveMindSum
     private bool selectingHM = false;
     private int currentlySelected = 0;
 
+    private bool nextFrameUpdate = false;
     [SerializeField] private bool isBody;
     public void Move(float x, float y)
     {
@@ -34,8 +35,6 @@ public class HiveMindInputController : MonoBehaviour, IAxisHandler, IHiveMindSum
 
     private void UpdateInformation()
     {
-        HiveMindAbility ability = hiveMindController.GetAbility(currentlySelected);
-        Debug.Log("AB Name: " + ability.abilityName + "\nAB Desc:" + ability.abilityDesc);
         hiveMindFinalUIController.UpdateSlots(currentlySelected - 1 < 0 ? -1 : hiveMindController.GetAbility(currentlySelected-1).spriteId, hiveMindController.GetAbility(currentlySelected).spriteId, currentlySelected + 1 >= hiveMindController.GetAbilityCount() ? -1 : hiveMindController.GetAbility(currentlySelected+1).spriteId);
     }
 
@@ -43,12 +42,17 @@ public class HiveMindInputController : MonoBehaviour, IAxisHandler, IHiveMindSum
     void Start()
     {
         hiveMindController = GetComponent<HiveMindController>();
+        nextFrameUpdate = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (nextFrameUpdate)
+        {
+            UpdateInformation();
+            nextFrameUpdate = false;
+        }
     }
 
     public void Notify()
@@ -57,13 +61,12 @@ public class HiveMindInputController : MonoBehaviour, IAxisHandler, IHiveMindSum
         if (InputManager.instance.isVirusOnBody() == isBody)
         {
             hiveMindFinalUIController = virusUI;
-            UpdateInformation();
         }
         else
         {
             hiveMindFinalUIController = humanUI;
-            UpdateInformation();
         }
+        nextFrameUpdate = true;
     }
 
     public void Use1()

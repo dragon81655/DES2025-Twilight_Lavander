@@ -19,14 +19,14 @@ MonoBehaviour:
   - rid: 6689415607266836582
   outputs:
   - itemBase: {fileID: 11400000, guid: 02a848745cc47324bac0ba73d2f0aa6d, type: 2}
-    displayName: Cryo Keycard
+    displayName: keycard
     amount: 1
     tags:
     - keycard_cryo
     attributes:
       list: []
   startUnlocked: 1
-  unlocked: 0
+  unlocked: 1
   tags: []
   references:
     version: 2
@@ -36,4 +36,4 @@ MonoBehaviour:
       data:
         tag: 
         item: {fileID: 11400000, guid: 3e3edacbe127d0b43b46e3a1d4e36ece, type: 2}
-        amount: 0
+        amount: 1

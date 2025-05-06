@@ -49,6 +49,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 45e6a0dce237bba4bb4b792fb1c597db, type: 2}
   - {fileID: 11400000, guid: 23fe017acc962094e9bb936de45bd776, type: 2}
   - {fileID: 11400000, guid: b565df99a15533d43928145e8a972b6b, type: 2}
-  - {fileID: 11400000, guid: 494485e9c1ff73148985d9bc18aa9ed7, type: 2}
   - {fileID: 11400000, guid: be36bf0475ce460488987e3a60a0a873, type: 2}
   unlockedCrafts: []

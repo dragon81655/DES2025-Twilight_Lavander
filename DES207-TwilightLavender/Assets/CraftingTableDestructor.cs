@@ -20,5 +20,9 @@ public class CraftingTableDestructor : MonoBehaviour
         activeTableSignaliser.SetActive(false);
         deadTableSignaliser.SetActive(true);
         passed = true;
+        InputManager.instance.RequestSwitchChars();
+        GameStateManager.instance.FinishTutorial();
+        GameStateManager.instance.ContinueSwitchTimer();
+        GameStateManager.instance.ContinueTimer();
     }
 }

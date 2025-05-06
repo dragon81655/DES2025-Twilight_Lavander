@@ -28,8 +28,16 @@ public class HotbarCTRL : MonoBehaviour
         }
         hotbarSlots[index].UpdateSlot();
 
-        if (selected) hotbarSlots[index].SetSelected(true);
-        else hotbarSlots[index].SetSelected(false);
+        if (selected)
+        {
+            hotbarSlots[index].SetSelected(true);
+            Debug.Log("Slot " + index + "   selected");
+        }
+        else
+        {
+            hotbarSlots[index].SetSelected(false);
+            Debug.Log("Slot "+ index + " not selected");
+        }
     }
     public void CheckDestroy(int currentMax)
     {

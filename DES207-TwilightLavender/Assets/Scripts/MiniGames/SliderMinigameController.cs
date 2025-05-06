@@ -45,7 +45,6 @@ public class SliderMinigameController : BaseActivityController, IAxisHandler
 
     public void Move(float x, float y)
     {
-        Debug.Log("Working!");
         float moveDir = x * sliderSpeed;
 
         if(Mathf.Abs(y) > 0.1f && canMove)
@@ -75,7 +74,6 @@ public class SliderMinigameController : BaseActivityController, IAxisHandler
         for(int i = 0; i < sliders.Count; i++)
         {
             if (!(sliders[i].anchoredPosition3D.x > config.slide[i] - offset && sliders[i].anchoredPosition3D.x < config.slide[i] + offset)) return;
-            Debug.Log("Slider " + i + " in place!");
         }
         OnFinish();
     }

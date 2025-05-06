@@ -48,6 +48,7 @@ public class CableMiniGame : BaseActivityController, ICamAxisHandler
         mainCam = source.transform.parent.GetComponentInChildren<Camera>();
         mainCam.enabled = false;
         myCam.enabled = true;
+        InputManager.instance.LockSwitch();
     }
 
     public void MoveCam(float x, float y)
@@ -130,6 +131,7 @@ public class CableMiniGame : BaseActivityController, ICamAxisHandler
         {
             toNotify.Notify(1);
         }   
+        InputManager.instance.UnlockSwitch();
         Destroy(gameObject);
     }
 

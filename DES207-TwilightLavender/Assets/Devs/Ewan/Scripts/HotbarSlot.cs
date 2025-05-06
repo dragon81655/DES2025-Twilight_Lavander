@@ -29,6 +29,7 @@ public class HotbarSlot : MonoBehaviour
     {
         if (isSelected) // if selected
         {
+            Debug.Log("Selected!");
             slotBG.color = new Color(0.2f, 0.2f, 0.2f); // darken slot background
         }
         else

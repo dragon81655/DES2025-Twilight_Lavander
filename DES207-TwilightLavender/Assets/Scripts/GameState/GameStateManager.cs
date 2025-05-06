@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GameStateManager : MonoBehaviour
     [SerializeField] private UnityEvent onVirusWin; 
     private bool runTimer = false;
     private bool switchTimerCheck = false;
+    private bool finishedTutorial = false;
     private void Awake()
     {
         instance = this;
@@ -38,8 +40,14 @@ public class GameStateManager : MonoBehaviour
     {
         runTimer = false;
     }
+
+    public void FinishTutorial()
+    {
+        finishedTutorial = true;
+    }
     public void ContinueTimer()
     {
+        if (!finishedTutorial) return;
         runTimer = true;
     }
 
@@ -50,6 +58,7 @@ public class GameStateManager : MonoBehaviour
 
     public void ContinueSwitchTimer()
     {
+        if (!finishedTutorial) return;
         switchTimerCheck = true;
     }
     public void AddSwitchTimer(float value)
@@ -102,8 +111,9 @@ public class GameStateManager : MonoBehaviour
         if(status == EndGameStatus.VirusWin)
         {
             Debug.Log("Virus wins!");
-            onVirusWin.Invoke();
-        }else if(status == EndGameStatus.HumanWin)
+            SceneManager.LoadScene("VirusWin");
+        }
+        else if(status == EndGameStatus.HumanWin)
         {
             EndGamePortal[] portals = (EndGamePortal[])Resources.FindObjectsOfTypeAll(typeof(EndGamePortal));
             foreach(EndGamePortal portal in portals)
@@ -111,7 +121,7 @@ public class GameStateManager : MonoBehaviour
                 portal.SwitchPortalState(true);
             }
             StopTimer();
-            onHumanWin.Invoke();
+            //onHumanWin.Invoke();
         }else
         {
             Debug.Log("Tough luck, you both suck!");
