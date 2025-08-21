@@ -17,4 +17,16 @@ public class AnimationTrigger : MonoBehaviour
             Debug.LogWarning("Animator is not assigned.");
         }
     }
+
+    public void TriggerBool(string boolName, bool value)
+    {
+        if (animator != null)
+        {
+            animator.SetBool(boolName, value);
+        }
+        else
+        {
+            Debug.LogWarning("Animator is not assigned.");
+        }
+    }
 }
