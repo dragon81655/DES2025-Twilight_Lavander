@@ -51,13 +51,14 @@ public class BodyController : MonoBehaviour, IAxisHandler, IHiveMindSummoner, II
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         rb.velocity = dir * playerSpeed + new Vector3(0, rb.velocity.y, 0);
         if (dir.x != 0 || dir.z != 0)
         {
-            animTrigger.TriggerAnimation("Walking");
-        }
+            animTrigger.TriggerBool("isWalking", true);
+        } else { animTrigger.TriggerBool("isWalking", false); }
+
         if(InputManager.instance.isVirusOnBody())
             animTrigger.TriggerAnimation("IsInfected");
         else
