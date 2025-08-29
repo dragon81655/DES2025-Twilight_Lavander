@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static Unity.VisualScripting.Member;
 
 public class TemporaryCraftingUI : BaseActivityController, IAxisHandler, IInteractorHandler, IUsable1
@@ -13,9 +14,10 @@ public class TemporaryCraftingUI : BaseActivityController, IAxisHandler, IIntera
 
     [SerializeField] private TextMeshProUGUI ingridients;
     [SerializeField] private TextMeshProUGUI outputs;
+    [SerializeField] private RawImage outputImg;
 
     private MiniGameController source;
-
+    
     public void Interact()
     {
         OnFinish();
@@ -55,6 +57,11 @@ public class TemporaryCraftingUI : BaseActivityController, IAxisHandler, IIntera
         {
             outputs.text += recipe.outputs[i].GetAmount() + " " + recipe.outputs[i].GetDisplayName();
         }
+        if (recipe.recipeSprite == null)
+        {
+            if (recipe.outputs[0].GetItemSprite() != null) recipe.recipeSprite = recipe.outputs[0].GetItemSprite();
+        }
+        outputImg.texture = recipe.recipeSprite.texture;
 
     }
 
