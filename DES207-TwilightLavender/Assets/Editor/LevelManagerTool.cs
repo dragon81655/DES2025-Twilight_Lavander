@@ -268,6 +268,8 @@ namespace LevelReconfigurator
             {
                 GameObject t = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent);
                 t.transform.position = go.transform.position;
+                t.transform.rotation = go.transform.rotation;
+                t.transform.localScale = go.transform.localScale;
                 if(destroyOriginal)
                     DestroyImmediate(go);
             }
