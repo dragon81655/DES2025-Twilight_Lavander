@@ -1,12 +1,9 @@
-using System.Collections;
 using UnityEngine;
-using UnityEditor.Callbacks;
 using UnityEditor;
 using System.Collections.Generic;
-using System.Drawing.Printing;
 using System.IO;
 using UnityEngine.SceneManagement;
-using System.Web;
+using UnityEditor.SceneManagement;
 
 namespace LevelReconfigurator
 {
@@ -145,21 +142,66 @@ namespace LevelReconfigurator
             AssetDatabase.Refresh();
         }
 
+        private List<GameObject> FindAllChilds(GameObject[] allObjects)
+        {
+            List<GameObject> toReturn = new List<GameObject>();
+            foreach(GameObject go in allObjects)
+            {
+                List<GameObject> toCheck = new List<GameObject>() { go };
+                while(toCheck.Count > 0)
+                {
+                    List<GameObject> temp = new List<GameObject>();
+                    foreach(GameObject go2 in toCheck)
+                    {
+                        temp.AddRange(GetAllChilds(go2));
+                    }
+                    toReturn.AddRange(toCheck);
+                    toCheck.Clear();
+                    toCheck.AddRange(temp);
+                }
 
+            }
+            return toReturn;
+        }
+        private IEnumerable<GameObject> GetAllChilds(GameObject obj)
+        {
+            for(int i = 0; i < obj.transform.childCount; i++)
+            {
+                yield return obj.transform.GetChild(i).gameObject;
+            }
+        }
         private void OnApplyChanges()
         {
             Scene scene = SceneManager.GetActiveScene();
-            GameObject[] allObjects = scene.GetRootGameObjects();
+            GameObject[] allObjects = FindAllChilds(scene.GetRootGameObjects()).ToArray();
 
             foreach(LevelConfigData data in selectedLevelConfig.levelConfigs)
             {
-                Transform parent = CreateSubFolders(data);
+                Transform parent = CreateSubFolders(allObjects,data);
                 IEnumerable<GameObject> gos = GetObjectByName(GetObjectsInArea(allObjects, data.center, data.affectedArea), data.baseModelName);
                 InstantiateNewPrefabs(gos, parent, data);
             }
+            EditorSceneManager.MarkSceneDirty(scene);
+        }
+        private GameObject FindObj(string name, GameObject[] arr)
+        {
+            foreach(GameObject go in arr)
+            {
+                if(go.name.Equals(name)) return go;
+            }
+            return null;
+        }
+        private GameObject FindObj(string name, Transform trans)
+        {
+            for(int i = 0; i< trans.childCount; i++)
+            {
+                Transform t = trans.GetChild(i);
+                if (t.name.Equals(name)) return t.gameObject;
+            }
+            return null;
         }
 
-        private Transform CreateSubFolders(LevelConfigData data)
+        private Transform CreateSubFolders(GameObject[] arr, LevelConfigData data)
         {
             string currentfolder = "";
             Transform parent = null;
@@ -167,7 +209,7 @@ namespace LevelReconfigurator
             {
                 if (c == '/' || c == '\\')
                 {
-                    GameObject t = GameObject.Find(currentfolder);
+                    GameObject t = parent == null ? FindObj(currentfolder, arr) : FindObj(currentfolder, parent);
                     if(t == null) t = new GameObject(currentfolder);
                     if (parent)
                     t.transform.parent = parent;
@@ -176,7 +218,8 @@ namespace LevelReconfigurator
                 }
                 else currentfolder += c;
             }
-            GameObject t2 = new GameObject(currentfolder);
+            GameObject t2 = parent == null ? FindObj(currentfolder, arr) : FindObj(currentfolder, parent);
+            if (t2 == null) t2 = new GameObject(currentfolder);
             if (parent)
                 t2.transform.parent = parent;
             return t2.transform;
