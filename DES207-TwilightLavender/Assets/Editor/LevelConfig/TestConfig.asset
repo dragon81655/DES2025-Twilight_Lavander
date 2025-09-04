@@ -17,6 +17,6 @@ MonoBehaviour:
     desiredFolderStructure: Test/Floor
     baseModelName: Floor_Tileset
     destroyOriginal: 1
-    affectedArea: {x: 0, y: 0, z: 0}
-    center: {x: 0, y: 0, z: 0}
-    gizmoColor: {r: 0, g: 0, b: 0, a: 0}
+    affectedArea: {x: 10, y: 10, z: 10}
+    center: {x: 6.72, y: 37.83568, z: 23.078}
+    gizmoColor: {r: 0.06059926, g: 0.5943396, b: 0, a: 1}

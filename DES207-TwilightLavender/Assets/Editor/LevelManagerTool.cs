@@ -17,6 +17,8 @@ namespace LevelReconfigurator
 
         private string configPath = "Assets/Editor/LevelConfig";
 
+        private static bool onFocus = false;
+
         [MenuItem("Window/OurTools/´LevelManagerFixer")]
         public static void OpenWindow()
         {
@@ -68,15 +70,23 @@ namespace LevelReconfigurator
             if (GUILayout.Button("Toggle Area Visualization", GUILayout.Height(30), GUILayout.Width(position.width / 2)))
             {
                 isAreasViewON = !isAreasViewON;
+                if (isAreasViewON) SceneView.duringSceneGui += AreaView; else SceneView.duringSceneGui -= AreaView;
+                SceneView.RepaintAll();
             }
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
-            AreaView();
         }
 
-        private void AreaView()
+        private void AreaView(SceneView sv)
         {
-            if(!isAreasViewON || selectedLevelConfig == null || selectedLevelConfig == null) return;
+            if (selectedLevelConfig == null || selectedLevelConfig == null) return;
+            using (new Handles.DrawingScope(Matrix4x4.identity))
+                foreach (LevelConfigData data in selectedLevelConfig.levelConfigs)
+                {
+                    Handles.color = data.gizmoColor;
+                    Handles.DrawWireCube(data.center, data.affectedArea);
+                    Debug.Log("Working!");
+                }
         }
 
         private void LoadConfig()
@@ -266,10 +276,12 @@ namespace LevelReconfigurator
         private void OnLostFocus()
         {
             SaveEditorWindow(serializedObject);
+            onFocus = false;
         }
         private void OnFocus()
         {
             SaveEditorWindow(serializedObject);
+            onFocus = true;
         }
     }
 
