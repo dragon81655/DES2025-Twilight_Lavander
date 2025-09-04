@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class InputController : MonoBehaviour
 {
@@ -25,6 +26,9 @@ public class InputController : MonoBehaviour
     public void SetInputType(string inputType)
     { this.inputType = inputType; }
 
+    private int xDir = 1;
+    private int yDir = 1;
+    private int mode = 0;
     public void SwitchTarget(GameObject target)
     {
         Debug.Log("Attempt switch");
@@ -80,6 +84,14 @@ public class InputController : MonoBehaviour
         //Please bring the priest and exorcise this later. Good lord, I defy anyone reading this to do worst. I blame the gremlins. Check the attributes thingy later
         if (inputType != null || inputType != "")
         {
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                if(mode%2 == 0) xDir *= -1;
+                else yDir *= -1;
+                mode++;
+                if (mode >= 4) mode = 0;
+            }
             
             if (move.Count > 0)
             {
@@ -100,7 +112,7 @@ public class InputController : MonoBehaviour
                     axis = new Vector2(Input.GetAxis("HCamGP"), Input.GetAxis("VCamGP"));
                 }
                 for (int i = 0; i < cameraC.Count; i++)
-                    cameraC[i].MoveCam(axis.x, axis.y);
+                    cameraC[i].MoveCam(axis.x*xDir, axis.y*yDir);
                 
             }
             if (use0.Count > 0)
