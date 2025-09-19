@@ -5,16 +5,22 @@ using UnityEngine;
 public class InteractionController : MonoBehaviour, IInteractorHandler
 {
     private GameObject toInteract;
+    private AnimationTrigger animTrigger;
 
     [SerializeField]
     private List<GameObject> interactables = new List<GameObject>();
-    
+
+    private void Awake()
+    {
+        animTrigger = GetComponent<AnimationTrigger>();
+    }
+
     public void Interact()
     {
         CheckOtherInteractables();
         if(toInteract!= null)
         toInteract.GetComponent<IInteractable>().Interact(gameObject);
-        
+        animTrigger.TriggerAnimation("Interact");
         
     }
     private void CheckOtherInteractables()
