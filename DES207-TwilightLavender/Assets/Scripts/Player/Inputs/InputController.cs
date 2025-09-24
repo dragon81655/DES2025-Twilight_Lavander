@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Android;
+using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
@@ -18,6 +17,11 @@ public class InputController : MonoBehaviour
     private List<IHiveMindSummoner> hiveMindSummoner;
     private List<IScrollable> scrollable;
     private List<ICamLockable> camLockable;
+
+
+    //Input stuff
+    private Vector2 mov;
+    private Vector2 camMov;
 
     public string GetInputType()
     {
@@ -54,15 +58,15 @@ public class InputController : MonoBehaviour
         camLockable.AddRange(target.GetComponents<ICamLockable>());
 
         IInputChangeSummoner[] inputChangeSummoner = target.GetComponents<IInputChangeSummoner>();
-        if(inputChangeSummoner != null)
+        if (inputChangeSummoner != null)
         {
-            foreach(IInputChangeSummoner i in inputChangeSummoner)
+            foreach (IInputChangeSummoner i in inputChangeSummoner)
             {
                 i.Notify();
             }
         }
     }
-    private void Awake()
+    public void Init()
     {
         cameraC = new List<ICamAxisHandler>();
         move = new List<IAxisHandler>();
@@ -79,6 +83,77 @@ public class InputController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
+
+    public void Movement(InputAction.CallbackContext ctx)
+    {
+        mov = ctx.ReadValue<Vector2>();
+    }
+
+    public void MoveCam(InputAction.CallbackContext ctx)
+    {
+        camMov = ctx.ReadValue<Vector2>();
+    }
+
+    public void Use0(InputAction.CallbackContext ctx)
+    {
+        if (use0.Count > 0)
+        {
+
+            for (int i = 0; i < use0.Count; i++)
+                use0[i].Use0();
+        }
+    }
+    public void Use1(InputAction.CallbackContext ctx)
+    {
+        if (use1.Count > 0)
+        {
+
+            for (int i = 0; i < use1.Count; i++)
+                use1[i].Use1();
+        }
+    }
+    public void Interact(InputAction.CallbackContext ctx)
+    {
+        if (interactor.Count > 0)
+        {
+            for (int i = 0; i < interactor.Count; i++)
+                interactor[i].Interact();
+        }
+    }
+
+    public void Drop(InputAction.CallbackContext ctx)
+    {
+        if (drop.Count > 0)
+        {
+            for (int i = 0; i < drop.Count; i++)
+                drop[i].Drop();
+        }
+    }
+    public void HiveMindSummoner(InputAction.CallbackContext ctx)
+    {
+        if (hiveMindSummoner.Count > 0)
+        {
+            for (int i = 0; i < hiveMindSummoner.Count; i++)
+                hiveMindSummoner[i].Summon();
+        }
+    }
+
+    public void Scroll(InputAction.CallbackContext ctx)
+    {
+        float t = ctx.ReadValue<float>();
+        for(int i =0; i < scrollable.Count; i++)
+        {
+            scrollable[i].Scroll(t);
+        }
+    }
+    public void LockCam(InputAction.CallbackContext ctx)
+    {
+        if (camLockable.Count > 0)
+        {
+            for (int i = 0; i < camLockable.Count; i++)
+                camLockable[i].CamLock();
+        }
+    }
     void Update()
     {
         //Please bring the priest and exorcise this later. Good lord, I defy anyone reading this to do worst. I blame the gremlins. Check the attributes thingy later
@@ -87,22 +162,21 @@ public class InputController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.M))
             {
-                if(mode%2 == 0) xDir *= -1;
+                if (mode % 2 == 0) xDir *= -1;
                 else yDir *= -1;
                 mode++;
                 if (mode >= 4) mode = 0;
             }
-            
+
             if (move.Count > 0)
             {
-                Vector2 mov = new Vector2(Input.GetAxis("Horizontal" + inputType), Input.GetAxis("Vertical" + inputType));
-                for(int i = 0; i < move.Count; i++)
+                for (int i = 0; i < move.Count; i++)
                     move[i].Move(mov.x, mov.y);
-                
+
             }
             if (cameraC.Count > 0)
             {
-                Vector2 axis = Vector2.zero;
+                /*Vector2 axis = Vector2.zero;
                 if (inputType[0] == 'K')
                 {
                     axis = new Vector2(Input.mousePositionDelta.x, Input.mousePositionDelta.y);
@@ -110,12 +184,12 @@ public class InputController : MonoBehaviour
                 else
                 {
                     axis = new Vector2(Input.GetAxis("HCamGP"), Input.GetAxis("VCamGP"));
-                }
+                }*/
                 for (int i = 0; i < cameraC.Count; i++)
-                    cameraC[i].MoveCam(axis.x*xDir, axis.y*yDir);
-                
+                    cameraC[i].MoveCam(camMov.x * xDir, camMov.y * yDir);
+
             }
-            if (use0.Count > 0)
+            /*if (use0.Count > 0)
             {
                 if (Input.GetButtonDown("Fire1" + inputType))
                 {
@@ -130,16 +204,16 @@ public class InputController : MonoBehaviour
                     for (int i = 0; i < use1.Count; i++)
                         use1[i].Use1();
                 }
-            }
-            if (interactor.Count > 0)
-            {
-                if (Input.GetButtonDown("Interact" + inputType))
-                {
-                    for (int i = 0; i < interactor.Count; i++)
-                        interactor[i].Interact();
-                }
-            }
-            if (drop.Count > 0)
+            }*/
+            /*0 if(interactor.Count > 0)
+             {
+                 if (Input.GetButtonDown("Interact" + inputType))
+                 {
+                     for (int i = 0; i < interactor.Count; i++)
+                         interactor[i].Interact();
+                 }
+             }*/
+            /*if (drop.Count > 0)
             {
                 if (Input.GetButtonDown("Drop" + inputType))
                 {
@@ -162,23 +236,8 @@ public class InputController : MonoBehaviour
                     for (int i = 0; i < camLockable.Count; i++)
                         camLockable[i].CamLock();
                 }
-            }
-            if (scrollable != null)
-            {
-                if (inputType == "KB")
-                {
-                    for (int i = 0; i < scrollable.Count; i++)
-                        scrollable[i].Scroll(-Input.mouseScrollDelta.y);
-                }
-                else
-                {
-                    for (int i = 0; i < scrollable.Count; i++)
-                    {
-                        if (Input.GetButtonDown("ScrollLeftGP")) scrollable[i].Scroll(-1);
-                        if (Input.GetButtonDown("ScrollRightGP")) scrollable[i].Scroll(1);
-                    }
-                }
-            }
+            }*/
+            
         }
     }
 }

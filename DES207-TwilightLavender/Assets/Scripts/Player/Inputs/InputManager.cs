@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -20,19 +22,46 @@ public class InputManager : MonoBehaviour
     private bool lockChange = false;
     private bool requestChange = false;
 
+    private int spawnedPlayers = 0;
+
+    private GameObject theNotPocessed;
     private void Awake()
     {
         instance= this;
+        theNotPocessed = new GameObject();
+    }
+
+    public void OnPlayerSpawned(PlayerInput input)
+    {
+        PlayerInfo player = players[spawnedPlayers];
+        player.input = input;
+        player.inputController = input.GetComponent<InputController>();
+        player.inputController.Init();
+        player.baseControlling = player.currentlyControlling;
+        player.currentlyControlling = theNotPocessed;
+        player.UpdateController();
+        if (spawnedPlayers >= 1)
+        {
+            StartGame();
+        }
+        spawnedPlayers++;
+        //player.inputController.SwitchTarget(player.currentlyControlling);
+    }
+    private void StartGame()
+    {
+        foreach(PlayerInfo player in players)
+        {
+            player.currentlyControlling = player.baseControlling;
+            player.UpdateController();
+        }
     }
     void Start()
     {
-        //p1.inputDevice = InputDataStaticClass.player1Input;
-        //p2.inputDevice = InputDataStaticClass.player2Input;
-        foreach(PlayerInfo player in players)
+        /*foreach(PlayerInfo player in players)
         {
             player.UpdateController();
             player.baseControlling = player.currentlyControlling;
-        }
+        }*/
     }
     private void Update()
     {
@@ -44,12 +73,14 @@ public class InputManager : MonoBehaviour
             {
                 requestChange = false;
                 SwitchChars();
+                if(GameStateManager.instance != null)
                 GameStateManager.instance.ContinueSwitchTimer();
                 GameStateManager.instance.ContinueTimer();
             }
             else
             {
-                GameStateManager.instance.PauseSwitchTimer();
+                if (GameStateManager.instance != null)
+                    GameStateManager.instance.PauseSwitchTimer();
                 GameStateManager.instance.StopTimer();
             }
         }
@@ -136,6 +167,7 @@ public class PlayerInfo
     public InputController inputController;
     public GameObject currentlyControlling;
     public GameObject baseControlling;
+    public PlayerInput input;
 
     public void UpdateController()
     {
