@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Devs/Miguel/Scenes/DiscordTester.unity
+    guid: e00285fdd2045aa46b9f099c46fc57a6
+  - enabled: 1
     path: Assets/Devs/Ewan/Scenes/MainMenu.unity
     guid: 45ff9395476e1d646afc0bfb82d758ba
   - enabled: 1
