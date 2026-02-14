@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7076e8608e90c44a0a3286ba8de53c, type: 3}
+  m_Name: LevelPrefabber
+  m_EditorClassIdentifier: 
+  levelConfigs:
+  - prefab: {fileID: 7449060282758312033, guid: 85b8b43c5c5d893498d295b4cd117bed, type: 3}
+    desiredFolderStructure: Environment/CryochamberRoom/KeyRoomAssets
+    baseModelName: Floor_Tileset
+    destroyOriginal: 1
+    affectedArea: {x: 45, y: 0, z: 16}
+    center: {x: -13, y: 0.4251265, z: -223}
+    gizmoColor: {r: 0, g: 1, b: 0.1538353, a: 1}

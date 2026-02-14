@@ -23,7 +23,6 @@ public class BodyController : MonoBehaviour, IAxisHandler, IHiveMindSummoner, II
     public void Move(float x, float y)
     {
         if (usingHiveMind) return;
-
         Vector3 lookAt = Vector3.zero;
         if (y != 0)
             lookAt += new Vector3(cam.transform.forward.x * y, 0, cam.transform.forward.z * y);
@@ -60,8 +59,10 @@ public class BodyController : MonoBehaviour, IAxisHandler, IHiveMindSummoner, II
             animTrigger.TriggerBool("isWalking", true);
         } else { animTrigger.TriggerBool("isWalking", false); }
 
-        animTrigger.TriggerBool("IsHuman", !InputManager.instance.isVirusOnBody());
-
+        if(InputManager.instance.isVirusOnBody())
+            animTrigger.TriggerAnimation("IsInfected");
+        else
+            animTrigger.TriggerAnimation("IsHuman");
     }
 
     public void Summon()
